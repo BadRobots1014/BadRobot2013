@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import badrobot.com.commands.CommandBase;
 import badrobot.com.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,8 +35,7 @@ public class RobotMain extends IterativeRobot {
 
     public void autonomousInit() {
         //autonomous
-    }//;p;p;
-
+    }
     /**
      * This function is called periodically during autonomous
      */
@@ -52,5 +52,12 @@ public class RobotMain extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+    }
+    
+    /**
+     * This function is called periodically during test mode
+     */
+    public void testPeriodic() {
+        LiveWindow.run();
     }
 }
