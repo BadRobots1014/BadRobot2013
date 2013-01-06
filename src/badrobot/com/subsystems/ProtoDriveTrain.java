@@ -8,8 +8,8 @@ import badrobot.com.BadRobotMap;
 import badrobot.com.subsystems.interfaces.IDriveTrain;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  *
@@ -23,8 +23,12 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     
     public ProtoDriveTrain()
     {
-        initialize();
-        SmartDashboard.putData(this);
+        if (!CONSTRUCTED)
+        {      
+            initialize();
+            SmartDashboard.putData("ProtoDriveTrain", this);
+            CONSTRUCTED = true;
+        }
     }
     
     protected void initialize()
@@ -42,27 +46,30 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         train.tankDrive(left, right);
     }
 
-    public void valueChanged(String key, Object value)
+    protected void initDefaultCommand()
     {
-        if (key.compareTo("max power") == 0)
+    }
+
+    public void valueChanged(ITable table, String key, Object value, boolean b)
+    {
+        if (key.compareTo("MAX_POWER") == 0)
             MAX_POWER = ((Double) value).doubleValue();
         
         System.out.println("Stuff changed, yo!"
                 + key + " " + value.toString());
+        
     }
 
-    public void valueConfirmed(String key, Object value)
+    protected void addNetworkTableValues(ITable table)
     {
+        table.putNumber("MAX_POWER", MAX_POWER);
+        table.putNumber("min power", 0);
+        table.putNumber("med power", MAX_POWER/2);
+        System.out.println("adding net values.");
     }
 
-    protected void addNetworkTableValues(NetworkTable nTable)
+    public String getConsoleIdentity()
     {
-        nTable.putDouble("max power", MAX_POWER);
-        nTable.putDouble("min power", 0);
-        nTable.putDouble("med power", MAX_POWER/2);
-    }
-
-    protected void initDefaultCommand()
-    {
+        return "ProtoDriveTrain";
     }
 }

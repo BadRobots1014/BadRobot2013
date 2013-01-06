@@ -1,35 +1,25 @@
 package badrobot.com.subsystems;
 
+import badrobot.com.subsystems.interfaces.Logger;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.networktables.NetworkListener;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboardData;
+import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.tables.ITableListener;
 
 /**
  * @author Jon Buckley
  */
-public abstract class BadSubsystem extends Subsystem implements SmartDashboardData, NetworkListener
+public abstract class BadSubsystem extends Subsystem implements Logger, Sendable, ITableListener
 {   
-    //singleton instance of BadSubsystem
-    protected BadSubsystem instance;
+    //has constructor been called?
+    protected boolean CONSTRUCTED = false;
     
-    /*
-     * enforces singleton design. No public constructor, only this accessor. 
-     * @return the singleton instance of BadSubsystem, or if it hasn't been 
-     * created yet, creates it and returns it
-     */
-    public BadSubsystem getInstance()
-    {
-        if (instance == null)
-        {
-            initialize();
-            SmartDashboard.putData(this);
-        }
-        return instance;
-    }
+    //is logging enabled
+    protected boolean CONSOLE_OUTPUT_ENABLED = true;
     
-    /*
+    /**
      * Subclasses should implement their own implementations on initialize. This
      * method is meant to instantiate any hardware or variables that will be 
      * needed. This is specific to each class and can be left blank.
@@ -37,35 +27,39 @@ public abstract class BadSubsystem extends Subsystem implements SmartDashboardDa
     protected abstract void initialize();
     
     //provides automatic NetworkTable compliance
-    protected NetworkTable table;
+    protected ITable table;
     
-    /*
+    /**
      * provides compliance with Sendable interface. This automatically adds the
      * subsystem to the SmartDashboard.
      */
-    public NetworkTable getTable()
+    public ITable getTable()
     {
-        if (table != null)
-            return table;
-        
-        table = new NetworkTable();
-        addNetworkTableValues(table);
-        table.addListenerToAll(getNetworkListener());
-        
+        System.out.println("getting table");
         return table;
     }
     
-    /*
-     * @return a NetworkListener that responds to changed values. This class
-     * implements NetworkListener. Override and return null if you don't want 
-     * any response.
+    /**
+     * inherited by Sendable interface, overriding the default from Subsystem
+     * @return the type of SmartDashboard data being sent
      */
-    protected NetworkListener getNetworkListener()
+    public String getSmartDashboardType()
     {
-        return this;
+        return "Subsystem";
     }
     
-    /*
+    /**
+     * initializes table, handing a table down to store values in
+     * @param t the table that should be stored and have values added to
+     */
+    public void initTable(ITable t)
+    {
+        System.out.println("initing table");
+        table = t;
+        addNetworkTableValues(table);
+    }
+    
+    /**
      * Event handler for when a value of a variable put in the network has 
      * changed. This should have some sort of logic to figure out which variable
      * it was the key parameter and change the local value of the variable to 
@@ -73,16 +67,33 @@ public abstract class BadSubsystem extends Subsystem implements SmartDashboardDa
      * @param key the name of the variable in the NetworkTable
      * @param value the value that the variable has been changed to
      */
-    public abstract void valueChanged(String key, Object value);
-    
-    /*
-     * Event handler for when a value has been confirmed. 
-     */
-    public abstract void valueConfirmed(String key, Object value); 
-    
-    /* puts all pertinent values into the table (speeds, frequencies, any value 
+     public abstract void valueChanged(ITable itable, String key, Object value, boolean bln);
+          
+    /**
+     * puts all pertinent values into the table (speeds, frequencies, any value 
      * that would be tracked or modified)
-     * @param nTable the table that is being initialized and needs values
+     * @param table the table that is being initialized and needs values
      */
-    protected abstract void addNetworkTableValues(NetworkTable nTable);
+    protected abstract void addNetworkTableValues(ITable table);
+    
+    /**
+     * logs the string to be outputted. Enabled only if the master boolean is 
+     * enabled. Calls the getConsoleIdentity method that grabs the identity 
+     * that is wished to appear in the console. Most likely, this will just be
+     * the class name.
+     * @param out the string to be outputted
+     */
+    public void log(String out)
+    {
+        if (CONSOLE_OUTPUT_ENABLED)
+        {
+            System.out.println(getConsoleIdentity() + ": " + out);
+        }
+    }
+    
+    /**
+     * @return The String that should appear whenever this Subsystem outputs a String. 
+     * Can be whatever you want, most likely the class name though.
+     */
+    public abstract String getConsoleIdentity();
 }

@@ -4,17 +4,18 @@
  */
 package badrobot.com.subsystems;
 
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.smartdashboard.SendablePIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * @author Jon Buckley
  */
-public class EasyPID 
+public class EasyPID
 {
     protected PIDSource source;
-    protected SendablePIDController controller;
+    protected PIDController controller;
     protected SoftPID output;
     protected String name;
     
@@ -47,7 +48,7 @@ public class EasyPID
         I = i;
         D = d;
         
-        controller = new SendablePIDController(P, I, D, source, output);
+        controller = new PIDController(P, I, D, source, output);
         SmartDashboard.putData(name, controller);
     }
     

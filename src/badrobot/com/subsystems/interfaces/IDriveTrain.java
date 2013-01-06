@@ -10,7 +10,7 @@ package badrobot.com.subsystems.interfaces;
  */
 public interface IDriveTrain
 {
-    /*
+    /**
      * Drives the robot in tank drive--two sticks represent the left and right
      * sides of the robot; pushing forward on the left stick moves the left side
      * forward, pushing backwards on the right stick moves the right side of the

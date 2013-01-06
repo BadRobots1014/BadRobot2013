@@ -1,8 +1,11 @@
 package badrobot.com;
 
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboardData;
+import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.tables.ITableListener;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -10,10 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboardData;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public class BadRobotMap implements SmartDashboardData
+public class BadRobotMap implements Sendable
 {
     private static BadRobotMap instance;
-    private NetworkTable table;
+    private ITable table;
     //DriveTrain
     public static final int frontLeftSpeedController = 1;
     public static final int frontRightSpeedController = 2;
@@ -38,22 +41,18 @@ public class BadRobotMap implements SmartDashboardData
     /*
      * @return the type of NetworkTable
      */
-    public String getType()
+    public String getSmartDashboardType()
     {
         return "RobotMap";
     }
+
 
     /*
      * provides compliance with the SmartDashboardData interface. 
      * @return the NetworkTable with the appropriate values for this class
      */
-    public NetworkTable getTable()
+    public ITable getTable()
     {
-        if (table != null)
-            return table;
-        
-        table = new NetworkTable();
-        populateTable(table);
         return table;
     }
     
@@ -61,11 +60,19 @@ public class BadRobotMap implements SmartDashboardData
      * method that adds all of the variables that are wished to be shared with 
      * the driverstation laptop. 
      */
-    private void populateTable(NetworkTable nTable)
-    {
-        nTable.putDouble("backLeftSpeedController Port", backLeftSpeedController);
-        nTable.putDouble("backRightSpeedController Port", backRightSpeedController);
-        nTable.putDouble("frontLeftSpeedController Port", frontLeftSpeedController);
-        nTable.putDouble("frontRightSpeedController Port", frontRightSpeedController);
+    private void populateTable(ITable t)
+    {   
+        t.putNumber("backLeftSpeedController Port", backLeftSpeedController);
+        t.putNumber("backRightSpeedController Port", backRightSpeedController);
+        t.putNumber("frontLeftSpeedController Port", frontLeftSpeedController);
+        t.putNumber("frontRightSpeedController Port", frontRightSpeedController);
     }
+
+    public void initTable(ITable itable)
+    {
+        table = itable;
+        populateTable(table);
+    }
+
+
 }
