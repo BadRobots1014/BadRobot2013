@@ -42,7 +42,7 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     
-    public static final double deadzoneMagicNumber = .2;
+    public static final double DEADZONE_MAGIC_NUMBER = .2;
     
     /**
      * Creates a deadzone for joysticks, the controllers sticks are 
@@ -56,16 +56,9 @@ public class OI {
         //whenever the controller moves LESS than the magic number, the 
         //joystick is in the loose position so return zero - as if the 
         //joystick was not moved
-        if (Math.abs(d) < deadzoneMagicNumber && !xboxControl())//not xbox
+        if (Math.abs(d) < deadzoneMagicNumber)
         {
             return 0;
-        } 
-        else
-        {
-            if (Math.abs(d) < deadzoneMagicNumber && xboxControl())//is xbox
-            {
-                return 0;
-            }
         }
         
         //When the joystick is used for a purpose (passes the if statements, 
