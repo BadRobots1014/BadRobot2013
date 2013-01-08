@@ -1,5 +1,6 @@
 package badrobot.com.subsystems;
 
+import badrobot.com.OI;
 import badrobot.com.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -85,7 +86,7 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      */
     public void log(String out)
     {
-        if (CONSOLE_OUTPUT_ENABLED)
+        if (CONSOLE_OUTPUT_ENABLED && OI.CONSOLE_OUTPUT_ENABLED)
         {
             System.out.println(getConsoleIdentity() + ": " + out);
         }

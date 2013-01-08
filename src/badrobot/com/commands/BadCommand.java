@@ -4,6 +4,7 @@
  */
 package badrobot.com.commands;
 
+import badrobot.com.OI;
 import badrobot.com.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,7 +18,7 @@ public abstract class BadCommand extends Command implements Logger {
     public abstract String getConsoleIdentity();
     
     public void log(String str) {
-        if(CONSOLE_OUTPUT_ENABLED) {
+        if(CONSOLE_OUTPUT_ENABLED && OI.CONSOLE_OUTPUT_ENABLED) {
             System.out.println(getConsoleIdentity()+": "+str);
         }
     }
