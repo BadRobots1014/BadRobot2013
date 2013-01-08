@@ -40,5 +40,35 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+    
+    public static final double deadzoneMagicNumber = .2;
+    
+    /**
+     * Creates a deadzone for joysticks, the controllers sticks are 
+     * a little loose and so there is a margin of error for where they 
+     * should be considered "neutral/not pushed"
+     * @param d Double between -1 and 1 to be deadzoned
+     * @return The deadzone value
+     */
+    private static double deadzone(double d)
+    {
+        //whenever the controller moves LESS than the magic number, the 
+        //joystick is in the loose position so return zero
+        if (Math.abs(d) < deadzoneMagicNumber && !xboxControl())//not xbox
+        {
+            return 0;
+        } 
+        else
+        {
+            if (Math.abs(d) < deadzoneMagicNumber && xboxControl())//is xbox
+            {
+                return 0;
+            }
+        }
+        
+        //When the joystick is used for a purpose (passes the if statements, 
+        //hence not just being loose), do math
+        return d / Math.abs(d) * ((Math.abs(d) - .10) / .90);
+    }
 }
 
