@@ -18,12 +18,44 @@ public class BadRobotMap implements Sendable
     private static BadRobotMap instance;
     private ITable table;
     //DriveTrain
-    public static final int frontLeftSpeedController = 1;
-    public static final int frontRightSpeedController = 2;
-    public static final int backLeftSpeedController = 3;
-    public static final int backRightSpeedController = 4;
+    public static int frontLeftSpeedController; //index 0
+    public static int frontRightSpeedController; //index 1
+    public static int backLeftSpeedController; //index 2
+    public static int backRightSpeedController; //index3
    
-    /*
+    public final int[] prototypeMap = {1,2,3,4};
+    public final int[] finalMap = {2,4,3,1};
+    
+    private boolean isPrototype;
+    
+    public BadRobotMap()
+    {
+        if(isPrototype == true)
+        {
+            frontLeftSpeedController = prototypeMap[0];
+            frontRightSpeedController = prototypeMap[1];
+            backLeftSpeedController = prototypeMap[2];
+            backRightSpeedController = prototypeMap[3];
+        }
+        else
+        {
+            frontLeftSpeedController = finalMap[0];
+            frontRightSpeedController = finalMap[1];
+            backLeftSpeedController = finalMap[2];
+            backRightSpeedController = finalMap[3];
+        }
+    }
+    
+    /**
+     * run as prototype, pretty straightforward
+     * @param a decide whether the robot will use the final or prototype map
+     */
+    public void runAsPrototype(boolean a)
+    {
+        isPrototype = a;
+    }
+    
+     /*
      * singleton accesor. If no instance of BadRobotMap exists, then it creates 
      * one. 
      * @return the singelton instance of BadRobotMap in the program
