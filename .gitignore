@@ -19,3 +19,8 @@ nb-configuration.xml
 
 .DS_Store
 __MACOSX
+
+# FRC files that we don't need to worry about # 
+nbproject/
+BSD_License_for_WPILib_code.txt
+build.properties
