@@ -1,4 +1,4 @@
-package badrobot.com;
+package com.badrobot;
 
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;

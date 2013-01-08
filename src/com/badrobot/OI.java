@@ -1,5 +1,5 @@
 
-package badrobot.com;
+package com.badrobot;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;

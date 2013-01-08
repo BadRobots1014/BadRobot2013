@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package badrobot.com.subsystems;
+package com.badrobot.subsystems;
 
-import badrobot.com.BadRobotMap;
-import badrobot.com.subsystems.interfaces.IDriveTrain;
+import com.badrobot.BadRobotMap;
+import com.badrobot.subsystems.interfaces.IDriveTrain;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

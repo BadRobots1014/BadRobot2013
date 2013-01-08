@@ -1,7 +1,7 @@
-package badrobot.com.subsystems;
+package com.badrobot.subsystems;
 
-import badrobot.com.OI;
-import badrobot.com.subsystems.interfaces.Logger;
+import com.badrobot.OI;
+import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;

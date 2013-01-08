@@ -1,5 +1,5 @@
 
-package badrobot.com.commands;
+package com.badrobot.commands;
 
 /**
  *
