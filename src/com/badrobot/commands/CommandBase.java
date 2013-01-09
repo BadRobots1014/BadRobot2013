@@ -18,7 +18,7 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     public static BadRobotMap map;
     // Create a single static instance of all of your subsystems
-    protected static IDriveTrain driveTrain = new ProtoDriveTrain();
+    protected static IDriveTrain driveTrain = ProtoDriveTrain.getInstance();
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely

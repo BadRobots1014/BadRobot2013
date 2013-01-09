@@ -31,11 +31,9 @@ public class BadCameraSystem extends BadSubsystem {
     
     private BadCameraSystem() 
     {
-        //Just for compliance with the rest of the systems
-        CONSTRUCTED = true;
         initialize();
-        //May be needed later, but until then.. commented
-        //SmartDashboard.putData("BadCameraSystem", this);
+        //May be needed later, but no real functionality now
+        SmartDashboard.putData("BadCameraSystem", this);
     }
     
     protected void initialize() 

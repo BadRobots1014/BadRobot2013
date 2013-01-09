@@ -21,14 +21,21 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     RobotDrive train;
     private static double MAX_POWER = .8;
     
-    public ProtoDriveTrain()
+    private static ProtoDriveTrain instance;
+    
+    public static ProtoDriveTrain getInstance() 
     {
-        if (!CONSTRUCTED)
-        {      
-            initialize();
-            SmartDashboard.putData("ProtoDriveTrain", this);
-            CONSTRUCTED = true;
+        if(instance == null)
+        {
+            instance = new ProtoDriveTrain();
         }
+        return instance;
+    }
+    
+    private ProtoDriveTrain()
+    {
+        initialize();
+        SmartDashboard.putData("ProtoDriveTrain", this);
     }
     
     protected void initialize()
