@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package badrobot.com.subsystems;
+package com.badrobot.subsystems;
 
-import badrobot.com.BadRobotMap;
-import badrobot.com.subsystems.interfaces.IDriveTrain;
+import com.badrobot.BadRobotMap;
+import com.badrobot.subsystems.interfaces.IDriveTrain;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,14 +21,21 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     RobotDrive train;
     private static double MAX_POWER = .8;
     
-    public ProtoDriveTrain()
+    private static ProtoDriveTrain instance;
+    
+    public static ProtoDriveTrain getInstance() 
     {
-        if (!CONSTRUCTED)
-        {      
-            initialize();
-            SmartDashboard.putData("ProtoDriveTrain", this);
-            CONSTRUCTED = true;
+        if(instance == null)
+        {
+            instance = new ProtoDriveTrain();
         }
+        return instance;
+    }
+    
+    private ProtoDriveTrain()
+    {
+        initialize();
+        SmartDashboard.putData("ProtoDriveTrain", this);
     }
     
     protected void initialize()

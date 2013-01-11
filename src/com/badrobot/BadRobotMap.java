@@ -1,4 +1,4 @@
-package badrobot.com;
+package com.badrobot;
 
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -21,7 +21,11 @@ public class BadRobotMap implements Sendable
     public static int frontLeftSpeedController; //index 0
     public static int frontRightSpeedController; //index 1
     public static int backLeftSpeedController; //index 2
-    public static int backRightSpeedController; //index3
+    public static int backRightSpeedController; //index 3
+    
+    //Potentially throwing a curve ball into the mapping
+    //If there's a better way bother me (ajtgarber)
+    public static String visionTrackingCameraAddress;
    
     public final int[] prototypeMap = {1,2,3,4};
     public final int[] finalMap = {2,4,3,1};

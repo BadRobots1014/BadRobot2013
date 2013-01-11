@@ -1,11 +1,11 @@
-package badrobot.com.commands;
+package com.badrobot.commands;
 
-import badrobot.com.BadRobotMap;
+import com.badrobot.BadRobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import badrobot.com.OI;
-import badrobot.com.subsystems.ProtoDriveTrain;
-import badrobot.com.subsystems.interfaces.IDriveTrain;
+import com.badrobot.OI;
+import com.badrobot.subsystems.ProtoDriveTrain;
+import com.badrobot.subsystems.interfaces.IDriveTrain;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -18,7 +18,7 @@ public abstract class CommandBase extends Command {
     public static OI oi;
     public static BadRobotMap map;
     // Create a single static instance of all of your subsystems
-    protected static IDriveTrain driveTrain = new ProtoDriveTrain();
+    protected static IDriveTrain driveTrain = ProtoDriveTrain.getInstance();
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
