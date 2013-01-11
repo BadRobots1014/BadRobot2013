@@ -47,15 +47,6 @@ public class BadRobotMap implements Sendable
     }
     
     /**
-     * run as prototype, pretty straightforward
-     * @param a decide whether the robot will use the final or prototype map
-     */
-    public void runAsPrototype(boolean a)
-    {
-        isPrototype = a;
-    }
-    
-     /*
      * singleton accesor. If no instance of BadRobotMap exists, then it creates 
      * one. 
      * @return the singelton instance of BadRobotMap in the program
@@ -70,7 +61,18 @@ public class BadRobotMap implements Sendable
         return instance;
     }
     
-    /*
+    /**
+     * run as prototype, pretty straightforward
+     * @param a decide whether the robot will use the final or prototype map
+     */
+    public void runAsPrototype(boolean a)
+    {
+        isPrototype = a;
+    }
+    
+
+    
+    /**
      * @return the type of NetworkTable
      */
     public String getSmartDashboardType()
@@ -79,7 +81,7 @@ public class BadRobotMap implements Sendable
     }
 
 
-    /*
+    /**
      * provides compliance with the SmartDashboardData interface. 
      * @return the NetworkTable with the appropriate values for this class
      */
@@ -88,7 +90,7 @@ public class BadRobotMap implements Sendable
         return table;
     }
     
-    /*
+    /**
      * method that adds all of the variables that are wished to be shared with 
      * the driverstation laptop. 
      */
@@ -105,6 +107,4 @@ public class BadRobotMap implements Sendable
         table = itable;
         populateTable(table);
     }
-
-
 }
