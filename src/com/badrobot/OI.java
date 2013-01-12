@@ -1,6 +1,7 @@
 
 package com.badrobot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 
@@ -10,6 +11,10 @@ import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
  */
 public class OI {
     public static boolean CONSOLE_OUTPUT_ENABLED = true;
+    
+    public static Joystick primaryXboxController,
+                            secondaryXboxController;
+    
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
@@ -65,5 +70,26 @@ public class OI {
         //hence not just being loose), do math
         return d / Math.abs(d) * ((Math.abs(d) - .10) / .90);
     }
+    
+    public static double getPrimaryControllerLeftStickY()
+    {
+       return primaryXboxController.getRawAxis(2);
+    }
+    
+    public static double getPrimaryControllerLeftStickX()
+    {
+        return primaryXboxController.getRawAxis(1);
+    }
+    
+    public static double getPrimaryControllerRightStickX()
+    {
+        return primaryXboxController.getRawAxis(3);
+    }
+    
+    public static double getPrimaryControllerRightStickY()
+    {
+        return primaryXboxController.getRawAxis(4);
+    }
+   
 }
 

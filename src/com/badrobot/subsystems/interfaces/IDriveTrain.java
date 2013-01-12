@@ -4,11 +4,13 @@
  */
 package com.badrobot.subsystems.interfaces;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 /**
  *
  * @author Jon Buckley
  */
-public interface IDriveTrain
+public interface IDriveTrain 
 {
     /**
      * Drives the robot in tank drive--two sticks represent the left and right

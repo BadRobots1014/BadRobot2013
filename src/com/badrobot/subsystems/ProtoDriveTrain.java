@@ -5,9 +5,11 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
+import com.badrobot.commands.DriveWithJoysticks;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -45,6 +47,9 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
         backRight = new Jaguar(BadRobotMap.backRightSpeedController);
         
+        train.setInvertedMotor(MotorType.kRearLeft, true);
+        train.setInvertedMotor(MotorType.kRearRight, true);
+        
         train = new RobotDrive(frontLeft, frontRight, backLeft, backRight);
     }
     
@@ -55,6 +60,7 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
 
     protected void initDefaultCommand()
     {
+        new DriveWithJoysticks();
     }
 
     public void valueChanged(ITable table, String key, Object value, boolean b)

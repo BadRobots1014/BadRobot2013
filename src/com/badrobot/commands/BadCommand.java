@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  * @author adrian
  */
-public abstract class BadCommand extends Command implements Logger {
+public abstract class BadCommand extends CommandBase implements Logger {
     protected static final boolean CONSOLE_OUTPUT_ENABLED = true;
 
     public abstract String getConsoleIdentity();
