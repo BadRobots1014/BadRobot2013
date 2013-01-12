@@ -30,7 +30,7 @@ public class BadRobotMap implements Sendable
     public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
     
-    private boolean isPrototype;
+    private boolean isPrototype = true;
     
     public BadRobotMap()
     {

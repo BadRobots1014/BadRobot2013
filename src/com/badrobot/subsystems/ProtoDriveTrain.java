@@ -8,13 +8,14 @@ import com.badrobot.BadRobotMap;
 import com.badrobot.commands.DriveWithJoysticks;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * v1.0 Working drivetrain on shelby
  * @author Jon Buckley
  */
 public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
@@ -42,25 +43,36 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize()
     {
+        log(BadRobotMap.frontLeftSpeedController + "");
         frontLeft = new Jaguar(BadRobotMap.frontLeftSpeedController);
         frontRight = new Jaguar(BadRobotMap.frontRightSpeedController);
         backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
         backRight = new Jaguar(BadRobotMap.backRightSpeedController);
         
+        
+        train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+        
+        //front left needs to be reversed
+        
         train.setInvertedMotor(MotorType.kRearLeft, true);
+        train.setInvertedMotor(MotorType.kFrontLeft, true);
+        train.setInvertedMotor(MotorType.kFrontRight, true);
         train.setInvertedMotor(MotorType.kRearRight, true);
         
-        train = new RobotDrive(frontLeft, frontRight, backLeft, backRight);
+        
+        train.setSafetyEnabled(false);
     }
     
     public void tankDrive(double left, double right)
     {
         train.tankDrive(left, right);
+        
+        log("testing log...");
     }
 
     protected void initDefaultCommand()
     {
-        new DriveWithJoysticks();
+        this.setDefaultCommand(new DriveWithJoysticks());
     }
 
     public void valueChanged(ITable table, String key, Object value, boolean b)

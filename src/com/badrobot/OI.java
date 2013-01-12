@@ -15,6 +15,12 @@ public class OI {
     public static Joystick primaryXboxController,
                             secondaryXboxController;
     
+    public void init()
+    {
+        primaryXboxController = new Joystick(1);
+        secondaryXboxController = new Joystick(2);
+    }
+    
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
@@ -88,7 +94,7 @@ public class OI {
     
     public static double getPrimaryControllerRightStickY()
     {
-        return primaryXboxController.getRawAxis(4);
+        return primaryXboxController.getRawAxis(5);
     }
    
 }

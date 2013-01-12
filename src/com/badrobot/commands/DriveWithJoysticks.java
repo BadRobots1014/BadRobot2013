@@ -5,9 +5,10 @@
 package com.badrobot.commands;
 
 import com.badrobot.OI;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * v1.0 Working instructions for drivetrain, tested on Shelby 1/12/2013
  * @author Jon Buckley
  */
 public class DriveWithJoysticks extends BadCommand
@@ -15,7 +16,7 @@ public class DriveWithJoysticks extends BadCommand
     
     public DriveWithJoysticks()
     {
-        
+        requires((Subsystem) driveTrain);
     }
 
     // Called just before this Command runs the first time

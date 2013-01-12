@@ -18,7 +18,7 @@ public abstract class BadCommand extends CommandBase implements Logger {
     public abstract String getConsoleIdentity();
     
     public void log(String str) {
-        if(CONSOLE_OUTPUT_ENABLED && OI.CONSOLE_OUTPUT_ENABLED) {
+        if(true) {
             System.out.println(getConsoleIdentity()+": "+str);
         }
     }

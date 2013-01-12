@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import com.badrobot.commands.CommandBase;
 import com.badrobot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -45,13 +46,14 @@ public class RobotMain extends IterativeRobot {
 
     public void teleopInit() {
 	
+        Watchdog.getInstance().setEnabled(false);
    }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        Scheduler.getInstance().run();
+        Scheduler.getInstance().run();        
     }
     
     /**
