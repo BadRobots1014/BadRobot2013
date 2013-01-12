@@ -27,7 +27,7 @@ public class BadRobotMap implements Sendable
     //If there's a better way bother me (ajtgarber)
     public static String visionTrackingCameraAddress;
    
-    public final int[] prototypeMap = {1,2,3,4};
+    public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
     
     private boolean isPrototype;
