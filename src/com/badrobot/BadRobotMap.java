@@ -26,6 +26,7 @@ public class BadRobotMap implements Sendable
     //Potentially throwing a curve ball into the mapping
     //If there's a better way bother me (ajtgarber)
     public static String visionTrackingCameraAddress;
+    public static String frontFacingCameraAddress;
    
     public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
@@ -48,6 +49,9 @@ public class BadRobotMap implements Sendable
             backLeftSpeedController = finalMap[2];
             backRightSpeedController = finalMap[3];
         }
+        //More than likely the IP addresses of the cameras will remain the same
+        visionTrackingCameraAddress = "10.10.14.9";
+        frontFacingCameraAddress = "10.10.14.10";
     }
     
     /**
