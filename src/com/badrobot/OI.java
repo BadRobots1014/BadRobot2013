@@ -9,16 +9,20 @@ import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {
+public class OI 
+{
     public static boolean CONSOLE_OUTPUT_ENABLED = true;
     
     public static Joystick primaryXboxController,
                             secondaryXboxController;
     
+    private static int LEFT_STICK_X = 1, LEFT_STICK_Y = 2, RIGHT_STICK_X = 3, RIGHT_STICK_Y = 5;
+    private static int PRIMARY_JOY = 1, SECONDARY_JOY = 2;
+    
     public void init()
     {
-        primaryXboxController = new Joystick(1);
-        secondaryXboxController = new Joystick(2);
+        primaryXboxController = new Joystick(PRIMARY_JOY);
+        secondaryXboxController = new Joystick(SECONDARY_JOY);        
     }
     
     //// CREATING BUTTONS
@@ -79,22 +83,22 @@ public class OI {
     
     public static double getPrimaryControllerLeftStickY()
     {
-       return primaryXboxController.getRawAxis(2);
+       return primaryXboxController.getRawAxis(LEFT_STICK_Y);
     }
     
     public static double getPrimaryControllerLeftStickX()
     {
-        return primaryXboxController.getRawAxis(1);
+        return primaryXboxController.getRawAxis(LEFT_STICK_X);
     }
     
     public static double getPrimaryControllerRightStickX()
     {
-        return primaryXboxController.getRawAxis(3);
+        return primaryXboxController.getRawAxis(RIGHT_STICK_X);
     }
     
     public static double getPrimaryControllerRightStickY()
     {
-        return primaryXboxController.getRawAxis(5);
+        return primaryXboxController.getRawAxis(RIGHT_STICK_Y);
     }
    
 }
