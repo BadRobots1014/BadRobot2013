@@ -1,3 +1,5 @@
+package com.badrobot.subsystems;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -36,6 +38,10 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
         backRight = new Jaguar(BadRobotMap.backRightSpeedController);
         
+        //this is a flawed construction of RobotDrive. This would be very poor
+        //for the robot if we ran it. (it would cause motors to drive against
+        //their partners. Look at RobotDrive src or API for correct usage on
+        //constructor
         train = new RobotDrive(frontLeft, frontRight, backLeft, backRight);
     }
 
