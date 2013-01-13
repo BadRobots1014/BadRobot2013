@@ -16,6 +16,18 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
 {
     Jaguar frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
+    private static double MAX_POWER = .8;
+    
+    public static ImpDriveTrain instance;
+    
+    public static ImpDriveTrain getInstance()
+    {
+        if (instance == null)
+        {
+            instance = new ImpDriveTrain();
+        }
+        return instance;
+    }
     
     protected void initialize() 
     {
@@ -44,14 +56,14 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
 
     protected void initDefaultCommand() 
     {
-        
+        //setDefaultCommand(Command C);
     }
 
     public void tankDrive(double left, double right) 
     {
-        //train.tankDrive(left, right);
-        backLeft.set(left);
-        backRight.set(right);
+        train.tankDrive(left, right);
+        //backLeft.set(left);
+        //backRight.set(right);
     }
     
 }
