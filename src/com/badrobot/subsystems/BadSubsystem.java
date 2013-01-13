@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.tables.ITableListener;
  */
 public abstract class BadSubsystem extends Subsystem implements Logger, Sendable, ITableListener
 {   
-    //has constructor been called?
-    protected boolean CONSTRUCTED = false;
     
     //is logging enabled
     protected boolean CONSOLE_OUTPUT_ENABLED = true;

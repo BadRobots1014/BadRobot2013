@@ -21,12 +21,17 @@ public class BadRobotMap implements Sendable
     public static int frontLeftSpeedController; //index 0
     public static int frontRightSpeedController; //index 1
     public static int backLeftSpeedController; //index 2
-    public static int backRightSpeedController; //index3
+    public static int backRightSpeedController; //index 3
+    
+    //Potentially throwing a curve ball into the mapping
+    //If there's a better way bother me (ajtgarber)
+    public static String visionTrackingCameraAddress;
+    public static String frontFacingCameraAddress;
    
-    public final int[] prototypeMap = {1,2,3,4};
+    public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
     
-    private boolean isPrototype;
+    private boolean isPrototype = true;
     
     public BadRobotMap()
     {
@@ -44,18 +49,12 @@ public class BadRobotMap implements Sendable
             backLeftSpeedController = finalMap[2];
             backRightSpeedController = finalMap[3];
         }
+        //More than likely the IP addresses of the cameras will remain the same
+        visionTrackingCameraAddress = "10.10.14.9";
+        frontFacingCameraAddress = "10.10.14.10";
     }
     
     /**
-     * run as prototype, pretty straightforward
-     * @param a decide whether the robot will use the final or prototype map
-     */
-    public void runAsPrototype(boolean a)
-    {
-        isPrototype = a;
-    }
-    
-     /*
      * singleton accesor. If no instance of BadRobotMap exists, then it creates 
      * one. 
      * @return the singelton instance of BadRobotMap in the program
@@ -70,7 +69,18 @@ public class BadRobotMap implements Sendable
         return instance;
     }
     
-    /*
+    /**
+     * run as prototype, pretty straightforward
+     * @param a decide whether the robot will use the final or prototype map
+     */
+    public void runAsPrototype(boolean a)
+    {
+        isPrototype = a;
+    }
+    
+
+    
+    /**
      * @return the type of NetworkTable
      */
     public String getSmartDashboardType()
@@ -79,7 +89,7 @@ public class BadRobotMap implements Sendable
     }
 
 
-    /*
+    /**
      * provides compliance with the SmartDashboardData interface. 
      * @return the NetworkTable with the appropriate values for this class
      */
@@ -88,7 +98,7 @@ public class BadRobotMap implements Sendable
         return table;
     }
     
-    /*
+    /**
      * method that adds all of the variables that are wished to be shared with 
      * the driverstation laptop. 
      */
@@ -105,6 +115,4 @@ public class BadRobotMap implements Sendable
         table = itable;
         populateTable(table);
     }
-
-
 }
