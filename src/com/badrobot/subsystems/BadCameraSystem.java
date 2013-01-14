@@ -5,6 +5,7 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
+import com.badrobot.commands.BadDefaultTracker;
 import com.badrobot.utils.DetectedPoint;
 import com.badrobot.utils.TrackingCriteria;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
+import edu.wpi.first.wpilibj.image.RGBImage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -27,6 +29,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 public class BadCameraSystem extends BadSubsystem {
 
     private static BadCameraSystem instance;
+    private static final boolean USE_CAMERA = false; //if false, load from CRIO
     
     private AxisCamera imageTrackingCamera;
     
@@ -50,7 +53,6 @@ public class BadCameraSystem extends BadSubsystem {
     {
         imageTrackingCamera = AxisCamera.getInstance(BadRobotMap.visionTrackingCameraAddress);
         
-        
         imageTrackingCamera.writeResolution(AxisCamera.ResolutionT.k160x120);
     }
     
@@ -60,11 +62,25 @@ public class BadCameraSystem extends BadSubsystem {
         BinaryImage binaryImage = null;
         BinaryImage resultImage = null;
         DetectedPoint[] results = null;
+        
         try 
         {
-            colorImage = imageTrackingCamera.getImage();
+            if(!USE_CAMERA) {
+                colorImage = new RGBImage("inputImage.jpg");
+            } else {
+                colorImage = imageTrackingCamera.getImage();
+            }
+                
+            int hueLow = criteria.getMinimumHue();
+            int hueHigh = criteria.getMaximumHue();
+            int saturationLow = criteria.getMinimumSaturation();
+            int saturationHigh = criteria.getMaximumSaturation();
+            int valueLow = criteria.getMinimumValue();
+            int valueHigh = criteria.getMaximumValue();
+            
             //Attempt to isolate the colours of the LED ring
-            binaryImage = colorImage.thresholdHSV(100, 156, 30, 255, 145, 255);
+            binaryImage = colorImage.thresholdHSV(hueLow, hueHigh, saturationLow, saturationHigh,
+                                valueLow, valueHigh);
             //Fill in any detected "particles" to make analysis easier
             //See: http://zone.ni.com/reference/en-XX/help/372916L-01/nivisionconcepts/advanced_morphology_operations/
             binaryImage.convexHull(true);
@@ -106,12 +122,12 @@ public class BadCameraSystem extends BadSubsystem {
                 }
                 results = compressedResults;
             }
-        } 
-        catch(AxisCameraException ex) 
+        }
+        catch(AxisCameraException ex) //Comment when loading from CRIO rather than camera
         {
             log("Unable to grab images from the image tracking camera");
             ex.printStackTrace();
-        } 
+        }
         catch(NIVisionException ex) 
         {
             log("Encountered a NIVisionException while trying to acquire coordinates");
@@ -120,12 +136,17 @@ public class BadCameraSystem extends BadSubsystem {
         {
             try 
             {
+                //For debugging purposes
+                colorImage.write("colorImage.jpg");
+                binaryImage.write("binaryImage.jpg");
+                resultImage.write("resultImage.jpg");
+                
                 if(colorImage != null)
                     colorImage.free();
                 if(binaryImage != null)
                     binaryImage.free();
                 if(resultImage != null)
-                    binaryImage.free();
+                    resultImage.free();
             } 
             catch(NIVisionException ex) 
             {
@@ -154,7 +175,7 @@ public class BadCameraSystem extends BadSubsystem {
 
     protected void initDefaultCommand() 
     {
-        
+        setDefaultCommand(new BadDefaultTracker());
     }
     
 }

@@ -4,6 +4,7 @@ import com.badrobot.BadRobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.badrobot.OI;
+import com.badrobot.subsystems.BadCameraSystem;
 import com.badrobot.subsystems.ProtoDriveTrain;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 
@@ -19,8 +20,10 @@ public abstract class CommandBase extends Command {
     public static BadRobotMap map;
     // Create a single static instance of all of your subsystems
     protected static IDriveTrain driveTrain;
+    protected static BadCameraSystem imageTrackingSystem;
 
-    public static void init() {
+    public static void init() 
+    {
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from
         // which commands extend), subsystems are not guaranteed to be
@@ -31,18 +34,25 @@ public abstract class CommandBase extends Command {
         map = BadRobotMap.getInstance();
         
         driveTrain  = ProtoDriveTrain.getInstance();
+        imageTrackingSystem = BadCameraSystem.getInstance();
     }
     
     public static IDriveTrain getDriveTrain()
     {
         return driveTrain;
     }
+    public static BadCameraSystem getImageTrackingSubsystem() 
+    {
+        return imageTrackingSystem;
+    }
 
-    public CommandBase(String name) {
+    public CommandBase(String name) 
+    {
         super(name);
     }
 
-    public CommandBase() {
+    public CommandBase() 
+    {
         super();
     }
 }
