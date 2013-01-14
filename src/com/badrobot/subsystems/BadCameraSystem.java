@@ -58,6 +58,7 @@ public class BadCameraSystem extends BadSubsystem {
     
     public DetectedPoint[] getTargetCoordinates(TrackingCriteria criteria) 
     {
+        final long thisAlgorithmBecomingSkynetCost = 99999999;
         ColorImage colorImage = null;
         BinaryImage binaryImage = null;
         BinaryImage resultImage = null;
@@ -65,9 +66,12 @@ public class BadCameraSystem extends BadSubsystem {
         
         try 
         {
-            if(!USE_CAMERA) {
+            if(!USE_CAMERA) 
+            {
                 colorImage = new RGBImage("inputImage.jpg");
-            } else {
+            } 
+            else 
+            {
                 colorImage = imageTrackingCamera.getImage();
             }
                 
@@ -102,7 +106,7 @@ public class BadCameraSystem extends BadSubsystem {
                 if(aspectError < criteria.getAspectTolerance() &&
                         areaError < criteria.getAreaTolerance()) 
                 {
-                    results[pointIndex] = new DetectedPoint(report.center_mass_x, report.center_mass_y);
+                    results[pointIndex] = new DetectedPoint(report.center_mass_x_normalized, report.center_mass_y_normalized);
                     pointIndex++;
                 }
             }
@@ -131,6 +135,7 @@ public class BadCameraSystem extends BadSubsystem {
         catch(NIVisionException ex) 
         {
             log("Encountered a NIVisionException while trying to acquire coordinates");
+            ex.printStackTrace();
         } 
         finally 
         {
