@@ -8,21 +8,22 @@ import com.badrobot.utils.DetectedPoint;
 import com.badrobot.utils.TrackingCriteria;
 
 /**
- * Emphasis on bad...
+ * Test me!
  * @author ajtgarber
  */
-public class BadDefaultTracker extends BadCommand {
+public class DefaultTrackingCommand extends BadCommand {
     
     private boolean completed = false;
 
     public String getConsoleIdentity() 
     {
-        return "BadDefaultTracker";
+        return "DefaultTrackingCommand";
     }
 
     protected void initialize() 
     {
         requires(imageTrackingSystem);
+        setInterruptible(false);
     }
 
     protected void execute() 
@@ -31,6 +32,7 @@ public class BadDefaultTracker extends BadCommand {
          * For later tests we should look at CPU usage...
          * and definitely check for memory leaks
          */
+        long startTime = System.currentTimeMillis();
         double aspectRatio = 31.5/63.25;
         TrackingCriteria criteria = new TrackingCriteria(aspectRatio, .05, 1992, .05, 100, 156,
                                         30, 255, 145, 255);
@@ -39,6 +41,9 @@ public class BadDefaultTracker extends BadCommand {
             DetectedPoint point = detectedPoints[i];
             log("I has a point! ("+point.getX()+", "+point.getY()+")");
         }
+        long endTime = System.currentTimeMillis();
+        long duration = endTime-startTime;
+        log("completed my work in "+duration+" milliseconds :3");
         completed = true;
     }
 
@@ -54,7 +59,7 @@ public class BadDefaultTracker extends BadCommand {
 
     protected void interrupted() 
     {
-        
+        log("Shouldn't have been interrupted... I had imporant work to do :c");
     }
     
 }

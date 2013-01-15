@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
-import com.badrobot.commands.BadDefaultTracker;
+import com.badrobot.commands.DefaultTrackingCommand;
 import com.badrobot.utils.DetectedPoint;
 import com.badrobot.utils.TrackingCriteria;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -26,7 +22,8 @@ import edu.wpi.first.wpilibj.tables.ITable;
  * reusable so the coming years are able to use it.
  * @author Jacob Garber
  */
-public class BadCameraSystem extends BadSubsystem {
+public class BadCameraSystem extends BadSubsystem 
+{
 
     private static BadCameraSystem instance;
     private static final boolean USE_CAMERA = false; //if false, load from CRIO
@@ -58,6 +55,8 @@ public class BadCameraSystem extends BadSubsystem {
     
     public DetectedPoint[] getTargetCoordinates(TrackingCriteria criteria) 
     {
+        //Most important bit of this code...
+        final long thisAlgorithmBecomingSkynetCost = 99999999;
         ColorImage colorImage = null;
         BinaryImage binaryImage = null;
         BinaryImage resultImage = null;
@@ -65,9 +64,12 @@ public class BadCameraSystem extends BadSubsystem {
         
         try 
         {
-            if(!USE_CAMERA) {
+            if(!USE_CAMERA) 
+            {
                 colorImage = new RGBImage("inputImage.jpg");
-            } else {
+            } 
+            else 
+            {
                 colorImage = imageTrackingCamera.getImage();
             }
                 
@@ -102,7 +104,7 @@ public class BadCameraSystem extends BadSubsystem {
                 if(aspectError < criteria.getAspectTolerance() &&
                         areaError < criteria.getAreaTolerance()) 
                 {
-                    results[pointIndex] = new DetectedPoint(report.center_mass_x, report.center_mass_y);
+                    results[pointIndex] = new DetectedPoint(report.center_mass_x_normalized, report.center_mass_y_normalized);
                     pointIndex++;
                 }
             }
@@ -131,6 +133,7 @@ public class BadCameraSystem extends BadSubsystem {
         catch(NIVisionException ex) 
         {
             log("Encountered a NIVisionException while trying to acquire coordinates");
+            ex.printStackTrace();
         } 
         finally 
         {
@@ -175,7 +178,7 @@ public class BadCameraSystem extends BadSubsystem {
 
     protected void initDefaultCommand() 
     {
-        setDefaultCommand(new BadDefaultTracker());
+        setDefaultCommand(new DefaultTrackingCommand());
     }
     
 }
