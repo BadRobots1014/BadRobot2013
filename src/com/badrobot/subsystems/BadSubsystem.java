@@ -12,10 +12,12 @@ import edu.wpi.first.wpilibj.tables.ITableListener;
 /**
  * @author Jon Buckley
  */
+ 
 public abstract class BadSubsystem extends Subsystem implements Logger, Sendable, ITableListener
 {   
     
     //is logging enabled
+    
     protected boolean CONSOLE_OUTPUT_ENABLED = true;
     
     /**
@@ -23,15 +25,18 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      * method is meant to instantiate any hardware or variables that will be 
      * needed. This is specific to each class and can be left blank.
      */
+     
     protected abstract void initialize();
     
     //provides automatic NetworkTable compliance
+    
     protected ITable table;
     
     /**
      * provides compliance with Sendable interface. This automatically adds the
      * subsystem to the SmartDashboard.
      */
+     
     public ITable getTable()
     {
         System.out.println("getting table");
@@ -42,6 +47,7 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      * inherited by Sendable interface, overriding the default from Subsystem
      * @return the type of SmartDashboard data being sent
      */
+     
     public String getSmartDashboardType()
     {
         return "Subsystem";
@@ -51,6 +57,7 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      * initializes table, handing a table down to store values in
      * @param t the table that should be stored and have values added to
      */
+     
     public void initTable(ITable t)
     {
         System.out.println("initing table");
@@ -66,6 +73,7 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      * @param key the name of the variable in the NetworkTable
      * @param value the value that the variable has been changed to
      */
+     
      public abstract void valueChanged(ITable itable, String key, Object value, boolean bln);
           
     /**
@@ -73,6 +81,7 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      * that would be tracked or modified)
      * @param table the table that is being initialized and needs values
      */
+     
     protected abstract void addNetworkTableValues(ITable table);
     
     /**
@@ -82,6 +91,7 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      * the class name.
      * @param out the string to be outputted
      */
+     
     public void log(String out)
     {
         if (CONSOLE_OUTPUT_ENABLED && OI.CONSOLE_OUTPUT_ENABLED)
@@ -94,5 +104,6 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      * @return The String that should appear whenever this Subsystem outputs a String. 
      * Can be whatever you want, most likely the class name though.
      */
+     
     public abstract String getConsoleIdentity();
 }
