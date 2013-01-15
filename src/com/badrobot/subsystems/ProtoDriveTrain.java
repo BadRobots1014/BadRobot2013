@@ -66,6 +66,8 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     
     public void tankDrive(double left, double right)
     {
+        //frontLeft.set(left);
+        //frontRight.set(right);
         train.tankDrive(left, right);
         
         log("testing log...");
