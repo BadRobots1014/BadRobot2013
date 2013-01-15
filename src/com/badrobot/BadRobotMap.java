@@ -25,8 +25,8 @@ public class BadRobotMap implements Sendable
     
     //Potentially throwing a curve ball into the mapping
     //If there's a better way bother me (ajtgarber)
-    public static String visionTrackingCameraAddress;
-    public static String frontFacingCameraAddress;
+    public static String visionTrackingCameraAddress = "10.10.14.11";
+    public static String frontFacingCameraAddress = "10.10.14.12";
    
     public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
@@ -55,7 +55,7 @@ public class BadRobotMap implements Sendable
     }
     
     /**
-     * singleton accesor. If no instance of BadRobotMap exists, then it creates 
+     * singleton accessor. If no instance of BadRobotMap exists, then it creates 
      * one. 
      * @return the singelton instance of BadRobotMap in the program
      */
@@ -77,8 +77,6 @@ public class BadRobotMap implements Sendable
     {
         isPrototype = a;
     }
-    
-
     
     /**
      * @return the type of NetworkTable
