@@ -34,7 +34,7 @@ public abstract class CommandBase extends Command {
         map = BadRobotMap.getInstance();
         
         driveTrain  = ProtoDriveTrain.getInstance();
-        imageTrackingSystem = BadCameraSystem.getInstance();
+        //imageTrackingSystem = BadCameraSystem.getInstance();
     }
     
     public static IDriveTrain getDriveTrain()
