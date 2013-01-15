@@ -7,6 +7,7 @@ package com.badrobot.subsystems;
 import com.badrobot.BadRobotMap;
 import com.badrobot.commands.DriveWithJoysticks;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -69,12 +70,12 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         
         log("testing log...");
     }
-
+    
     protected void initDefaultCommand()
     {
         this.setDefaultCommand(new DriveWithJoysticks());
     }
-
+    
     public void valueChanged(ITable table, String key, Object value, boolean b)
     {
         if (key.compareTo("MAX_POWER") == 0)
@@ -84,7 +85,7 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
                 + key + " " + value.toString());
         
     }
-
+    
     protected void addNetworkTableValues(ITable table)
     {
         table.putNumber("MAX_POWER", MAX_POWER);
@@ -92,9 +93,14 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         table.putNumber("med power", MAX_POWER/2);
         System.out.println("adding net values.");
     }
-
+    
     public String getConsoleIdentity()
     {
         return "ProtoDriveTrain";
+    }
+
+    public Gyro getGyro() //Isaac - put this here because of error
+    {
+        return null;
     }
 }

@@ -23,6 +23,8 @@ public class BadRobotMap implements Sendable
     public static int backLeftSpeedController; //index 2
     public static int backRightSpeedController; //index 3
     
+    public static int driveTrainGyro;      
+    
     //Potentially throwing a curve ball into the mapping
     //If there's a better way bother me (ajtgarber)
     public static String visionTrackingCameraAddress;
