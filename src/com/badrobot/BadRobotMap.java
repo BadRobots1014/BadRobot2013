@@ -50,7 +50,7 @@ public class BadRobotMap implements Sendable
             backRightSpeedController = finalMap[3];
         }
         //More than likely the IP addresses of the cameras will remain the same
-        visionTrackingCameraAddress = "10.10.14.9";
+        visionTrackingCameraAddress = "10.10.14.11";
         frontFacingCameraAddress = "10.10.14.10";
     }
     
