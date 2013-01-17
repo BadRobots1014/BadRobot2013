@@ -26,10 +26,7 @@ public class BadCameraSystem extends BadSubsystem
 {
 
     private static BadCameraSystem instance;
-    /**
-     * if false, load from CRIO
-     */
-    private static final boolean USE_CAMERA = false; 
+    private static final boolean USE_CAMERA = true; //if false, load from CRIO
     
     private AxisCamera imageTrackingCamera;
     
@@ -73,7 +70,9 @@ public class BadCameraSystem extends BadSubsystem
             } 
             else 
             {
-                colorImage = imageTrackingCamera.getImage();
+                do {
+                    colorImage = imageTrackingCamera.getImage();
+                } while(!imageTrackingCamera.freshImage());
             }
                 
             int hueLow = criteria.getMinimumHue();
@@ -97,7 +96,6 @@ public class BadCameraSystem extends BadSubsystem
             for(int i = 0; i < reports.length; i++) 
             {
                 ParticleAnalysisReport report = reports[i];
-                
                 int aspectRatio = report.boundingRectWidth/report.boundingRectHeight;
                 double area = report.particleArea;
                 double aspectError = (aspectRatio-criteria.getAspectRatio())/criteria.getAspectRatio();
@@ -110,25 +108,25 @@ public class BadCameraSystem extends BadSubsystem
                     results[pointIndex] = new DetectedPoint(report.center_mass_x_normalized, report.center_mass_y_normalized);
                     pointIndex++;
                 }
+                
             }
             
+            log(pointIndex + " point Index, "+results.length+" results.length");
             //Remove the empty slots in the array
-            if(pointIndex != results.length-1) 
+            if(pointIndex < results.length) 
             {
-                DetectedPoint[] compressedResults = new DetectedPoint[pointIndex+1];
+                DetectedPoint[] compressedPoints = new DetectedPoint[pointIndex];
                 int x = 0;
-                for(int i = 0; i < results.length; i++) 
-                {
-                    if(results[i] != null) 
-                    {
-                        compressedResults[x] = results[i];
+                for(int i = 0; i < results.length; i++) {
+                    if(results[i] != null) {
+                        compressedPoints[x] = results[i];
                         x++;
                     }
                 }
-                results = compressedResults;
+                results = compressedPoints;
             }
         }
-        catch(AxisCameraException ex) //Comment when loading from CRIO rather than camera
+        catch(AxisCameraException ex)
         {
             log("Unable to grab images from the image tracking camera");
             ex.printStackTrace();
@@ -142,10 +140,11 @@ public class BadCameraSystem extends BadSubsystem
         {
             try 
             {
+                log("We're actually freeing things!");
                 //For debugging purposes
-                colorImage.write("colorImage.jpg");
-                binaryImage.write("binaryImage.jpg");
-                resultImage.write("resultImage.jpg");
+                //colorImage.write("colorImage.jpg");
+                //binaryImage.write("binaryImage.jpg");
+                //resultImage.write("resultImage.jpg");
                 
                 if(colorImage != null)
                     colorImage.free();
@@ -153,6 +152,9 @@ public class BadCameraSystem extends BadSubsystem
                     binaryImage.free();
                 if(resultImage != null)
                     resultImage.free();
+                colorImage = null;
+                binaryImage = null;
+                resultImage = null;
             } 
             catch(NIVisionException ex) 
             {

@@ -8,12 +8,18 @@ import com.badrobot.utils.DetectedPoint;
 import com.badrobot.utils.TrackingCriteria;
 
 /**
- * Test me!
+ * On average one pass takes up around 200ms
+ * definitely going to need to run this on either
+ * the driver station, or on a Pi
  * @author ajtgarber
  */
 public class DefaultTrackingCommand extends BadCommand {
     
     private boolean completed = false;
+    
+    public DefaultTrackingCommand() {
+        requires(imageTrackingSystem);
+    }
 
     public String getConsoleIdentity() 
     {
@@ -22,7 +28,6 @@ public class DefaultTrackingCommand extends BadCommand {
 
     protected void initialize() 
     {
-        requires(imageTrackingSystem);
         setInterruptible(false);
     }
 
@@ -33,23 +38,25 @@ public class DefaultTrackingCommand extends BadCommand {
          * and definitely check for memory leaks
          */
         long startTime = System.currentTimeMillis();
-        double aspectRatio = 31.5/63.25;
-        TrackingCriteria criteria = new TrackingCriteria(aspectRatio, .05, 1992, .05, 100, 156,
-                                        30, 255, 145, 255);
+        double aspectRatio = 3.0/2.0;
+        TrackingCriteria criteria = new TrackingCriteria(aspectRatio, .5, 1992, .5, 200, 250,
+                                        40, 80, 60, 80);
         DetectedPoint[] detectedPoints = imageTrackingSystem.getTargetCoordinates(criteria);
-        for(int i = 0; i < detectedPoints.length; i++) {
-            DetectedPoint point = detectedPoints[i];
-            log("I has a point! ("+point.getX()+", "+point.getY()+")");
+        if(detectedPoints != null) {
+            for(int i = 0; i < detectedPoints.length; i++) {
+                DetectedPoint point = detectedPoints[i];
+                log("I has a point! ("+point.getX()+", "+point.getY()+")");
+            }
         }
         long endTime = System.currentTimeMillis();
         long duration = endTime-startTime;
-        log("completed my work in "+duration+" milliseconds :3");
+        log("Completed my work in "+duration+" milliseconds :3");
         completed = true;
     }
 
     protected boolean isFinished()
     {
-        return completed;
+        return false;
     }
 
     protected void end() 
