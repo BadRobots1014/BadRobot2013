@@ -20,8 +20,12 @@ public class BadRobotMap implements Sendable
     //DriveTrain
     public static int frontLeftSpeedController; //index 0
     public static int frontRightSpeedController; //index 1
-    public static int backLeftSpeedController; //index 2
-    public static int backRightSpeedController; //index 3
+    
+    // the back speed controllers are assigned because there is an issue with 
+    // the gearbox and so we only want to drive two of the motors for now. The
+    // back motors are being given non-occupied ports, 11 and 12 to do this
+    public static int backLeftSpeedController = 11; //index 2
+    public static int backRightSpeedController = 12; //index 3
     
     //Potentially throwing a curve ball into the mapping
     //If there's a better way bother me (ajtgarber)
@@ -39,8 +43,8 @@ public class BadRobotMap implements Sendable
         {
             frontLeftSpeedController = prototypeMap[0];
             frontRightSpeedController = prototypeMap[1];
-            backLeftSpeedController = prototypeMap[2];
-            backRightSpeedController = prototypeMap[3];
+            //backLeftSpeedController = prototypeMap[2];
+            //backRightSpeedController = prototypeMap[3];
         }
         else
         {
