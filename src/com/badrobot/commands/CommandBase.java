@@ -39,10 +39,12 @@ public abstract class CommandBase extends Command
     // Create a single static instance of all of your subsystems:
     //Subsystems are a compilation of hardware components that together act 
     //together to work magic - DriveTrain, uses 4 jaguars to control 4 motors.
+    
     protected static IDriveTrain driveTrain;
     protected static BadCameraSystem imageTrackingSystem;
 
     //Initilizes all of static variables
+    
     public static void init() 
     {
         // This MUST be here. If the OI creates Commands (which it very likely
@@ -50,12 +52,14 @@ public abstract class CommandBase extends Command
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
+        
         oi = new OI();
         oi.init();
         
         //note the getInstance() method, ALWAYS use it when you call them. 
         //Reason why? The getInstance() will not create a new one, it will 
         //give you the existing copy with all the correct values
+        
         map = BadRobotMap.getInstance();
         
         driveTrain  = ProtoDriveTrain.getInstance();
@@ -65,6 +69,7 @@ public abstract class CommandBase extends Command
     //Accessor Methods: remember that protected driveTrain above? How would you 
     //get to use it outside of the class? You make accessor methods as such 
     //below. The benefits: the variable cannot be changed but can be used.
+    
     public static IDriveTrain getDriveTrain()
     {
         return driveTrain;
@@ -75,12 +80,14 @@ public abstract class CommandBase extends Command
     }
 
     //Constructor
+    
     public CommandBase(String name) 
     {
         super(name);
     }
 
     //Default Constructor
+    
     public CommandBase() 
     {
         super();
