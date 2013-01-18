@@ -57,7 +57,7 @@ public class OI
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     
-    public static final double DEADZONE_MAGIC_NUMBER = .2;
+    public static final double DEADZONE_MAGIC_NUMBER = .21;
     
     /**
      * Creates a deadzone for joysticks, the controllers sticks are 
