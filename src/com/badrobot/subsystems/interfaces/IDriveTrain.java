@@ -6,6 +6,7 @@ package com.badrobot.subsystems.interfaces;
 
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  *
@@ -25,5 +26,7 @@ public interface IDriveTrain
     public void tankDrive(double left, double right);
         
     public Gyro getGyro();
+    
+    public RobotDrive getTrain();
     
 }

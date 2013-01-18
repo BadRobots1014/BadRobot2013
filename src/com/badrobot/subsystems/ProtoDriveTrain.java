@@ -101,7 +101,12 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         return "ProtoDriveTrain";
     }
 
-    public Gyro getGyro() //Isaac - put this here because of error
+    public Gyro getGyro()
+    {
+        return null;
+    }
+
+    public RobotDrive getTrain() 
     {
         return null;
     }

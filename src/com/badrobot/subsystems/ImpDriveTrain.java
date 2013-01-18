@@ -21,8 +21,8 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     Jaguar frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
     
-    public static Gyro gyro;
-    public static double speedscale = 1;
+    public static Gyro dTrain_Gyro;
+    public static double speedscale;
     
     public static ImpDriveTrain instance;
     
@@ -49,7 +49,8 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         backRight = new Jaguar(BadRobotMap.backRightSpeedController);
         
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
-        gyro = new Gyro(BadRobotMap.driveTrainGyro);
+        dTrain_Gyro = new Gyro(BadRobotMap.driveTrainGyro);
+        speedscale = 1;
     }
     
     /**
@@ -97,6 +98,11 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     public Gyro getGyro() 
     {
-        return gyro;
+        return dTrain_Gyro;
+    }
+
+    public RobotDrive getTrain() 
+    {
+        return train;
     }
 }
