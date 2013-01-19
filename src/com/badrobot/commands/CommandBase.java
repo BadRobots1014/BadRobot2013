@@ -61,7 +61,7 @@ public abstract class CommandBase extends Command
         map = BadRobotMap.getInstance();
         
         driveTrain  = ProtoDriveTrain.getInstance();
-        imageTrackingSystem = BadCameraSystem.getInstance();
+        //imageTrackingSystem = BadCameraSystem.getInstance();
     }
     
     //Accessor Methods: remember that protected driveTrain above? How would you 

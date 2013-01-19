@@ -43,28 +43,25 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize()
     {
-        log(BadRobotMap.frontLeftSpeedController + "");
         frontLeft = new Jaguar(BadRobotMap.frontLeftSpeedController);
         frontRight = new Jaguar(BadRobotMap.frontRightSpeedController);
         backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
         backRight = new Jaguar(BadRobotMap.backRightSpeedController);
         
-        
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
-        
-        //front left needs to be reversed
-        
+                
         train.setInvertedMotor(MotorType.kRearLeft, true);
         train.setInvertedMotor(MotorType.kFrontLeft, true);
         train.setInvertedMotor(MotorType.kFrontRight, true);
         train.setInvertedMotor(MotorType.kRearRight, true);
-        
         
         train.setSafetyEnabled(false);
     }
     
     public void tankDrive(double left, double right)
     {
+        //frontLeft.set(left);
+        //frontRight.set(right);
         train.tankDrive(left, right);
         
         log("testing log...");

@@ -9,11 +9,12 @@ package com.badrobot;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import com.badrobot.commands.CommandBase;
 import com.badrobot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Watchdog;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -62,11 +63,12 @@ public class RobotMain extends IterativeRobot
         Scheduler.getInstance().run();
     }
 
-    public void teleopInit() 
-    {
-	
+    public void teleopInit() {
+	Relay relay = new Relay(3);
+        relay.set(Relay.Value.kOn);
+        //relay.set(Relay.Value.kOn);
         Watchdog.getInstance().setEnabled(false);
-   }
+    }
 
     /**
      * This function is called periodically during operator control
