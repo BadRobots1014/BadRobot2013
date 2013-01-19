@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  * @author Paul_Chao
  */
-public class DriveForward extends CommandBase 
+public class DriveForward extends BadCommand 
 {
     Timer timer;
     //boolean finished;
@@ -57,5 +57,10 @@ public class DriveForward extends CommandBase
     protected void interrupted() 
     {
         driveTrain.tankDrive(0, 0);
+    }
+    
+    public String getConsoleIdentity() 
+    {
+        return "Drive forward for set time";
     }
 }

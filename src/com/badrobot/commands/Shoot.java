@@ -3,17 +3,19 @@
  * and open the template in the editor.
  */
 package com.badrobot.commands;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  * @author Paul_Chao
  */
-public class Shooter extends CommandBase 
+public class Shoot extends BadCommand
 {
+    
     double shooterSpeed;
     
-    public Shooter(double speed) 
+    public Shoot(double speed) 
     {
         requires( (Subsystem) shooter);
         shooterSpeed = speed;
@@ -50,5 +52,10 @@ public class Shooter extends CommandBase
     protected void interrupted() 
     {
         shooter.runShooter(0);
+    }
+
+    public String getConsoleIdentity() 
+    {
+        return ("Shoot");
     }
 }
