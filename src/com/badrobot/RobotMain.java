@@ -42,7 +42,7 @@ public class RobotMain extends IterativeRobot
         //Replace ExampleCommand() with autonomous command. 
         //Currently there are none.
         autoChooser.addDefault("Default program", new ExampleCommand());
-        autoChooser.addObject("Otehr program 1", new ExampleCommand());
+        autoChooser.addObject("Otehr program 1", new ExampleCommand());//netbeans can't find symbol.
         SmartDashboard.putData("Autonomous mode chooser", autoChooser);
     }
 
