@@ -20,6 +20,14 @@ public class DriveForward extends BadCommand
     
     private final double DRIVE_SPEED = 1;
     
+    public DriveForward()
+    {
+        requires( (Subsystem) driveTrain);
+        timer = new Timer();
+        smartDash.putNumber("xyz", 1);//this method deals with smartDashboard 
+        //smartdash is still under constructing, put it in later.
+    }
+    
     public DriveForward(double time) 
     {
         requires( (Subsystem) driveTrain);
@@ -31,6 +39,8 @@ public class DriveForward extends BadCommand
     // Called just before this Command runs the first time
     protected void initialize() 
     {
+        driveTime = smartDash.getNumber("xyz");//keys not yet constructed
+        
         startTime = timer.getFPGATimestamp();
     }
 

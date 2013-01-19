@@ -5,6 +5,7 @@
 package com.badrobot.commands;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  *
@@ -12,20 +13,23 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shoot extends BadCommand
 {
-    
     double shooterSpeed;
+    //private ITable ITable;
     
-    public Shoot(double speed) 
+    public Shoot() 
     {
         requires( (Subsystem) shooter);
-        shooterSpeed = speed;
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        smartDash.putNumber("abc", 1);//this method deals with smartDashboard 
+        //smartdash is still under constructing, put it in later.
     }
 
     // Called just before this Command runs the first time
     protected void initialize() 
     {
+        
+        shooterSpeed = smartDash.getNumber("abc");//the key has not yet been 
+        //contructed.
+        
         shooter.runShooter(shooterSpeed);
     }
 
@@ -58,4 +62,14 @@ public class Shoot extends BadCommand
     {
         return ("Shoot");
     }
+
+    /*public void putSmartDashboardValues(ITable table) 
+    {
+        table.putNumber("Shooter Speed", shooterSpeed);
+    }
+    
+    public void getSmartdashboardValues(ITable table)
+    {
+        table.getNumber(null);
+    }*/
 }
