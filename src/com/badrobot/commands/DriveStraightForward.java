@@ -62,7 +62,7 @@ public class DriveStraightForward extends BadCommand
         
         if (gyroAngle > 0)
             alteredSpeedRight = setSpeed*scaleFactor;
-        if (gyroAngle < 0)
+        else if (gyroAngle < 0)
             alteredSpeedLeft = setSpeed*scaleFactor;
         
         /**
