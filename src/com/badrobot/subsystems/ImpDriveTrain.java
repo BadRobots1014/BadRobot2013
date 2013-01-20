@@ -48,6 +48,13 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
         backRight = new Jaguar(BadRobotMap.backRightSpeedController);
         
+        train.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+        train.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+        train.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+        train.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+        
+        train.setSafetyEnabled(false);
+        
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
         dTrain_Gyro = new Gyro(BadRobotMap.driveTrainGyro);
         speedscale = 1;
