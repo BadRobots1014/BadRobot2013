@@ -75,7 +75,7 @@ public class DriveStraightForward extends BadCommand
     
     protected boolean isFinished() 
     {
-        if (Utility.getFPGATime() == fpgaTime + setRunTime)
+        if (Utility.getFPGATime() >= fpgaTime + setRunTime)
             return true;
         return false;
     }
