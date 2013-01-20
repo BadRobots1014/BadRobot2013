@@ -24,12 +24,14 @@ public class DriveStraightForward extends BadCommand
     private long fpgaTime;
     private long setRunTime;
     
+    //Runs the command for the default time length: 6 seconds.
     public DriveStraightForward()
     {
         requires((Subsystem) driveTrain);
-        setRunTime = 20*1000000;
+        setRunTime = 6*1000000;
     }
     
+    //Runs the command for the set time length in seconds.
     public DriveStraightForward(long setTime)
     {
         long temp = setTime*1000000;
@@ -48,7 +50,7 @@ public class DriveStraightForward extends BadCommand
         alteredSpeedRight = setSpeed;   
         scaleFactor = 1;
         driveTrain.getGyro().reset();
-        fpgaTime = Utility.getFPGATime();      //returns time in microseconds.
+        fpgaTime = Utility.getFPGATime();      //returns fpga time in microseconds.
     }
     
     protected void execute() 
@@ -60,13 +62,8 @@ public class DriveStraightForward extends BadCommand
         
         if (gyroAngle > 0)
             alteredSpeedRight = setSpeed*scaleFactor;
-        if (gyroAngle < 0)
+        else if (gyroAngle < 0)
             alteredSpeedLeft = setSpeed*scaleFactor;
-        
-        if (alteredSpeedLeft >= 1)
-            alteredSpeedLeft = 1;
-        if (alteredSpeedRight >= 1)
-            alteredSpeedRight = 1;
         
         /**
          * Drives the robot in a straight path with speed setSpeed;
@@ -78,7 +75,7 @@ public class DriveStraightForward extends BadCommand
     
     protected boolean isFinished() 
     {
-        if (Utility.getFPGATime() == fpgaTime + setRunTime)
+        if (Utility.getFPGATime() >= fpgaTime + setRunTime)
             return true;
         return false;
     }
