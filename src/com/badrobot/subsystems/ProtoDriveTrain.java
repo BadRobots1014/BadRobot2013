@@ -66,6 +66,11 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         
         log("testing log...");
     }
+    
+    public void arcadeDrive(double Y, double X) 
+    {
+        train.arcadeDrive(Y, X);
+    }
 
     protected void initDefaultCommand()
     {

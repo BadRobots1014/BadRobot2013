@@ -71,5 +71,10 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         //backLeft.set(left);
         //backRight.set(right);
     }
+
+    public void arcadeDrive(double Y, double X) 
+    {
+        train.arcadeDrive(Y, X);
+    }
     
 }

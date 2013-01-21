@@ -27,7 +27,9 @@ public class DriveWithJoysticks extends BadCommand
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+        //implement a sendable chooser
         driveTrain.tankDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerRightStickY());
+        driveTrain.arcadeDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerLeftStickX());
     }
 
     // Make this return true when this Command no longer needs to run execute()
