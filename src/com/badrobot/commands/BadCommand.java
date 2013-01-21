@@ -19,19 +19,14 @@ public abstract class BadCommand extends CommandBase implements Logger
     protected static final boolean CONSOLE_OUTPUT_ENABLED = true;
 
     public abstract String getConsoleIdentity();
-    
-    public SmartDashboard smartDash;
-    
+        
     public void log(String str) 
     {
         if(true) 
         {
             System.out.println(getConsoleIdentity()+": "+str);
-            //smartDash
         }
     }
     
-    //public abstract void putSmartDashboardValues(ITable table);
     
-    //public abstract void getSmartdashboardValues(ITable table);
 }
