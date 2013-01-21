@@ -7,6 +7,7 @@ import com.badrobot.OI;
 import com.badrobot.subsystems.BadCameraSystem;
 import com.badrobot.subsystems.ProtoDriveTrain;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
+import com.badrobot.subsystems.interfaces.IShooter;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -40,6 +41,7 @@ public abstract class CommandBase extends Command
     //Subsystems are a compilation of hardware components that together act 
     //together to work magic - DriveTrain, uses 4 jaguars to control 4 motors.
     protected static IDriveTrain driveTrain;
+    protected static IShooter shooter;
     protected static BadCameraSystem imageTrackingSystem;
 
     //Initilizes all of static variables

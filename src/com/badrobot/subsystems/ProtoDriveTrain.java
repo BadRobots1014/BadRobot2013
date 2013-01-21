@@ -62,9 +62,16 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     {
         //frontLeft.set(left);
         //frontRight.set(right);
-        train.tankDrive(left, right);
-        
-        log("testing log...");
+        train.tankDrive(left, right);        
+    }
+    
+    /**
+     * inherited by Sendable interface, overriding the default from Subsystem
+     * @return the type of SmartDashboard data being sent
+     */
+    public String getSmartDashboardType()
+    {
+        return "Subsystem";
     }
     
     public void arcadeDrive(double Y, double X) 
@@ -82,9 +89,8 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         if (key.compareTo("MAX_POWER") == 0)
             MAX_POWER = ((Double) value).doubleValue();
         
-        System.out.println("Stuff changed, yo!"
+        log("Stuff changed, yo!"
                 + key + " " + value.toString());
-        
     }
 
     protected void addNetworkTableValues(ITable table)
@@ -92,7 +98,7 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         table.putNumber("MAX_POWER", MAX_POWER);
         table.putNumber("min power", 0);
         table.putNumber("med power", MAX_POWER/2);
-        System.out.println("adding net values.");
+        log("adding net values.");
     }
 
     public String getConsoleIdentity()
