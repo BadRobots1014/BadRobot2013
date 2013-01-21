@@ -44,7 +44,7 @@ public class RobotMain extends IterativeRobot
         //Replace ExampleCommand() with autonomous command. 
         //Currently there are none.
         autoChooser.addDefault("Default program", new ExampleCommand());
-        autoChooser.addObject("Otehr program 1", new ExampleCommand());
+        autoChooser.addObject("Other program 1", new ExampleCommand());
         SmartDashboard.putData("Autonomous mode chooser", autoChooser);
     }
 
@@ -64,9 +64,6 @@ public class RobotMain extends IterativeRobot
     }
 
     public void teleopInit() {
-	Relay relay = new Relay(3);
-        relay.set(Relay.Value.kOn);
-        //relay.set(Relay.Value.kOn);
         Watchdog.getInstance().setEnabled(false);
     }
 
@@ -75,7 +72,7 @@ public class RobotMain extends IterativeRobot
      */
     public void teleopPeriodic() 
     {
-        Scheduler.getInstance().run();        
+        Scheduler.getInstance().run();   
     }
     
     /**
