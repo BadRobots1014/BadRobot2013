@@ -40,7 +40,7 @@ public class DriveForward extends BadCommand
     protected void initialize() 
     {
         driveTime = smartDash.getNumber("xyz");//keys not yet constructed
-        
+         
         startTime = timer.getFPGATimestamp();
     }
 

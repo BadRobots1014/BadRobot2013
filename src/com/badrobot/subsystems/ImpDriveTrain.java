@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
@@ -18,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
 {
-    Jaguar frontLeft, frontRight, backLeft, backRight;
+    SpeedController frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
     
     public static Gyro dTrain_Gyro;
@@ -43,10 +45,10 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize() 
     {
-        frontLeft = new Jaguar(BadRobotMap.frontLeftSpeedController);
-        frontRight = new Jaguar(BadRobotMap.frontRightSpeedController);
-        backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
-        backRight = new Jaguar(BadRobotMap.backRightSpeedController);
+        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
+        frontRight = new Victor(BadRobotMap.frontRightSpeedController);
+        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
+        backRight = new Victor(BadRobotMap.backRightSpeedController);
         
         train.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         train.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);

@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  * v1.0 Working drivetrain on shelby
@@ -21,7 +23,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
  */
 public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
 {
-    Jaguar frontLeft, frontRight, backLeft, backRight;
+    SpeedController frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
     private static double MAX_POWER = .8;
     
@@ -44,10 +46,10 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize()
     {
-        frontLeft = new Jaguar(BadRobotMap.frontLeftSpeedController);
-        frontRight = new Jaguar(BadRobotMap.frontRightSpeedController);
-        backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
-        backRight = new Jaguar(BadRobotMap.backRightSpeedController);
+        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
+        frontRight = new Victor(BadRobotMap.frontRightSpeedController);
+        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
+        backRight = new Victor(BadRobotMap.backRightSpeedController);
         
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
                 

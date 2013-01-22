@@ -21,21 +21,25 @@ public class DriveStraightForward extends BadCommand
     private double alteredSpeedLeft;
     private double alteredSpeedRight;
     private double scaleFactor;
-    private long fpgaTime;
-    private long setRunTime;
+    private long startTime;
+    private long driveTime;
     
-    //Runs the command for the default time length: 6 seconds.
+    /**
+     * Runs the command for the default time length.
+     */
     public DriveStraightForward()
     {
         requires((Subsystem) driveTrain);
-        setRunTime = 6*1000000;
+        driveTime = 6*1000000;
     }
     
-    //Runs the command for the set time length in seconds.
+    /**
+     * Runs the command for the set time length in seconds.
+     */
     public DriveStraightForward(long setTime)
     {
         long temp = setTime*1000000;
-        setRunTime = temp;
+        driveTime = temp;
     }
     
     public String getConsoleIdentity() 
@@ -50,7 +54,7 @@ public class DriveStraightForward extends BadCommand
         alteredSpeedRight = setSpeed;   
         scaleFactor = 1;
         driveTrain.getGyro().reset();
-        fpgaTime = Utility.getFPGATime();      //returns fpga time in microseconds.
+        startTime = Utility.getFPGATime();      //returns fpga time in microseconds.
     }
     
     protected void execute() 
@@ -75,14 +79,14 @@ public class DriveStraightForward extends BadCommand
     
     protected boolean isFinished() 
     {
-        if (Utility.getFPGATime() >= fpgaTime + setRunTime)
+        if (Utility.getFPGATime() >= startTime + driveTime)
             return true;
         return false;
     }
 
     protected void end() 
     {
-        
+        driveTrain.getTrain().tankDrive(0,0);
     }
     
     protected void interrupted() 
