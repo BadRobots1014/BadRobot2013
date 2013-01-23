@@ -2,6 +2,7 @@ package com.badrobot.subsystems;
 
 import com.badrobot.OI;
 import com.badrobot.subsystems.interfaces.Logger;
+import edu.wpi.first.wpilibj.NamedSendable;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
@@ -12,9 +13,8 @@ import edu.wpi.first.wpilibj.tables.ITableListener;
 /**
  * @author Jon Buckley
  */
-public abstract class BadSubsystem extends Subsystem implements Logger, Sendable, ITableListener
+public abstract class BadSubsystem extends Subsystem implements Logger, NamedSendable, ITableListener
 {   
-    
     //is logging enabled
     protected boolean CONSOLE_OUTPUT_ENABLED = true;
     
@@ -34,17 +34,8 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      */
     public ITable getTable()
     {
-        System.out.println("getting table");
+        log("getting table");
         return table;
-    }
-    
-    /**
-     * inherited by Sendable interface, overriding the default from Subsystem
-     * @return the type of SmartDashboard data being sent
-     */
-    public String getSmartDashboardType()
-    {
-        return "Subsystem";
     }
     
     /**
@@ -53,8 +44,12 @@ public abstract class BadSubsystem extends Subsystem implements Logger, Sendable
      */
     public void initTable(ITable t)
     {
-        System.out.println("initing table");
+        log("initting table");
+        if (table != null)
+            table.removeTableListener(this);
         table = t;
+        
+        table.addTableListener(this);
         addNetworkTableValues(table);
     }
     

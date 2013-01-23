@@ -6,6 +6,7 @@ package com.badrobot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,7 +25,7 @@ public class DriveForward extends BadCommand
     {
         requires( (Subsystem) driveTrain);
         timer = new Timer();
-        smartDash.putNumber("xyz", 1);//this method deals with smartDashboard 
+        SmartDashboard.putNumber("xyz", 1);//this method deals with smartDashboard 
         //smartdash is still under constructing, put it in later.
     }
     
@@ -39,8 +40,8 @@ public class DriveForward extends BadCommand
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-        driveTime = smartDash.getNumber("xyz");//keys not yet constructed
-         
+        driveTime = SmartDashboard.getNumber("xyz");//keys not yet constructed
+        
         startTime = timer.getFPGATimestamp();
     }
 
