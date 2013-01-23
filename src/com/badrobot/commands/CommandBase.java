@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.badrobot.OI;
 import com.badrobot.subsystems.BadCameraSystem;
+import com.badrobot.subsystems.ImpDriveTrain;
 import com.badrobot.subsystems.ProtoDriveTrain;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import com.badrobot.subsystems.interfaces.IShooter;
@@ -60,7 +61,7 @@ public abstract class CommandBase extends Command
         //give you the existing copy with all the correct values
         map = BadRobotMap.getInstance();
         
-        driveTrain  = ProtoDriveTrain.getInstance();
+        driveTrain  = ImpDriveTrain.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
     }
     

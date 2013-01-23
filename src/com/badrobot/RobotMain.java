@@ -53,6 +53,8 @@ public class RobotMain extends IterativeRobot
     {
         //It will get the selected Command from the SmartDashboard
         autonomousCommand = (Command) autoChooser.getSelected();
+        
+        //make sure you dont have to add to scheduler to run autonomous command TODO
         autonomousCommand.start();
     }
     
