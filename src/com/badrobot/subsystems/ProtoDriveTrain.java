@@ -92,6 +92,11 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         return "Subsystem";
     }
     
+    public void arcadeDrive(double Y, double X) 
+    {
+        train.arcadeDrive(Y, X);
+    }
+
     /**
      * sets the command to occupy ProtoDriveTrain upon initialization 
      */
