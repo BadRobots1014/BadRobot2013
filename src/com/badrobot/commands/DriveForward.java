@@ -7,6 +7,7 @@ package com.badrobot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  *
@@ -73,5 +74,15 @@ public class DriveForward extends BadCommand
     public String getConsoleIdentity() 
     {
         return "Drive forward for set time";
+    }
+
+    public void valueChanged(ITable itable, String key, Object value, boolean bln) 
+    {
+        
+    }
+
+    protected void addNetworkTableValues(ITable table) 
+    {
+        
     }
 }
