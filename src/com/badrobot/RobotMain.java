@@ -44,7 +44,7 @@ public class RobotMain extends IterativeRobot
         autoChooser = new SendableChooser();
         //Replace ExampleCommand() with autonomous command. 
         //Currently there are none.
-        autoChooser.addDefault("Default program", new DriveForwardAndShoot());
+        //autoChooser.addDefault("Default program", new DriveForwardAndShoot());
         autoChooser.addObject("Other program 1", new ExampleCommand());
         SmartDashboard.putData("Autonomous mode chooser", autoChooser);
     }

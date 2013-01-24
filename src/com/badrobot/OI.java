@@ -57,7 +57,7 @@ public class OI
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     
-    public static final double DEADZONE_MAGIC_NUMBER = .21;
+    public static final double DEADZONE_MAGIC_NUMBER = .2;
     
     /**
      * Creates a deadzone for joysticks, the controllers sticks are 
@@ -78,27 +78,28 @@ public class OI
         
         //When the joystick is used for a purpose (passes the if statements, 
         //hence not just being loose), do math
-        return d / Math.abs(d) * ((Math.abs(d) - .10) / .90);
+        return (d / Math.abs(d)) //gets the sign of d, negative or positive
+                * ((Math.abs(d) - .10) / .90); //scales it
     }
     
     public static double getPrimaryControllerLeftStickY()
     {
-       return primaryXboxController.getRawAxis(LEFT_STICK_Y);
+       return deadzone(primaryXboxController.getRawAxis(LEFT_STICK_Y));
     }
     
     public static double getPrimaryControllerLeftStickX()
     {
-        return primaryXboxController.getRawAxis(LEFT_STICK_X);
+        return deadzone(primaryXboxController.getRawAxis(LEFT_STICK_X));
     }
     
     public static double getPrimaryControllerRightStickX()
     {
-        return primaryXboxController.getRawAxis(RIGHT_STICK_X);
+        return deadzone(primaryXboxController.getRawAxis(RIGHT_STICK_X));
     }
     
     public static double getPrimaryControllerRightStickY()
     {
-        return primaryXboxController.getRawAxis(RIGHT_STICK_Y);
+        return deadzone(primaryXboxController.getRawAxis(RIGHT_STICK_Y));
     }
    
 }
