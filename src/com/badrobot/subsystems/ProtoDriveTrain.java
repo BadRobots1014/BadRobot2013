@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 
 /**
- * v1.0 Working drivetrain on shelby
+ * v1.1 Working drivetrain on prototype chassis
  * @author Jon Buckley
  */
 public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
@@ -30,6 +30,10 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     
     private static ProtoDriveTrain instance;
     
+    /**
+     * Singleton acessor. Only one instance of ProtoDriveTrain allowed in program
+     * @return the single instance of ProtoDriveTrain
+     */
     public static ProtoDriveTrain getInstance() 
     {
         if(instance == null)
@@ -39,12 +43,19 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         return instance;
     }
     
+    /**
+     * private constructor so that instances can't be constructed publicly
+     */
     private ProtoDriveTrain()
     {
         initialize();
         SmartDashboard.putData("ProtoDriveTrain", this);
     }
     
+    /**
+     * sets up all of the hardware components needed, references BadRobotMap
+     * for the appropriate ports
+     */
     protected void initialize()
     {
         frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
@@ -62,11 +73,17 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         train.setSafetyEnabled(false);
     }
     
+    /**
+     * runs the drivetrain in TankDrive fashion
+     * @param left from -1 to 1, the speed of the left side of the drivetrain
+     * @param right from -1 to 1, the speed of the right side of the drivetrain
+     */
     public void tankDrive(double left, double right)
     {
         //frontLeft.set(left);
         //frontRight.set(right);
-        train.tankDrive(left, right);        
+        train.tankDrive(left, right);      
+        //SmartDashboard.putNumber("MAX_POWER", left);
     }
     
     /**
@@ -78,11 +95,26 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         return "Subsystem";
     }
     
+    public void arcadeDrive(double Y, double X) 
+    {
+        train.arcadeDrive(Y, X);
+    }
+
+    /**
+     * sets the command to occupy ProtoDriveTrain upon initialization 
+     */
     protected void initDefaultCommand()
     {
         this.setDefaultCommand(new DriveWithJoysticks());
     }
     
+    /**
+     * called when a value that is put into SmartDashboard changes
+     * @param table the table the value is a child of
+     * @param key the name of the variable
+     * @param value the value of the variable
+     * @param b whether the value has changed since its previous value
+     */
     public void valueChanged(ITable table, String key, Object value, boolean b)
     {
         if (key.compareTo("MAX_POWER") == 0)
@@ -91,7 +123,12 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         log("Stuff changed, yo!"
                 + key + " " + value.toString());
     }
-    
+
+    /**
+     * Adds variables that are wished to be tracked to a NetworkTable which is 
+     * put into SmartDashboard
+     * @param table the table that the values will be put into
+     */
     protected void addNetworkTableValues(ITable table)
     {
         table.putNumber("MAX_POWER", MAX_POWER);
