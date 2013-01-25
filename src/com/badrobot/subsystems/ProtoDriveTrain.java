@@ -31,7 +31,7 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     private static ProtoDriveTrain instance;
     
     /**
-     * Singleton acessor. Only one instance of ProtoDriveTrain allowed in program
+     * Singleton accessor. Only one instance of ProtoDriveTrain allowed in program
      * @return the single instance of ProtoDriveTrain
      */
     public static ProtoDriveTrain getInstance() 
