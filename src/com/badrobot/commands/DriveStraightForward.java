@@ -7,6 +7,7 @@ package com.badrobot.commands;
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.Utility;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.tables.ITable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -92,5 +93,11 @@ public class DriveStraightForward extends BadCommand
     protected void interrupted() 
     {
         
+    }
+
+    public void valueChanged(ITable itable, String key, Object value, boolean bln) {
+    }
+
+    protected void addNetworkTableValues(ITable table) {
     }
 }

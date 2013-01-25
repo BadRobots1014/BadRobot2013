@@ -25,6 +25,9 @@ public interface IDriveTrain
      */
     public void tankDrive(double left, double right);
     
+    public Gyro getGyro();
+    
+    public RobotDrive getTrain();
     /**
      * Drives the robot in arcade drive--one stick controls all movement;
      * pushing forward moves all wheels forward, pushing backwards moves
