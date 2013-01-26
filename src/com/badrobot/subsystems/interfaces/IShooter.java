@@ -4,9 +4,6 @@
  */
 package com.badrobot.subsystems.interfaces;
 
-import com.badrobot.BadRobotMap;
-import edu.wpi.first.wpilibj.GearTooth;
-import edu.wpi.first.wpilibj.Timer;
 /**
  *
  * @author Jon Buckley
@@ -16,7 +13,6 @@ public interface IShooter
     public static final int RAISED_TO_THREE_POINT = 0;
     public static final int RAISED_TO_TWO_POINT = 1;
     public static final int RAISED_TO_ONE_POINT = 2;
-    
     
     public static int STATE = 2;
     /**
