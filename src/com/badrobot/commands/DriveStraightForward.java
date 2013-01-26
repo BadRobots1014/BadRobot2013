@@ -23,7 +23,7 @@ public class DriveStraightForward extends BadCommand
     private double alteredSpeedRight;
     private double scaleFactor;
     private long startTime;
-    private long driveTime;
+     private long driveTime;
     
     /**
      * Runs the command for the default time length.
