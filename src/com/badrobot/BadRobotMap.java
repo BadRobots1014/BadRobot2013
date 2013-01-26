@@ -45,6 +45,8 @@ public class BadRobotMap implements Sendable
     
     public static int speedSensorPort;
     
+    public static int frisbeePusherPort;
+    
     public BadRobotMap()
     {
         if(isPrototype == true)
@@ -70,6 +72,7 @@ public class BadRobotMap implements Sendable
         frontFacingCameraAddress = "10.10.14.10";
         
         speedSensorPort = 5;
+        frisbeePusherPort = 6;
     }
     
     /**
