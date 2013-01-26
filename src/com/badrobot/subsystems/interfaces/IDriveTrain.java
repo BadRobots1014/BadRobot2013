@@ -4,11 +4,13 @@
  */
 package com.badrobot.subsystems.interfaces;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
+
 /**
  *
  * @author Jon Buckley
  */
-public interface IDriveTrain
+public interface IDriveTrain 
 {
     /**
      * Drives the robot in tank drive--two sticks represent the left and right
@@ -19,4 +21,13 @@ public interface IDriveTrain
      * @param right the right joystick value (-1 to 1)
      */
     public void tankDrive(double left, double right);
+    
+    /**
+     * Drives the robot in arcade drive--one stick controls all movement;
+     * pushing forward moves all wheels forward, pushing backwards moves
+     * all wheels backwards, pushing left moves the
+     * @param y the joysticks vertical value (-1 to 1)
+     * @param x the joysticks horizontal value (-1 to 1)
+     */
+    public void arcadeDrive(double Y, double X);
 }

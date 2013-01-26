@@ -1,6 +1,7 @@
 
 package com.badrobot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
 
@@ -8,8 +9,22 @@ import edu.wpi.first.wpilibj.buttons.DigitalIOButton;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {
+public class OI 
+{
     public static boolean CONSOLE_OUTPUT_ENABLED = true;
+    
+    public static Joystick primaryXboxController,
+                            secondaryXboxController;
+    
+    private static int LEFT_STICK_X = 1, LEFT_STICK_Y = 2, RIGHT_STICK_X = 3, RIGHT_STICK_Y = 5;
+    private static int PRIMARY_JOY = 1, SECONDARY_JOY = 2;
+    
+    public void init()
+    {
+        primaryXboxController = new Joystick(PRIMARY_JOY);
+        secondaryXboxController = new Joystick(SECONDARY_JOY);        
+    }
+    
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
     // You create one by telling it which joystick it's on and which button
@@ -63,7 +78,29 @@ public class OI {
         
         //When the joystick is used for a purpose (passes the if statements, 
         //hence not just being loose), do math
-        return d / Math.abs(d) * ((Math.abs(d) - .10) / .90);
+        return (d / Math.abs(d)) //gets the sign of d, negative or positive
+                * ((Math.abs(d) - .10) / .90); //scales it
     }
+    
+    public static double getPrimaryControllerLeftStickY()
+    {
+       return deadzone(primaryXboxController.getRawAxis(LEFT_STICK_Y));
+    }
+    
+    public static double getPrimaryControllerLeftStickX()
+    {
+        return deadzone(primaryXboxController.getRawAxis(LEFT_STICK_X));
+    }
+    
+    public static double getPrimaryControllerRightStickX()
+    {
+        return deadzone(primaryXboxController.getRawAxis(RIGHT_STICK_X));
+    }
+    
+    public static double getPrimaryControllerRightStickY()
+    {
+        return deadzone(primaryXboxController.getRawAxis(RIGHT_STICK_Y));
+    }
+   
 }
 

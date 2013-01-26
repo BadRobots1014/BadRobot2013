@@ -20,17 +20,24 @@ public class BadRobotMap implements Sendable
     //DriveTrain
     public static int frontLeftSpeedController; //index 0
     public static int frontRightSpeedController; //index 1
+    
+    // the back speed controllers are assigned because there is an issue with 
+    // the gearbox and so we only want to drive two of the motors for now. The
+    // back motors are being given non-occupied ports, 11 and 12 to do this
     public static int backLeftSpeedController; //index 2
     public static int backRightSpeedController; //index 3
     
     //Potentially throwing a curve ball into the mapping
     //If there's a better way bother me (ajtgarber)
-    public static String visionTrackingCameraAddress;
+    public static String visionTrackingCameraAddress = "10.10.14.11";
+    public static String frontFacingCameraAddress = "10.10.14.12";
+    
+    public static int shooterSpeedController;
    
-    public final int[] prototypeMap = {1,2,3,4};
+    public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
     
-    private boolean isPrototype;
+    private boolean isPrototype = true;
     
     public BadRobotMap()
     {
@@ -48,10 +55,14 @@ public class BadRobotMap implements Sendable
             backLeftSpeedController = finalMap[2];
             backRightSpeedController = finalMap[3];
         }
+        
+        //More than likely the IP addresses of the cameras will remain the same
+        visionTrackingCameraAddress = "10.10.14.11";
+        frontFacingCameraAddress = "10.10.14.10";
     }
     
     /**
-     * singleton accesor. If no instance of BadRobotMap exists, then it creates 
+     * singleton accessor. If no instance of BadRobotMap exists, then it creates 
      * one. 
      * @return the singelton instance of BadRobotMap in the program
      */
@@ -73,8 +84,6 @@ public class BadRobotMap implements Sendable
     {
         isPrototype = a;
     }
-    
-
     
     /**
      * @return the type of NetworkTable

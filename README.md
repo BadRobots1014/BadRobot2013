@@ -9,4 +9,4 @@ This code is meant ONLY to be deployed onto a cRIO robot meant for FRC games. It
 
 The code may be (will be) buggy and isn't guaranteed to be fully functional in any capacity. Any questions or concerns should be directed towards the lead developer of it: jonbuckley33. In addition of contact through github, you can reach him by emailing him at jonbuckley33@gmail.com
 
-v0.1 -- non-robot test code.
+v1.0 -- code builds, deploys, and runs successfully on v47 cRIOs.
