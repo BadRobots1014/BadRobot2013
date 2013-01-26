@@ -4,6 +4,9 @@
  */
 package com.badrobot.subsystems.interfaces;
 
+import com.badrobot.BadRobotMap;
+import edu.wpi.first.wpilibj.GearTooth;
+import edu.wpi.first.wpilibj.Timer;
 /**
  *
  * @author Jon Buckley
@@ -13,6 +16,7 @@ public interface IShooter
     public static final int RAISED_TO_THREE_POINT = 0;
     public static final int RAISED_TO_TWO_POINT = 1;
     public static final int RAISED_TO_ONE_POINT = 2;
+    
     
     public static int STATE = 2;
     /**
@@ -32,4 +36,20 @@ public interface IShooter
      * @param state the preset height to raise/lower to 
      */
     public void setAngle(int state);
+    
+    public double getShooterSpeed()
+    {
+        Timer timer = new Timer();
+        GearTooth gearTooth = new GearTooth(BadRobotMap.speedSensorPort, false);
+        gearTooth.reset();
+        gearTooth.setMaxPeriod(2);
+        gearTooth.start();
+
+        double gearToothSpeed = gearTooth.getPeriod();//get the time 
+        //between the last two edges counted
+        
+        gearTooth.stop();
+        
+        return 1/gearToothSpeed;
+    }
 }
