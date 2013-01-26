@@ -9,6 +9,7 @@ import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.GearTooth;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -93,5 +94,21 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     public void setAngle(int state)
     {
         //later
+    }
+
+    public double getShooterSpeed() 
+    {
+        Timer timer = new Timer();
+        GearTooth gearTooth = new GearTooth(BadRobotMap.speedSensorPort, false);
+        gearTooth.reset();
+        gearTooth.setMaxPeriod(2);
+        gearTooth.start();
+
+        double gearToothSpeed = gearTooth.getPeriod();//get the time 
+        //between the last two edges counted
+        
+        gearTooth.stop();
+        
+        return 1/gearToothSpeed;
     }
 }

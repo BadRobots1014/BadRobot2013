@@ -37,19 +37,5 @@ public interface IShooter
      */
     public void setAngle(int state);
     
-    public double getShooterSpeed()
-    {
-        Timer timer = new Timer();
-        GearTooth gearTooth = new GearTooth(BadRobotMap.speedSensorPort, false);
-        gearTooth.reset();
-        gearTooth.setMaxPeriod(2);
-        gearTooth.start();
-
-        double gearToothSpeed = gearTooth.getPeriod();//get the time 
-        //between the last two edges counted
-        
-        gearTooth.stop();
-        
-        return 1/gearToothSpeed;
-    }
+    public double getShooterSpeed();
 }
