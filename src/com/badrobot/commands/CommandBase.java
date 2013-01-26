@@ -7,6 +7,7 @@ import com.badrobot.OI;
 import com.badrobot.subsystems.BadCameraSystem;
 import com.badrobot.subsystems.ProtoDriveTrain;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
+import com.badrobot.subsystems.interfaces.IGatherer;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -43,6 +44,7 @@ public abstract class CommandBase extends Command
     //together to work magic - DriveTrain, uses 4 jaguars to control 4 motors.
     protected static IDriveTrain driveTrain;
     protected static IShooter shooter;
+    protected static IGatherer gatherer;
     protected static BadCameraSystem imageTrackingSystem;
     public static SendableChooser driveChooser;
 
