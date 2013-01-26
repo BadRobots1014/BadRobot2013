@@ -6,6 +6,7 @@ package com.badrobot.commands;
 
 import com.badrobot.utils.DetectedPoint;
 import com.badrobot.utils.TrackingCriteria;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * On average one pass takes up around 200ms
@@ -67,6 +68,16 @@ public class DefaultTrackingCommand extends BadCommand {
     protected void interrupted() 
     {
         log("Shouldn't have been interrupted... I had imporant work to do :c");
+    }
+
+    public void valueChanged(ITable itable, String key, Object value, boolean bln) 
+    {
+        
+    }
+
+    protected void addNetworkTableValues(ITable table) 
+    {
+        
     }
     
 }
