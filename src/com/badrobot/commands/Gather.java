@@ -14,15 +14,17 @@ import edu.wpi.first.wpilibj.tables.ITable;
  */
 public class Gather extends BadCommand
 {
-    public Gather() 
+    public int gatherAmount;
+    
+    public Gather(int amount) 
     {
         requires( (Subsystem) gatherer);
+        gatherAmount = amount;
     }
 
     protected void initialize() 
     {
         
-        //gatherer.Gather;
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
@@ -32,10 +34,12 @@ public class Gather extends BadCommand
     }
 
     public String getConsoleIdentity() {
-        return null;
+        return "Gather";
     }
 
-    protected void execute() {
+    protected void execute() 
+    {
+        
     }
 
     protected boolean isFinished() {

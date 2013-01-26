@@ -5,6 +5,7 @@
 package com.badrobot.commands.autonomousCommands;
 
 import com.badrobot.commands.DriveForward;
+import com.badrobot.commands.Gather;
 import com.badrobot.commands.Shoot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -16,7 +17,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ShootDriveGatherShoot extends CommandGroup
 {
     public double driveTime = .4;
-    public double gatherTime;
+    public int gatherCount = 2;
     public double shootTime = 3.0;
     public double shootTime2 = shootTime;
     public double shootSpeed = .4;
@@ -25,7 +26,7 @@ public class ShootDriveGatherShoot extends CommandGroup
         
         addSequential(new Shoot(shootSpeed, shootTime));
         addSequential(new DriveForward(driveTime));
-        //addSequential(new Gather());
+        addSequential(new Gather(gatherCount));
         addSequential(new Shoot(shootSpeed, shootTime2));
     }
     

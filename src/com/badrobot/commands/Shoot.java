@@ -67,11 +67,14 @@ public class Shoot extends BadCommand
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
+        
+        if((timer.getFPGATimestamp()-startTime) > shooterRunTime && timer != null)
+            return true;
+        //for debug
         if(OI.primaryXboxController.getBumper(GenericHID.Hand.kLeft) || 
                 OI.primaryXboxController.getRawButton(1))
             return true;
-        if((timer.getFPGATimestamp()-startTime) > shooterRunTime && timer != null)
-            return true;
+
         return false;
     }
 
