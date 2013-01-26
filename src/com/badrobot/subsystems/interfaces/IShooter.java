@@ -37,5 +37,5 @@ public interface IShooter
      */
     public void setAngle(int state);
     
-    public double getShooterSpeed();
+    public void pidRunShooter(double power);
 }

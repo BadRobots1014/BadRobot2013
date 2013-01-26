@@ -55,6 +55,7 @@ public class BadRobotMap implements Sendable
             backRightSpeedController = prototypeMap[3];
             
             opticalShooterSensor = 1;
+            shooterSpeedController = 5;
         }
         else
         {
