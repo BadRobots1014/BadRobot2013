@@ -55,6 +55,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         });
         geartooth.start();
         
+        frisbeePusher = new Relay(BadRobotMap.frisbeePusherPort);
         frisbeePusher.setDirection(Relay.Direction.kBoth);
         frisbeePusher.set(Relay.Value.kOff);
     }
