@@ -35,6 +35,7 @@ public class BadRobotMap implements Sendable
     public static String frontFacingCameraAddress = "10.10.14.12";
     
     public static int shooterSpeedController;
+    public static int opticalShooterSensor;
    
     public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
@@ -49,6 +50,8 @@ public class BadRobotMap implements Sendable
             frontRightSpeedController = prototypeMap[1];
             backLeftSpeedController = prototypeMap[2];
             backRightSpeedController = prototypeMap[3];
+            
+            opticalShooterSensor = 1;
         }
         else
         {

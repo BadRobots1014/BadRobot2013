@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
@@ -76,6 +77,12 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     public void runShooter(double speed)
     { 
         controller.set(speed);
+        SmartDashboard.putNumber("period", geartooth.getPeriod());
+    }
+    
+    public void pidRunShooter(double power)
+    {
+        
     }
 
     public void setAngle(double angle)

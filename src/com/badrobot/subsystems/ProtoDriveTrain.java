@@ -7,12 +7,8 @@ package com.badrobot.subsystems;
 import com.badrobot.BadRobotMap;
 import com.badrobot.commands.DriveWithJoysticks;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
-import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -82,7 +78,8 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     {
         //frontLeft.set(left);
         //frontRight.set(right);
-        train.tankDrive(left, right);      
+        train.tankDrive(left, right);  
+       
         //SmartDashboard.putNumber("MAX_POWER", left);
     }
     
