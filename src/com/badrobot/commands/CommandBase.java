@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.badrobot.OI;
 import com.badrobot.subsystems.BadCameraSystem;
 import com.badrobot.subsystems.ProtoDriveTrain;
+import com.badrobot.subsystems.ProtoShooter;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -63,6 +64,7 @@ public abstract class CommandBase extends Command
         map = BadRobotMap.getInstance();
         
         driveTrain  = ProtoDriveTrain.getInstance();
+        shooter = ProtoShooter.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         
         driveChooser = new SendableChooser();

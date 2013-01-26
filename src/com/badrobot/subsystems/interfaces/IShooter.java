@@ -32,4 +32,6 @@ public interface IShooter
      * @param state the preset height to raise/lower to 
      */
     public void setAngle(int state);
+    
+    public void pidRunShooter(double power);
 }
