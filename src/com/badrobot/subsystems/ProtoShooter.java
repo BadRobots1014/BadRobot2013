@@ -118,27 +118,28 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         //later
     }
     
-    public void pushFrisbee(boolean push)
+    /**
+     * instructs the window lift motor to run forward or back, driving the 
+     * frisbee into the motors, or retracting to allow a frisbee to drop down
+     * @param forward should be forward to push frisbee into shooter, backwards
+     * to allow frisbee to fall through
+     */
+    public void pushFrisbee(boolean forward)
     {
-        frisbeePusher.set(Relay.Value.kOn);
-        double startTime;
-        Timer timer = new Timer();
-        if(push == true)
-        {
-            startTime = timer.getFPGATimestamp();
-            timer.start();
-            frisbeePusher.set(Relay.Value.kForward);
-            if(timer.get() == (startTime + FRISBEE_PUSH_TIME))
-            {
-                timer.stop();
-                frisbeePusher.set(Relay.Value.kOff);
-            }
-        }
+        if (forward)
+            frisbeePusher.setDirection(Relay.Direction.kForward);
         else
-        {
-            frisbeePusher.set(Relay.Value.kReverse);
-        }
+            frisbeePusher.setDirection(Relay.Direction.kReverse);
+        
+        if (frisbeePusher.get() != Relay.Value.kOn)
+            frisbeePusher.set(Relay.Value.kOn);
     }
     
-    
+    /**
+     * stops the window lift motor from running
+     */
+    public void stopFrisbeePusher()
+    {
+        frisbeePusher.set(Relay.Value.kOff);
+    }
 }
