@@ -26,7 +26,10 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     EasyPID pid;
     GearTooth geartooth;
     
-    private static double MAX_SHOOTER_RPM = 3000;
+    Relay frisbeePusher;
+    public static final double FRISBEE_PUSH_TIME = .5;
+    
+    private static double MAX_SHOOTER_RPM = 600;
     
     public static ProtoShooter getInstance()
     {
@@ -51,6 +54,10 @@ public class ProtoShooter extends BadSubsystem implements IShooter
             }
         });
         geartooth.start();
+        
+        frisbeePusher = new Relay(BadRobotMap.frisbeePusherPort);
+        frisbeePusher.setDirection(Relay.Direction.kBoth);
+        frisbeePusher.set(Relay.Value.kOff);
     }
     
     public void initDefaultCommand()
@@ -110,4 +117,28 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     {
         //later
     }
+    
+    public void pushFrisbee(boolean push)
+    {
+        frisbeePusher.set(Relay.Value.kOn);
+        double startTime;
+        Timer timer = new Timer();
+        if(push == true)
+        {
+            startTime = timer.getFPGATimestamp();
+            timer.start();
+            frisbeePusher.set(Relay.Value.kForward);
+            if(timer.get() == (startTime + FRISBEE_PUSH_TIME))
+            {
+                timer.stop();
+                frisbeePusher.set(Relay.Value.kOff);
+            }
+        }
+        else
+        {
+            frisbeePusher.set(Relay.Value.kReverse);
+        }
+    }
+    
+    
 }
