@@ -28,7 +28,7 @@ public class TestShooter extends CommandBase
     protected void execute()
     {
         if (OI.secondaryXboxController.getRawButton(1))
-            shooter.pidRunShooter(.5);
+            shooter.runShooter(1);
         else
             shooter.runShooter(0);
     }

@@ -26,7 +26,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     EasyPID pid;
     GearTooth geartooth;
     
-    private static double MAX_SHOOTER_RPM = 600;
+    private static double MAX_SHOOTER_RPM = 3000;
     
     public static ProtoShooter getInstance()
     {
@@ -46,8 +46,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
             public double pidGet()
             {
                 //convert from Seconds/Revolutions to Revolutions/Minute
-                System.out.println("rpm " + (1/(60 * geartooth.getPeriod())));
-                return (1/(60 * geartooth.getPeriod()));
+                System.out.println("rpm " + (60/(geartooth.getPeriod())));
+                return (60/(geartooth.getPeriod()));
             }
         });
         geartooth.start();
@@ -87,6 +87,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         //SmartDashboard.putBoolean("sensor", sensor.get());
         SmartDashboard.putNumber("period", geartooth.getPeriod());
         SmartDashboard.putNumber("count", geartooth.get());
+        SmartDashboard.putNumber("rpm", pid.source.pidGet());
     }
     
     public void pidRunShooter(double power)
