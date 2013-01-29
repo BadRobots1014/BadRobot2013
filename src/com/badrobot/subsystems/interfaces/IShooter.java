@@ -34,6 +34,11 @@ public interface IShooter
     public void setAngle(int state);
     
     /**
+     * @return Returns the speed of the shooter wheel.
+     */
+    public double getShooterSpeed();
+    
+    /**
      * runs the shooter using PID control, should allow for faster reaching of
      * speeds
      * @param power the decimal percentage of the max rpm to set the shooter at  

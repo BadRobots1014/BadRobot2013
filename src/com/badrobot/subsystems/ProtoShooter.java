@@ -142,4 +142,9 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     {
         frisbeePusher.set(Relay.Value.kOff);
     }
+
+    public double getShooterSpeed() 
+    {
+        return -1;
+    }
 }
