@@ -36,4 +36,19 @@ public interface IGatherer
      * Lowers the gatherer to the position for gathering
      */
     public void lowerToActive();
+    
+    /**
+     * gets at what position the gatherer is currently at
+     * @return the position as described by the Position class 
+     */
+    public int getPosition();
+
+    public class Position
+    {
+        public static final int STOWED = 0,
+                                ACTIVE = 1,
+                                DEPOSITING = 2;
+    }
+
 }
+

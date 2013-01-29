@@ -4,6 +4,8 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.subsystems.interfaces.IGatherer;
+import com.badrobot.subsystems.interfaces.IGatherer.Position;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
@@ -16,6 +18,12 @@ public class Gather extends BadCommand
 {
     public int gatherAmount;
     public int storageCount;
+    public int step; // in autonomous, gives the phase the robot is in
+    //1 is lowering gatherer
+    //2 is running gatherer
+    //3 is raising gatherer to drop into storage
+    
+    
     
     public Gather(int amount) 
     {
@@ -45,10 +53,14 @@ public class Gather extends BadCommand
 
     protected void execute() 
     {
-        gatherer.lowerToActive();
-        gatherer.gather();
-        gatherer.raiseToShooter();
-        storageCount++;
+        if(gatherer.getPosition() == IGatherer.Position.STOWED)
+        {
+            gatherer.lowerToActive();
+        }
+        if(gatherer.getPosition() == IGatherer.Position.ACTIVE)
+        {
+            gatherer.gather();
+        }
     }
 
     protected boolean isFinished() {
