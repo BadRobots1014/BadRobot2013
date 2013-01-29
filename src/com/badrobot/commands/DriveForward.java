@@ -43,7 +43,7 @@ public class DriveForward extends BadCommand
     {
         driveTime = SmartDashboard.getNumber("xyz");//keys not yet constructed
         
-        startTime = timer.getFPGATimestamp();
+        startTime = Timer.getFPGATimestamp();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -55,7 +55,7 @@ public class DriveForward extends BadCommand
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-        return ((timer.getFPGATimestamp()-startTime) > driveTime);
+        return ((Timer.getFPGATimestamp()-startTime) > driveTime);
     }
 
     // Called once after isFinished returns true

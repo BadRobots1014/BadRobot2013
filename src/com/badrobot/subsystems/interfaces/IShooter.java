@@ -34,7 +34,22 @@ public interface IShooter
     public void setAngle(int state);
     
     /**
-     * Gets the speed of the shooter.
+     * runs the shooter using PID control, should allow for faster reaching of
+     * speeds
+     * @param power the decimal percentage of the max rpm to set the shooter at  
      */
-    public double getShooterSpeed();
+    public void pidRunShooter(double power);
+    
+    /**
+     * instructs the window lift motor to run forward or back, driving the 
+     * frisbee into the motors, or retracting to allow a frisbee to drop down
+     * @param forward should be forward to push frisbee into shooter, backwards
+     * to allow frisbee to fall through
+     */
+    public void pushFrisbee(boolean forward);
+    
+    /**
+     * Stops the frisbee pusher from going forward or retracting
+     */
+    public void stopFrisbeePusher();
 }

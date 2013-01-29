@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.GearTooth;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -44,6 +47,10 @@ public class BadRobotMap implements Sendable
     
     private boolean isPrototype = true;
     
+    public static int speedSensorPort;
+    
+    public static int frisbeePusherPort;
+    
     public BadRobotMap()
     {
         if(isPrototype == true)
@@ -54,6 +61,7 @@ public class BadRobotMap implements Sendable
             backRightSpeedController = prototypeMap[3];
             
             opticalShooterSensor = 1;
+            shooterSpeedController = 5;
         }
         else
         {
@@ -66,6 +74,9 @@ public class BadRobotMap implements Sendable
         //More than likely the IP addresses of the cameras will remain the same
         visionTrackingCameraAddress = "10.10.14.11";
         frontFacingCameraAddress = "10.10.14.10";
+        
+        speedSensorPort = 5;
+        frisbeePusherPort = 6;
     }
     
     /**
