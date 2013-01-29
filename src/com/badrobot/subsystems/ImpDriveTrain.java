@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -22,8 +23,9 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
 {
     SpeedController frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
+    Ultrasonic ultrasonic;
     
-    public static Gyro dTrain_Gyro;
+    public static Gyro gyro;
     public static double speedscale;
     
     public static ImpDriveTrain instance;
@@ -45,6 +47,10 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize() 
     {
+        //gyro = new Gyro(BadRobotMap.driveTrainGyro);
+        /*ultrasonic = new Ultrasonic(BadRobotMap.driveTrainUltrasonicPing,
+                BadRobotMap.driveTrainUltrasonicEcho, Ultrasonic.Unit.kInches); */
+        
         frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
         frontRight = new Victor(BadRobotMap.frontRightSpeedController);
         backLeft = new Victor(BadRobotMap.backLeftSpeedController);
@@ -113,11 +119,20 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     public Gyro getGyro() 
     {
-        return dTrain_Gyro;
+        return gyro;
     }
 
     public RobotDrive getTrain() 
     {
         return train;
+    }
+    
+    /** 
+     * @return Returns distance to wall in inches.
+     */
+    public double getDistanceToWall()
+    {
+        return -1;
+        //return ultrasonic.getRangeInches();
     }
 }

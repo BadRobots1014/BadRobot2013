@@ -32,4 +32,9 @@ public interface IShooter
      * @param state the preset height to raise/lower to 
      */
     public void setAngle(int state);
+    
+    /**
+     * Gets the speed of the shooter.
+     */
+    public double getShooterSpeed();
 }

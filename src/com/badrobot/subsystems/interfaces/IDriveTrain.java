@@ -28,6 +28,9 @@ public interface IDriveTrain
     public Gyro getGyro();
     
     public RobotDrive getTrain();
+    
+    public double getDistanceToWall();
+    
     /**
      * Drives the robot in arcade drive--one stick controls all movement;
      * pushing forward moves all wheels forward, pushing backwards moves

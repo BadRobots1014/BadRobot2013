@@ -148,4 +148,10 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     {
         return null;
     }
+
+    public double getDistanceToWall() 
+    {
+        //return distanceToWall;
+        return 0;
+    }
 }

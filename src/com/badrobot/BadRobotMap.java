@@ -22,6 +22,8 @@ public class BadRobotMap implements Sendable
     public static int frontRightSpeedController; //index 1
     
     public static int driveTrainGyro;
+    public static int driveTrainUltrasonicPing;
+    public static int driveTrainUltrasonicEcho;
     
     // the back speed controllers are assigned because there is an issue with 
     // the gearbox and so we only want to drive two of the motors for now. The

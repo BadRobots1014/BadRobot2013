@@ -46,7 +46,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
             {
                 return geartooth.getPeriod();
             }
-        });
+        }); 
     }
     
     public void initDefaultCommand()
@@ -93,5 +93,11 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     public void setAngle(int state)
     {
         //later
+    }
+
+    public double getShooterSpeed() 
+    {
+        //return shooterSpeed;
+        return 0;
     }
 }
