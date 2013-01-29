@@ -1,4 +1,3 @@
-
 package com.badrobot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -78,7 +77,8 @@ public class OI
         
         //When the joystick is used for a purpose (passes the if statements, 
         //hence not just being loose), do math
-        return d / Math.abs(d) * ((Math.abs(d) - .10) / .90);
+        return (d / Math.abs(d)) //gets the sign of d, negative or positive
+                * Math.abs(d) + DEADZONE_MAGIC_NUMBER;  //scales it
     }
     
     public static double getPrimaryControllerLeftStickY()
