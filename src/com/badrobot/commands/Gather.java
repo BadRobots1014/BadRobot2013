@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 public class Gather extends BadCommand
 {
     public int gatherAmount;
+    public int storageCount;
     
     public Gather(int amount) 
     {
@@ -27,28 +28,43 @@ public class Gather extends BadCommand
         
     }
 
-    public void valueChanged(ITable itable, String key, Object value, boolean bln) {
+    public void valueChanged(ITable itable, String key, Object value, boolean bln)
+    {
+        
     }
 
-    protected void addNetworkTableValues(ITable table) {
+    protected void addNetworkTableValues(ITable table) 
+    {
+        
     }
 
-    public String getConsoleIdentity() {
+    public String getConsoleIdentity() 
+    {
         return "Gather";
     }
 
     protected void execute() 
     {
-        
+        gatherer.gather();
+        gatherer.raiseToShooter();
+        storageCount++;
     }
 
     protected boolean isFinished() {
+        if(storageCount == gatherAmount)
+        {
+            return true;
+        }else
         return false;
     }
 
-    protected void end() {
+    protected void end() 
+    {
+        
     }
 
-    protected void interrupted() {
+    protected void interrupted() 
+    {
+        
     }
 }
