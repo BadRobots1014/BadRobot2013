@@ -40,11 +40,11 @@ public class triggerToShoot extends CommandBase
         
         //if(OI.primaryXboxController.getRawAxis(3)>=0)//right trigger
         //if (OI.primaryXboxController.getTrigger(GenericHID.Hand.kLeft))
-        if(OI.isRightTriggerPressed())
+        if(OI.getPrimaryRightTrigger() > 0)
         {
             if (!runShooter)
             {
-                shooter.runShooter(shooterSpeed);
+                shooter.runShooter(OI.getPrimaryRightTrigger());
                 runShooter = true;
             }
             
