@@ -26,7 +26,7 @@ public class ShootDriveGatherShoot extends CommandGroup
     {
         
         addSequential(new Shoot(shootSpeed, shootTime));
-        addSequential(new DriveForward(driveTime));
+        addSequential(new DriveForward(/*driveTime*/));//Drive forward currently (1/29) does not accept a time parameter
         addSequential(new Gather(gatherCount));
         addSequential(new RaiseToShooter());
         addSequential(new Shoot(shootSpeed, shootTime2));
