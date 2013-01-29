@@ -39,7 +39,8 @@ public class triggerToShoot extends CommandBase
         //http://www.chiefdelphi.com/forums/showthread.php?threadid=82825
         
         //if(OI.primaryXboxController.getRawAxis(3)>=0)//right trigger
-        if (OI.primaryXboxController.getTrigger(GenericHID.Hand.kLeft))
+        //if (OI.primaryXboxController.getTrigger(GenericHID.Hand.kLeft))
+        if(OI.isRightTriggerPressed())
         {
             if (!runShooter)
             {

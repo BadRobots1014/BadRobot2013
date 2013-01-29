@@ -295,4 +295,22 @@ public class OI
     {
         return secondaryXboxController.getRawButton(START);
     }
+    
+    /**
+     * Triggers = 3rd Axis (Left: -1 - 0, Right: 0 - 1)
+     * @return the right trigger value
+     */
+    public static boolean isRightTriggerPressed()
+    {
+        return (secondaryXboxController.getRawAxis(3) > 0);
+    }
+    
+    /**
+     * Triggers = 3rd Axis (Left: -1 - 0, Right: 0 - 1)
+     * @return the left trigger value
+     */
+    public static boolean isLeftTriggerPressed()
+    {
+        return (secondaryXboxController.getRawAxis(3) < 0);
+    }
 }
