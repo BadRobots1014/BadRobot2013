@@ -31,4 +31,9 @@ public interface IGatherer
      * at which it is inside the starting perimeter 
      */
     public void raiseToStowed();
+    
+    /**
+     * Lowers the gatherer to the position for gathering
+     */
+    public void lowerToActive();
 }
