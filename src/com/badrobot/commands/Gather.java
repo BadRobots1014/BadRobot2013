@@ -45,7 +45,7 @@ public class Gather extends BadCommand
 
     protected void execute() 
     {
-        
+        gatherer.lowerToActive();
         gatherer.gather();
         gatherer.raiseToShooter();
         storageCount++;
