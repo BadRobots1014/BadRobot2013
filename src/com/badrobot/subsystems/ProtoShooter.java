@@ -25,6 +25,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     
     EasyPID pid;
     GearTooth geartooth;
+    GearTooth frisbeePusherOpticalSensor;
     
     Relay frisbeePusher;
     public static final double FRISBEE_PUSH_TIME = .5;
@@ -87,6 +88,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     {
         return "ProtoShooter";
     }
+    
+    
 
     public void runShooter(double speed)
     { 
@@ -143,8 +146,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         frisbeePusher.set(Relay.Value.kOff);
     }
 
-    public double getShooterSpeed() 
+    public boolean isFrisbeePusherAtMaximumExtension()
     {
-        return -1;
+        //Isaac, fill in this
     }
 }

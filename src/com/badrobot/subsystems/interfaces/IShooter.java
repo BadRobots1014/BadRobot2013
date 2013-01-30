@@ -57,4 +57,12 @@ public interface IShooter
      * Stops the frisbee pusher from going forward or retracting
      */
     public void stopFrisbeePusher();
+    
+    /**
+     * This method should return whether the frisbee pusher is at its one 
+     * revolution point. This is when the pusher should NOT be pushed/withdrawn
+     * any further
+     * @return whether the pusher is at its maximum position of extension 
+     */
+    public boolean isFrisbeePusherAtMaximumExtension();
 }
