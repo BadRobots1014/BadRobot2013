@@ -20,7 +20,7 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
 {
     SpeedController frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
-    private static double MAX_POWER = .8;
+    private static double MAX_POWER = 1.0;
     
     private static ProtoDriveTrain instance;
     

@@ -148,6 +148,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
 
     public boolean isFrisbeePusherAtMaximumExtension()
     {
+        return false;
         //Isaac, fill in this
     }
 }
