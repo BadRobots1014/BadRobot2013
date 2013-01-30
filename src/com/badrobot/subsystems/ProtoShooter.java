@@ -150,5 +150,6 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     {
         return false;
         //Isaac, fill in this
+        return false;
     }
 }
