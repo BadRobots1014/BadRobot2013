@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *SAME CODE AS SHOOT WITH CONTROLLER, JUST THAT TRIGGER IS TESTED
  * @author Jon Buckley
  */
-public class triggerToShoot extends CommandBase
+public class TriggerToShoot extends CommandBase
 {
     boolean runShooter;
     double shooterSpeed;
     
-    public triggerToShoot()
+    public TriggerToShoot()
     {
         requires((Subsystem) shooter);
     }
