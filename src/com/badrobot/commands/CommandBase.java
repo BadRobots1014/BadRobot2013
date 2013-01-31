@@ -64,7 +64,8 @@ public abstract class CommandBase extends Command
         //give you the existing copy with all the correct values
         map = BadRobotMap.getInstance();
         
-        driveTrain  = ProtoDriveTrain.getInstance();
+        //driveTrain = ProtoDriveTrain.getInstance();
+        driveTrain  = ImpDriveTrain.getInstance();
         //shooter = ProtoShooter.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         

@@ -61,9 +61,9 @@ public class BadRobotMap implements Sendable
             backRightSpeedController = prototypeMap[3];
             
             driveTrainGyro = 1;
-            driveTrainUltrasonicPing = 2;
-            driveTrainUltrasonicEcho = 3;
-             
+            driveTrainUltrasonicPing = 3;
+            driveTrainUltrasonicEcho = 2;
+            
             opticalShooterSensor = 1;
             shooterSpeedController = 5;
         }

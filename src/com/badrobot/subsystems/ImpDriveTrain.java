@@ -24,8 +24,8 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     SpeedController frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
     Ultrasonic ultrasonic;
+    Gyro gyro;
     
-    public static Gyro gyro;
     public static double speedscale;
     
     public static ImpDriveTrain instance;
@@ -47,9 +47,12 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize() 
     {
-        //gyro = new Gyro(BadRobotMap.driveTrainGyro);
-        /*ultrasonic = new Ultrasonic(BadRobotMap.driveTrainUltrasonicPing,
-                BadRobotMap.driveTrainUltrasonicEcho, Ultrasonic.Unit.kInches); */
+        gyro = new Gyro(BadRobotMap.driveTrainGyro);
+        
+        ultrasonic = new Ultrasonic(BadRobotMap.driveTrainUltrasonicPing,
+                BadRobotMap.driveTrainUltrasonicEcho, Ultrasonic.Unit.kInches);
+        ultrasonic.setEnabled(true);
+        ultrasonic.setAutomaticMode(false);
         
         frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
         frontRight = new Victor(BadRobotMap.frontRightSpeedController);
@@ -132,7 +135,10 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
      */
     public double getDistanceToWall()
     {
-        return -1;
-        //return ultrasonic.getRangeInches();
+        ultrasonic.ping();
+        try {
+            Thread.sleep(30);
+        } catch(Exception ex) {}
+        return ultrasonic.getRangeInches();
     }
 }
