@@ -24,9 +24,13 @@ public class BadRobotMap implements Sendable
     public static int frontLeftSpeedController; //index 0
     public static int frontRightSpeedController; //index 1
     
-    // the back speed controllers are assigned because there is an issue with 
-    // the gearbox and so we only want to drive two of the motors for now. The
-    // back motors are being given non-occupied ports, 11 and 12 to do this
+    public static int driveTrainGyro;
+    public static int driveTrainUltrasonicPing;
+    public static int driveTrainUltrasonicEcho;
+    
+    // The back speed controllers are assigned because there is an issue with 
+    // The gearbox and so we only want to drive two of the motors for now. The
+    // Back motors are being given non-occupied ports, 11 and 12 to do this
     public static int backLeftSpeedController; //index 2
     public static int backRightSpeedController; //index 3
     
@@ -37,7 +41,7 @@ public class BadRobotMap implements Sendable
     
     public static int shooterSpeedController;
     public static int opticalShooterSensor;
-   
+    
     public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
     
@@ -55,6 +59,10 @@ public class BadRobotMap implements Sendable
             frontRightSpeedController = prototypeMap[1];
             backLeftSpeedController = prototypeMap[2];
             backRightSpeedController = prototypeMap[3];
+            
+            driveTrainGyro = 1;
+            driveTrainUltrasonicPing = 3;
+            driveTrainUltrasonicEcho = 2;
             
             opticalShooterSensor = 1;
             shooterSpeedController = 5;

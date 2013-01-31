@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  * v1.1 Working drivetrain on prototype chassis
@@ -52,10 +54,10 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
      */
     protected void initialize()
     {
-        frontLeft = new Jaguar(BadRobotMap.frontLeftSpeedController);
-        frontRight = new Jaguar(BadRobotMap.frontRightSpeedController);
-        backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
-        backRight = new Jaguar(BadRobotMap.backRightSpeedController);
+        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
+        frontRight = new Victor(BadRobotMap.frontRightSpeedController);
+        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
+        backRight = new Victor(BadRobotMap.backRightSpeedController);
         
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
                 
@@ -131,9 +133,25 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         table.putNumber("med power", MAX_POWER/2);
         log("adding net values.");
     }
-
+    
     public String getConsoleIdentity()
     {
         return "ProtoDriveTrain";
+    }
+
+    public Gyro getGyro()
+    {
+        return null;
+    }
+
+    public RobotDrive getTrain() 
+    {
+        return null;
+    }
+
+    public double getDistanceToWall() 
+    {
+        //return distanceToWall;
+        return 0;
     }
 }
