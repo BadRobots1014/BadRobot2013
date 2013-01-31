@@ -297,20 +297,66 @@ public class OI
     }
     
     /**
-     * Triggers = 3rd Axis (Left: -1 - 0, Right: 0 - 1)
-     * @return the right trigger value
+     * If the RawAxis(3) (the trigger) is positive, will return the value.
+     * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
-    public static boolean isRightTriggerPressed()
+    public static double getPrimaryRightTrigger()
     {
-        return (secondaryXboxController.getRawAxis(3) > 0);
+        if (primaryXboxController.getRawAxis(3) > 0)
+        {
+            return deadzone(primaryXboxController.getRawAxis(3));
+        }
+        else
+        {
+            return 0;
+        }
     }
     
     /**
-     * Triggers = 3rd Axis (Left: -1 - 0, Right: 0 - 1)
-     * @return the left trigger value
+     * If the RawAxis(3) (the trigger) is negative, will return the value.
+     * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
-    public static boolean isLeftTriggerPressed()
+    public static double getPrimaryLeftTrigger()
     {
-        return (secondaryXboxController.getRawAxis(3) < 0);
+        if (primaryXboxController.getRawAxis(3) < 0)
+        {
+            return deadzone(Math.abs(primaryXboxController.getRawAxis(3)));
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
+     * If the RawAxis(3) (the trigger) is positive, will return the value.
+     * @return Returns the value of the RightTrigger scaled from 0 to 1.
+     */
+    public static double geSecondaryRightTrigger()
+    {
+        if (secondaryXboxController.getRawAxis(3) > 0)
+        {
+            return deadzone(secondaryXboxController.getRawAxis(3));
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
+     * If the RawAxis(3) (the trigger) is negative, will return the value.
+     * @return Returns the value of the RightTrigger scaled from 0 to 1.
+     */
+    public static double getSecondaryLeftTrigger()
+    {
+        if (secondaryXboxController.getRawAxis(3) < 0)
+        {
+            return deadzone(Math.abs(secondaryXboxController.getRawAxis(3)));
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

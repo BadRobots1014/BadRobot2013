@@ -4,6 +4,7 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,6 +43,9 @@ public class DriveWithJoysticks extends BadCommand
         
         else
             driveTrain.arcadeDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerLeftStickX());
+        
+        //log("Distance To Wall: "+driveTrain.getDistanceToWall());     //works fine.
+        //log("Angle: "+driveTrain.getGyro().getAngle());               //doesn't work.
     }
 
     // Make this return true when this Command no longer needs to run execute()

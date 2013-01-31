@@ -20,4 +20,11 @@ public class DriveForwardAndShoot extends CommandGroup
         addSequential(new DriveForward());
         addSequential(new Shoot());
     }
+    /**
+     * Drives Robot designated amount
+     */
+    public void Move()
+    {
+       
+    }
 }
