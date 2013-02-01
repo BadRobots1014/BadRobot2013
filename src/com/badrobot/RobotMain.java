@@ -11,8 +11,10 @@ package com.badrobot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import com.badrobot.commands.CommandBase;
+import com.badrobot.commands.DriveStraightForward;
 import com.badrobot.commands.ExampleCommand;
 import com.badrobot.commands.autonomousCommands.DriveForwardAndShoot;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.command.Command;
@@ -31,6 +33,7 @@ public class RobotMain extends IterativeRobot
 {
     Command autonomousCommand; //Autonomous Command
     SendableChooser autoChooser; //adds a widget to the SmartDashboard
+    DigitalInput input = new DigitalInput(4);
     //for selection.
     /**
      * This function is run when the robot is first started up and should be
@@ -52,10 +55,13 @@ public class RobotMain extends IterativeRobot
     public void autonomousInit() 
     {
         //It will get the selected Command from the SmartDashboard
-        autonomousCommand = (Command) autoChooser.getSelected();
+        /*autonomousCommand = (Command) autoChooser.getSelected();
         
         //make sure you dont have to add to scheduler to run autonomous command TODO
-        autonomousCommand.start();
+        autonomousCommand.start();*/
+        
+        Command auto = new DriveStraightForward();
+        auto.start();
     }
     
     /**
@@ -75,7 +81,8 @@ public class RobotMain extends IterativeRobot
      */
     public void teleopPeriodic() 
     {
-        Scheduler.getInstance().run();   
+        Scheduler.getInstance().run();  
+        System.out.println(input.get() + " limit switch value");
     }
     
     /**

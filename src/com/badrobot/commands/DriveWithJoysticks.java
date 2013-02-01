@@ -45,7 +45,7 @@ public class DriveWithJoysticks extends BadCommand
             driveTrain.arcadeDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerLeftStickX());
         
         //log("Distance To Wall: "+driveTrain.getDistanceToWall());     //works fine.
-        //log("Angle: "+driveTrain.getGyro().getAngle());               //doesn't work.
+        //log("Gyro Angle: "+driveTrain.getGyro().getAngle());
     }
 
     // Make this return true when this Command no longer needs to run execute()
