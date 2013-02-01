@@ -7,13 +7,8 @@ package com.badrobot.subsystems;
 import com.badrobot.BadRobotMap;
 import com.badrobot.commands.DriveWithJoysticks;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
-import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.tables.ITable;
-import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Ultrasonic;
-import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
@@ -55,10 +50,10 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         ultrasonic.setEnabled(true);
         ultrasonic.setAutomaticMode(false);
         
-        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
-        frontRight = new Victor(BadRobotMap.frontRightSpeedController);
-        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
-        backRight = new Victor(BadRobotMap.backRightSpeedController);
+        frontLeft = new Talon(BadRobotMap.frontLeftSpeedController);
+        frontRight = new Talon(BadRobotMap.frontRightSpeedController);
+        backLeft = new Talon(BadRobotMap.backLeftSpeedController);
+        backRight = new Talon(BadRobotMap.backRightSpeedController);
              
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
         
