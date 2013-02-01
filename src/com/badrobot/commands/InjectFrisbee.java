@@ -25,9 +25,7 @@ public class InjectFrisbee extends BadCommand
     
     //static state variables, used in state machine
     public static final int BOOTING = 0,
-                        PUSHING_FORWARD = 1,
-                        READY_TO_RETRACT = 2,
-                        RETRACTING = 3,
+                        PUSHING = 1,
                         FINISHED = 4;
     
     public InjectFrisbee()
@@ -51,21 +49,19 @@ public class InjectFrisbee extends BadCommand
         switch (state)
         {
             //initializing, grabs start time
-            case BOOTING:
-                startTime = Timer.getFPGATimestamp();
-                state = PUSHING_FORWARD;
+            case BOOTING:                
+                if (!shooter.isFrisbeeRetracted())
+                {
+                    state = PUSHING;
+                    break;
+                }
+                
+                shooter.pushFrisbee(true);
                 break;
             
             //pushes frisbee for PUSH_TIME seconds
-            case PUSHING_FORWARD:
-                if (shooter.isFrisbeePusherAtMaximumExtension())
-                {
-                    state = READY_TO_RETRACT;
-                    shooter.stopFrisbeePusher();
-                    break;
-                }
-                //This is backup code to make sure we aren't running longer than the push limit.
-                else if (Timer.getFPGATimestamp() >= startTime + PUSH_LIMIT)
+            case PUSHING:
+                if (shooter.isFrisbeeRetracted())
                 {
                     state = FINISHED;
                     shooter.stopFrisbeePusher();
@@ -73,38 +69,14 @@ public class InjectFrisbee extends BadCommand
                 }
                 
                 shooter.pushFrisbee(true);
-                break;
-                
-           //grabs start time     
-            case READY_TO_RETRACT:
-                startTime = Timer.getFPGATimestamp();
-                state = RETRACTING;
-                break;
-                
-           //retracts piston for PUSH_TIME seconds     
-            case RETRACTING:
-                if (shooter.isFrisbeePusherAtMaximumExtension())
-                {
-                    state = FINISHED;
-                    shooter.stopFrisbeePusher();
-                    break;
-                }
-                //This is backup code to make sure we aren't running for like 20 millions seconds. 
-                else if (Timer.getFPGATimestamp() >= startTime + PUSH_LIMIT)
-                {
-                    state = FINISHED;
-                    shooter.stopFrisbeePusher();
-                    break;
-                }
-                
-                shooter.pushFrisbee(false);
-                break;
+                break;       
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
+        shooter.stopFrisbeePusher();
         //done when we are finished with our state machining
         return (state == FINISHED);
     }

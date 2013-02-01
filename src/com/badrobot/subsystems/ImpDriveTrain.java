@@ -48,6 +48,7 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     protected void initialize() 
     {
         gyro = new Gyro(BadRobotMap.driveTrainGyro);
+        gyro.reset();
         
         ultrasonic = new Ultrasonic(BadRobotMap.driveTrainUltrasonicPing,
                 BadRobotMap.driveTrainUltrasonicEcho, Ultrasonic.Unit.kInches);
