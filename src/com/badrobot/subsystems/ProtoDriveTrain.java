@@ -94,7 +94,7 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
     {
         train.arcadeDrive(Y, X);
     }
-
+    
     /**
      * sets the command to occupy ProtoDriveTrain upon initialization 
      */
