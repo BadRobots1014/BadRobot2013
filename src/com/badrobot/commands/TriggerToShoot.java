@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import com.badrobot.commands.Shoot;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *SAME CODE AS SHOOT WITH CONTROLLER, JUST THAT TRIGGER IS TESTED
@@ -40,16 +41,21 @@ public class TriggerToShoot extends CommandBase
         
         //if(OI.primaryXboxController.getRawAxis(3)>=0)//right trigger
         //if (OI.primaryXboxController.getTrigger(GenericHID.Hand.kLeft))
-        if(OI.getPrimaryRightTrigger() > 0)
+        
+        double rightTriggerValue = OI.getPrimaryRightTrigger();
+        if(rightTriggerValue > 0)
         {
             if (!runShooter)
             {
-                shooter.runShooter(OI.getPrimaryRightTrigger());
+                SmartDashboard.putBoolean("shooterRunning", true);
+                shooter.runShooter(rightTriggerValue);
                 runShooter = true;
             }
             
             else
             {
+                
+                SmartDashboard.putBoolean("shooterRunning", false);
                 shooter.runShooter(0);
                 runShooter = false;
             }            
@@ -65,6 +71,7 @@ public class TriggerToShoot extends CommandBase
     // Called once after isFinished returns true
     protected void end()
     {
+        shooter.runShooter(0);
     }
 
     // Called when another command which requires one or more of the same
