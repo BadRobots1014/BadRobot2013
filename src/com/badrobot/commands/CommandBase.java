@@ -5,9 +5,11 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.badrobot.OI;
 import com.badrobot.subsystems.BadCameraSystem;
+import com.badrobot.subsystems.ImpDriveTrain;
 import com.badrobot.subsystems.ProtoDriveTrain;
 import com.badrobot.subsystems.ProtoShooter;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
+import com.badrobot.subsystems.interfaces.IGatherer;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
@@ -44,6 +46,7 @@ public abstract class CommandBase extends Command
     //together to work magic - DriveTrain, uses 4 jaguars to control 4 motors.
     protected static IDriveTrain driveTrain;
     protected static IShooter shooter;
+    protected static IGatherer gatherer;
     protected static BadCameraSystem imageTrackingSystem;
     public static SendableChooser driveChooser;
 
@@ -63,8 +66,9 @@ public abstract class CommandBase extends Command
         //give you the existing copy with all the correct values
         map = BadRobotMap.getInstance();
         
-        driveTrain  = ProtoDriveTrain.getInstance();
-        shooter = ProtoShooter.getInstance();
+        //driveTrain = ProtoDriveTrain.getInstance();
+        driveTrain  = ImpDriveTrain.getInstance();
+        //shooter = ProtoShooter.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         
         driveChooser = new SendableChooser();

@@ -15,60 +15,84 @@ import edu.wpi.first.wpilibj.tables.ITable;
  */
 public class DriveForward extends BadCommand 
 {
-    Timer timer;
-    //boolean finished;
-    double driveTime;
-    double startTime;
+    
+    //the state machine variable
+    private int state;
+    
+     //time variable used to time events
+    private double startTime;
+    
+    //the time that the motor should run forward and back
+    private static final double DRIVE_TIME = 5; //seconds
+    
+    //static state variables, used in state machine
+    public static final int BOOTING = 0,
+                        DRIVING_FORWARD = 1,
+                        FINISHED = 2;
+    
     
     private final double DRIVE_SPEED = 1;
     
     public DriveForward()
     {
         requires( (Subsystem) driveTrain);
-        timer = new Timer();
-        SmartDashboard.putNumber("xyz", 1);//this method deals with smartDashboard 
-        //smartdash is still under constructing, put it in later.
-    }
-    
-    public DriveForward(double time) 
-    {
-        requires( (Subsystem) driveTrain);
-        timer = new Timer();
-        //finished = false;
-        driveTime = time;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() 
     {
-        driveTime = SmartDashboard.getNumber("xyz");//keys not yet constructed
-        
-        startTime = Timer.getFPGATimestamp();
+        //we dont want to have the shooter trying to run the frisbee pushing motors
+        //for more than a PUSH_TIME either way, this ensures it
+        this.setInterruptible(false);
+        state = BOOTING;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() 
     {
-        driveTrain.tankDrive(DRIVE_SPEED, DRIVE_SPEED);
+        switch (state)
+        {
+            //initializing, grabs start time
+            case BOOTING:
+                startTime = Timer.getFPGATimestamp();
+                state = DRIVING_FORWARD;
+                break;
+            
+            //pushes frisbee for PUSH_TIME seconds
+            case DRIVING_FORWARD:
+                if (Timer.getFPGATimestamp() >= startTime + DRIVE_TIME)
+                {
+                    state = FINISHED;
+                    CommandBase.driveTrain.tankDrive(0, 0);
+                    break;
+                }
+                
+                CommandBase.driveTrain.tankDrive(DRIVE_SPEED, DRIVE_SPEED);
+                break;
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
+    /**
+     *
+     * @return
+     */
     protected boolean isFinished() 
     {
-        return ((Timer.getFPGATimestamp()-startTime) > driveTime);
+        //done when we are finished with our state machining
+        return (state == FINISHED);
     }
 
     // Called once after isFinished returns true
     protected void end() 
     {
-        driveTrain.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() 
     {
-        driveTrain.tankDrive(0, 0);
+         log("This command cannot be interrupted. Wait your turn, I have to flush the toilet.");
     }
     
     public String getConsoleIdentity() 

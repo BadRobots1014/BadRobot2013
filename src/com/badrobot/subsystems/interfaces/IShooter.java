@@ -34,6 +34,11 @@ public interface IShooter
     public void setAngle(int state);
     
     /**
+     * @return Returns the speed of the shooter wheel.
+     */
+    public double getShooterSpeed();
+    
+    /**
      * runs the shooter using PID control, should allow for faster reaching of
      * speeds
      * @param power the decimal percentage of the max rpm to set the shooter at  
@@ -52,4 +57,12 @@ public interface IShooter
      * Stops the frisbee pusher from going forward or retracting
      */
     public void stopFrisbeePusher();
+    
+    /**
+     * This method should return whether the frisbee pusher is at its one 
+     * revolution point. This is when the pusher should NOT be pushed/withdrawn
+     * any further
+     * @return whether the pusher is at its zero position
+     */
+    public boolean isFrisbeeRetracted();
 }

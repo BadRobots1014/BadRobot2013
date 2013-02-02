@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.image.RGBImage;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -28,6 +29,7 @@ public class BadCameraSystem extends BadSubsystem
     private static BadCameraSystem instance;
     private static final boolean USE_CAMERA = true; //if false, load from CRIO
     
+    private NetworkTable table;
     private AxisCamera imageTrackingCamera;
     
     public static BadCameraSystem getInstance() 
@@ -44,6 +46,7 @@ public class BadCameraSystem extends BadSubsystem
         initialize();
         //May be needed later, but no real functionality now
         SmartDashboard.putData("BadCameraSystem", this);
+        table.getTable("IMGPROC");
     }
     
     protected void initialize() 
@@ -168,7 +171,11 @@ public class BadCameraSystem extends BadSubsystem
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln) 
     {
-        
+        if(key.equals("resultX")) {
+            log("resultX changed to "+value);
+        } else if(key.equals("resultY")) {
+            log("resultY changed to "+value);
+        }
     }
 
     protected void addNetworkTableValues(ITable table) 

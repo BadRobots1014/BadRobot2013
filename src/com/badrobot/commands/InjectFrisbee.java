@@ -21,13 +21,11 @@ public class InjectFrisbee extends BadCommand
     private double startTime;
     
     //the time that the motor should run forward and back
-    private static double PUSH_TIME = .5; //seconds
+    private static double PUSH_LIMIT = 1; //seconds
     
     //static state variables, used in state machine
     public static final int BOOTING = 0,
-                        PUSHING_FORWARD = 1,
-                        READY_TO_RETRACT = 2,
-                        RETRACTING = 3,
+                        PUSHING = 1,
                         FINISHED = 4;
     
     public InjectFrisbee()
@@ -51,46 +49,34 @@ public class InjectFrisbee extends BadCommand
         switch (state)
         {
             //initializing, grabs start time
-            case BOOTING:
-                startTime = Timer.getFPGATimestamp();
-                state = PUSHING_FORWARD;
-                break;
-            
-            //pushes frisbee for PUSH_TIME seconds
-            case PUSHING_FORWARD:
-                if (Timer.getFPGATimestamp() >= startTime + PUSH_TIME)
+            case BOOTING:                
+                if (!shooter.isFrisbeeRetracted())
                 {
-                    state = READY_TO_RETRACT;
-                    shooter.stopFrisbeePusher();
+                    state = PUSHING;
                     break;
                 }
                 
                 shooter.pushFrisbee(true);
                 break;
-                
-           //grabs start time     
-            case READY_TO_RETRACT:
-                startTime = Timer.getFPGATimestamp();
-                state = RETRACTING;
-                break;
-                
-           //retracts piston for PUSH_TIME seconds     
-            case RETRACTING:
-                if (Timer.getFPGATimestamp() >= startTime + PUSH_TIME)
+            
+            //pushes frisbee for PUSH_TIME seconds
+            case PUSHING:
+                if (shooter.isFrisbeeRetracted())
                 {
                     state = FINISHED;
                     shooter.stopFrisbeePusher();
                     break;
                 }
                 
-                shooter.pushFrisbee(false);
-                break;
+                shooter.pushFrisbee(true);
+                break;       
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
+        shooter.stopFrisbeePusher();
         //done when we are finished with our state machining
         return (state == FINISHED);
     }
