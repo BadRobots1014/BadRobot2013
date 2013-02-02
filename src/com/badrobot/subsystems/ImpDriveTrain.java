@@ -4,21 +4,29 @@ package com.badrobot.subsystems;
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-import com.badrobot.subsystems.BadSubsystem;
-import com.badrobot.subsystems.interfaces.IDriveTrain;
-import edu.wpi.first.wpilibj.tables.ITable;
 import com.badrobot.BadRobotMap;
+import com.badrobot.commands.DriveWithJoysticks;
+import com.badrobot.subsystems.interfaces.IDriveTrain;
+import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  * @author Isaac
  */
 public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
 {
-    Jaguar frontLeft, frontRight, backLeft, backRight;
+    SpeedController frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
-    private static double MAX_POWER = .8;
+    Ultrasonic ultrasonic;
+    Gyro gyro;
+    
+    public static double speedscale;
     
     public static ImpDriveTrain instance;
     
@@ -31,28 +39,55 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         return instance;
     }
     
+    private ImpDriveTrain()
+    {
+        initialize();
+        SmartDashboard.putData("ImpDriveTrain", this);
+    }
+    
     protected void initialize() 
     {
-        frontLeft = new Jaguar(BadRobotMap.frontLeftSpeedController);
-        frontRight = new Jaguar(BadRobotMap.frontRightSpeedController);
-        backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
-        backRight = new Jaguar(BadRobotMap.backRightSpeedController);
+        gyro = new Gyro(BadRobotMap.driveTrainGyro);
         
-        //this is a flawed construction of RobotDrive. This would be very poor
-        //for the robot if we ran it. (it would cause motors to drive against
-        //their partners. Look at RobotDrive src or API for correct usage on
-        //constructor
-        train = new RobotDrive(frontLeft, frontRight, backLeft, backRight);
+        ultrasonic = new Ultrasonic(BadRobotMap.driveTrainUltrasonicPing,
+                BadRobotMap.driveTrainUltrasonicEcho, Ultrasonic.Unit.kInches);
+        ultrasonic.setEnabled(true);
+        ultrasonic.setAutomaticMode(false);
+        
+        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
+        frontRight = new Victor(BadRobotMap.frontRightSpeedController);
+        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
+        backRight = new Victor(BadRobotMap.backRightSpeedController);
+             
+        train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+        
+        train.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+        train.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+        train.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
+        train.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+        
+        train.setSafetyEnabled(false);
+        
+        //dTrain_Gyro = new Gyro(BadRobotMap.driveTrainGyro);
+        speedscale = 1;
     }
-
+    
+    /**
+     * Event handler for when the value of a variable put in 
+     * the network has changed.
+     * Changes the local value of the variable.
+     * 
+     * @param key   the name of the variable in the NetworkTable
+     * @param value the value that the variable has been changed to
+     */
     public void valueChanged(ITable itable, String key, Object value, boolean bln) 
-    {
-        
+    {        
+        log("Things have changed:" + key + " " + value.toString());
     }
-
+    
     protected void addNetworkTableValues(ITable table) 
     {
-        
+        table.putNumber("Speed Scale", speedscale);
     }
 
     public String getConsoleIdentity() 
@@ -62,14 +97,48 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
 
     protected void initDefaultCommand() 
     {
-        //setDefaultCommand(Command C);
+        this.setDefaultCommand(new DriveWithJoysticks());
     }
 
+    /**
+     * Drives the robot in tank drive--two sticks represent the left and right
+     * sides of the robot; pushing forward on the left stick moves the left side
+     * forward, pushing backwards on the right stick moves the right side of the
+     * robot backwards.
+     * @param left the left side joystick value (-1 to 1)
+     * @param right the right joystick value (-1 to 1)
+     */
     public void tankDrive(double left, double right) 
     {
-        train.tankDrive(left, right);
+        train.tankDrive(left*speedscale, right*speedscale);
         //backLeft.set(left);
         //backRight.set(right);
     }
+
+    public void arcadeDrive(double Y, double X) 
+    {
+        train.arcadeDrive(Y, X);
+    }
     
+    public Gyro getGyro() 
+    {
+        return gyro;
+    }
+
+    public RobotDrive getTrain() 
+    {
+        return train;
+    }
+    
+    /** 
+     * @return Returns distance to wall in inches.
+     */
+    public double getDistanceToWall()
+    {
+        ultrasonic.ping();
+        try {
+            Thread.sleep(30);
+        } catch(Exception ex) {}
+        return ultrasonic.getRangeInches();
+    }
 }

@@ -5,8 +5,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.badrobot.OI;
 import com.badrobot.subsystems.BadCameraSystem;
+import com.badrobot.subsystems.ImpDriveTrain;
 import com.badrobot.subsystems.ProtoDriveTrain;
+import com.badrobot.subsystems.ProtoShooter;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
+import com.badrobot.subsystems.interfaces.IShooter;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -40,7 +44,9 @@ public abstract class CommandBase extends Command
     //Subsystems are a compilation of hardware components that together act 
     //together to work magic - DriveTrain, uses 4 jaguars to control 4 motors.
     protected static IDriveTrain driveTrain;
+    protected static IShooter shooter;
     protected static BadCameraSystem imageTrackingSystem;
+    public static SendableChooser driveChooser;
 
     //Initilizes all of static variables
     public static void init() 
@@ -58,8 +64,16 @@ public abstract class CommandBase extends Command
         //give you the existing copy with all the correct values
         map = BadRobotMap.getInstance();
         
-        driveTrain  = ProtoDriveTrain.getInstance();
+        //driveTrain = ProtoDriveTrain.getInstance();
+        driveTrain  = ImpDriveTrain.getInstance();
+        //shooter = ProtoShooter.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
+        
+        driveChooser = new SendableChooser();
+        driveChooser.addDefault("Tank Drive", "tankDrive");
+        driveChooser.addObject("Arcade Drive", "arcadeDrive");
+        SmartDashboard.putData("driveChooser", driveChooser);
+    
     }
     
     //Accessor Methods: remember that protected driveTrain above? How would you 

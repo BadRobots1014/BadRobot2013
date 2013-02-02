@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import com.badrobot.commands.CommandBase;
 import com.badrobot.commands.ExampleCommand;
+import com.badrobot.commands.autonomousCommands.DriveForwardAndShoot;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.command.Command;
@@ -43,8 +44,8 @@ public class RobotMain extends IterativeRobot
         autoChooser = new SendableChooser();
         //Replace ExampleCommand() with autonomous command. 
         //Currently there are none.
-        autoChooser.addDefault("Default program", new ExampleCommand());
-        autoChooser.addObject("Otehr program 1", new ExampleCommand());
+        //autoChooser.addDefault("Default program", new DriveForwardAndShoot());
+        autoChooser.addObject("Other program 1", new ExampleCommand());
         SmartDashboard.putData("Autonomous mode chooser", autoChooser);
     }
 
@@ -52,6 +53,8 @@ public class RobotMain extends IterativeRobot
     {
         //It will get the selected Command from the SmartDashboard
         autonomousCommand = (Command) autoChooser.getSelected();
+        
+        //make sure you dont have to add to scheduler to run autonomous command TODO
         autonomousCommand.start();
     }
     
@@ -64,9 +67,6 @@ public class RobotMain extends IterativeRobot
     }
 
     public void teleopInit() {
-	Relay relay = new Relay(3);
-        relay.set(Relay.Value.kOn);
-        //relay.set(Relay.Value.kOn);
         Watchdog.getInstance().setEnabled(false);
     }
 
@@ -75,7 +75,7 @@ public class RobotMain extends IterativeRobot
      */
     public void teleopPeriodic() 
     {
-        Scheduler.getInstance().run();        
+        Scheduler.getInstance().run();   
     }
     
     /**

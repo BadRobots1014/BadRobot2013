@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.GearTooth;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -20,6 +23,14 @@ public class BadRobotMap implements Sendable
     //DriveTrain
     public static int frontLeftSpeedController; //index 0
     public static int frontRightSpeedController; //index 1
+    
+    public static int driveTrainGyro;
+    public static int driveTrainUltrasonicPing;
+    public static int driveTrainUltrasonicEcho;
+    
+    // The back speed controllers are assigned because there is an issue with 
+    // The gearbox and so we only want to drive two of the motors for now. The
+    // Back motors are being given non-occupied ports, 11 and 12 to do this
     public static int backLeftSpeedController; //index 2
     public static int backRightSpeedController; //index 3
     
@@ -27,11 +38,18 @@ public class BadRobotMap implements Sendable
     //If there's a better way bother me (ajtgarber)
     public static String visionTrackingCameraAddress = "10.10.14.11";
     public static String frontFacingCameraAddress = "10.10.14.12";
-   
+    
+    public static int shooterSpeedController;
+    public static int opticalShooterSensor;
+    
     public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {2,4,3,1};
     
     private boolean isPrototype = true;
+    
+    public static int speedSensorPort;
+    
+    public static int frisbeePusherPort;
     
     public BadRobotMap()
     {
@@ -41,6 +59,13 @@ public class BadRobotMap implements Sendable
             frontRightSpeedController = prototypeMap[1];
             backLeftSpeedController = prototypeMap[2];
             backRightSpeedController = prototypeMap[3];
+            
+            driveTrainGyro = 1;
+            driveTrainUltrasonicPing = 3;
+            driveTrainUltrasonicEcho = 2;
+            
+            opticalShooterSensor = 1;
+            shooterSpeedController = 5;
         }
         else
         {
@@ -49,9 +74,13 @@ public class BadRobotMap implements Sendable
             backLeftSpeedController = finalMap[2];
             backRightSpeedController = finalMap[3];
         }
+        
         //More than likely the IP addresses of the cameras will remain the same
         visionTrackingCameraAddress = "10.10.14.11";
         frontFacingCameraAddress = "10.10.14.10";
+        
+        speedSensorPort = 5;
+        frisbeePusherPort = 6;
     }
     
     /**
