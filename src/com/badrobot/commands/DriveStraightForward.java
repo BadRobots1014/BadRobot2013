@@ -95,7 +95,8 @@ public class DriveStraightForward extends BadCommand
                 }
                 else
                 {
-                    scaleFactor = 1 - Math.abs(gyroAngle*0.025);
+                    double scaleCandidate = 1 - Math.abs(gyroAngle*0.025);
+                    scaleFactor = (scaleCandidate < .1) ? 0 : scaleCandidate;
                     driveTrain.getTrain().tankDrive(setSpeed, setSpeed*scaleFactor);
                 }
                 break;
@@ -108,7 +109,8 @@ public class DriveStraightForward extends BadCommand
                 }
                 else
                 {
-                    scaleFactor = 1 - Math.abs(gyroAngle*0.025);
+                    double scaleCandidate = 1 - Math.abs(gyroAngle*0.025);
+                    scaleFactor = (scaleCandidate < .1) ? 0 : scaleCandidate;
                     driveTrain.getTrain().tankDrive(setSpeed*scaleFactor, setSpeed);
                 }
                 break;

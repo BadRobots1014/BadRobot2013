@@ -9,6 +9,7 @@ import com.badrobot.subsystems.ImpDriveTrain;
 import com.badrobot.subsystems.ProtoDriveTrain;
 import com.badrobot.subsystems.ProtoShooter;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
+import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import com.badrobot.subsystems.interfaces.IGatherer;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,6 +48,7 @@ public abstract class CommandBase extends Command
     protected static IDriveTrain driveTrain;
     protected static IShooter shooter;
     protected static IGatherer gatherer;
+    protected static IFrisbeePusher frisbeePusher;
     protected static BadCameraSystem imageTrackingSystem;
     public static SendableChooser driveChooser;
 

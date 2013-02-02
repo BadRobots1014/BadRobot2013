@@ -50,7 +50,7 @@ public class BadRobotMap implements Sendable
     
     public static int speedSensorPort;
     
-    public static int frisbeePusherPort;
+    public static int frisbeePusher;
     public static int frisbeePusherSwitch;
     
     public BadRobotMap()
@@ -66,10 +66,12 @@ public class BadRobotMap implements Sendable
             driveTrainUltrasonicPing = 3;
             driveTrainUltrasonicEcho = 2;
             
-            opticalShooterSensor = 1;
-            primaryShooterRelay = 5;
-            secondaryShooterRelay = 6;
             frisbeePusherSwitch = 4;
+            opticalShooterSensor = 1;
+            
+            primaryShooterRelay = 1;
+            secondaryShooterRelay = 2;
+            frisbeePusher = 3;
         }
         else
         {
@@ -85,7 +87,6 @@ public class BadRobotMap implements Sendable
         frontFacingCameraAddress = "10.10.14.10";
         
         speedSensorPort = 5;
-        frisbeePusherPort = 6;
     }
     
     /**

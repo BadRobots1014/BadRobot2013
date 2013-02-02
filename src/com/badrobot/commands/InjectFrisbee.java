@@ -30,7 +30,7 @@ public class InjectFrisbee extends BadCommand
     
     public InjectFrisbee()
     {
-        requires((Subsystem) shooter);
+        requires((Subsystem) frisbeePusher);
     }
 
     // Called just before this Command runs the first time
@@ -48,35 +48,37 @@ public class InjectFrisbee extends BadCommand
         //state machine
         switch (state)
         {
-            //initializing, grabs start time
+            //initializing
             case BOOTING:                
-                if (!shooter.isFrisbeeRetracted())
+                if (frisbeePusher.isFrisbeeRetracted())
                 {
                     state = PUSHING;
                     break;
                 }
                 
-                shooter.pushFrisbee(true);
+                frisbeePusher.pushFrisbee(true);
                 break;
             
-            //pushes frisbee for PUSH_TIME seconds
+            //pushes frisbee for one revolution
             case PUSHING:
-                if (shooter.isFrisbeeRetracted())
+                if (frisbeePusher.isFrisbeeRetracted())
                 {
                     state = FINISHED;
-                    shooter.stopFrisbeePusher();
                     break;
                 }
                 
-                shooter.pushFrisbee(true);
+                frisbeePusher.pushFrisbee(true);
                 break;       
+            
+            case FINISHED:
+                frisbeePusher.stopFrisbeePusher();
         }
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        shooter.stopFrisbeePusher();
+        frisbeePusher.stopFrisbeePusher();
         //done when we are finished with our state machining
         return (state == FINISHED);
     }
@@ -90,7 +92,7 @@ public class InjectFrisbee extends BadCommand
     // subsystems is scheduled to run
     protected void interrupted()
     {
-        log("This command cannot be interrupted. Wait your turn, Im almost out of the shower.");
+        log("This command cannot be interrupted. Wait your turn, I'm almost out of the shower.");
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln)

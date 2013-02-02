@@ -6,6 +6,7 @@ package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
 import com.badrobot.commands.TestShooter;
+import com.badrobot.commands.TriggerToShoot;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,14 +26,11 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     
     EasyPID pid;
     GearTooth geartooth;
-    DigitalInput frisbeePusherLimitSwitch;
+    //public static final double FRISBEE_PUSH_TIME = .5;
+    private static double MAX_SHOOTER_RPM = 600;
     
     Relay shooterRelay,
             secondaryShooterRelay;
-    
-    Relay frisbeePusher;
-    public static final double FRISBEE_PUSH_TIME = .5;
-    private static double MAX_SHOOTER_RPM = 600;
     
     public static ProtoShooter getInstance()
     {
@@ -44,6 +42,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     
     private ProtoShooter()
     {
+        shooterRelay = new Relay(BadRobotMap.primaryShooterRelay);
+        secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
         geartooth = new GearTooth(input);
@@ -57,19 +57,11 @@ public class ProtoShooter extends BadSubsystem implements IShooter
             }
         });*/
         geartooth.start();
-        
-        shooterRelay = new Relay(BadRobotMap.primaryShooterRelay);
-        secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
-        frisbeePusherLimitSwitch = new DigitalInput(BadRobotMap.frisbeePusherSwitch);
-        
-        frisbeePusher = new Relay(BadRobotMap.frisbeePusherPort);
-        frisbeePusher.setDirection(Relay.Direction.kBoth);
-        frisbeePusher.set(Relay.Value.kOff);
     }
     
     public void initDefaultCommand()
     {
-        setDefaultCommand(new TestShooter());
+        setDefaultCommand(new TriggerToShoot());
     }
 
     protected void initialize()
@@ -139,40 +131,10 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     {
         //later
     }
-    
-    /**
-     * instructs the window lift motor to run forward or back, driving the 
-     * frisbee into the motors, or retracting to allow a frisbee to drop down
-     * @param forward should be forward to push frisbee into shooter, backwards
-     * to allow frisbee to fall through
-     */
-    public void pushFrisbee(boolean forward)
-    {
-        if (forward)
-            frisbeePusher.setDirection(Relay.Direction.kForward);
-        else
-            frisbeePusher.setDirection(Relay.Direction.kReverse);
         
-        if (frisbeePusher.get() != Relay.Value.kOn)
-            frisbeePusher.set(Relay.Value.kOn);
-    }
-    
-    /**
-     * stops the window lift motor from running
-     */
-    public void stopFrisbeePusher()
-    {
-        frisbeePusher.set(Relay.Value.kOff);
-        log(frisbeePusherLimitSwitch.get() + "");
-    }
-    
     public double getShooterSpeed() 
     {
         return -1;
     }
-
-    public boolean isFrisbeeRetracted()
-    {
-        return frisbeePusherLimitSwitch.get();
-    }
+    
 }
