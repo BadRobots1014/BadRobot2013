@@ -42,6 +42,7 @@ public class InjectFrisbee extends BadCommand
         state = BOOTING;
     }
     
+    boolean camLeftStart = false;
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
@@ -53,6 +54,7 @@ public class InjectFrisbee extends BadCommand
                 if (frisbeePusher.isFrisbeeRetracted())
                 {
                     state = PUSHING;
+                    camLeftStart = false;
                     break;
                 }
                 
@@ -61,7 +63,12 @@ public class InjectFrisbee extends BadCommand
             
             //pushes frisbee for one revolution
             case PUSHING:
-                if (frisbeePusher.isFrisbeeRetracted())
+                if (!frisbeePusher.isFrisbeeRetracted() && !camLeftStart)
+                {
+                    camLeftStart = true;
+                }
+                
+                else if (frisbeePusher.isFrisbeeRetracted() && camLeftStart)
                 {
                     state = FINISHED;
                     break;
@@ -70,6 +77,7 @@ public class InjectFrisbee extends BadCommand
                 frisbeePusher.pushFrisbee(true);
                 break;       
             
+            //all done
             case FINISHED:
                 frisbeePusher.stopFrisbeePusher();
         }
@@ -78,7 +86,6 @@ public class InjectFrisbee extends BadCommand
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        frisbeePusher.stopFrisbeePusher();
         //done when we are finished with our state machining
         return (state == FINISHED);
     }
@@ -86,6 +93,7 @@ public class InjectFrisbee extends BadCommand
     // Called once after isFinished returns true
     protected void end()
     {
+        frisbeePusher.stopFrisbeePusher();
     }
 
     // Called when another command which requires one or more of the same

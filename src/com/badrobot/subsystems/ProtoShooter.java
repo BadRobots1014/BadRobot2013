@@ -32,6 +32,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     Relay shooterRelay,
             secondaryShooterRelay;
     
+    SpeedController shooterController;
+    
     public static ProtoShooter getInstance()
     {
         if (instance == null)
@@ -43,7 +45,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     private ProtoShooter()
     {
         shooterRelay = new Relay(BadRobotMap.primaryShooterRelay);
-        secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
+        shooterRelay.setDirection(Relay.Direction.kReverse);
+        //secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
         geartooth = new GearTooth(input);
@@ -57,6 +60,9 @@ public class ProtoShooter extends BadSubsystem implements IShooter
             }
         });*/
         geartooth.start();
+        
+        shooterController = new Talon(5);
+        initialize();
     }
     
     public void initDefaultCommand()
@@ -66,13 +72,13 @@ public class ProtoShooter extends BadSubsystem implements IShooter
 
     protected void initialize()
     {
-        controller.set(0.0);
+        //controller.set(0.0);
         geartooth.reset();
         geartooth.setMaxPeriod(2);
         geartooth.start();
         
-        shooterRelay.setDirection(Relay.Direction.kForward);
-        secondaryShooterRelay.setDirection(Relay.Direction.kForward);
+        //shooterRelay.setDirection(Relay.Direction.kForward);
+        //secondaryShooterRelay.setDirection(Relay.Direction.kForward);
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln)
@@ -94,7 +100,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
 
     public void runShooter(double speed)
     { 
-        if (speed > 0)
+        //final rig code (2 relays)
+        /*if (speed > 0)
         {  
             shooterRelay.set(Relay.Value.kOn);
             secondaryShooterRelay.set(Relay.Value.kOn); 
@@ -104,7 +111,17 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         {
             shooterRelay.set(Relay.Value.kOff);
             secondaryShooterRelay.set(Relay.Value.kOff);
-        }
+        }*/
+        
+        
+        //temporary rig code (1 relay + a talon)
+        shooterController.set(speed);
+        if (speed != 0)
+            shooterRelay.set(Relay.Value.kOn);
+        else
+            shooterRelay.set(Relay.Value.kOff);
+        
+        
         //SmartDashboard.putBoolean("sensor", sensor.get());
         SmartDashboard.putNumber("period", geartooth.getPeriod());
         SmartDashboard.putNumber("count", geartooth.get());

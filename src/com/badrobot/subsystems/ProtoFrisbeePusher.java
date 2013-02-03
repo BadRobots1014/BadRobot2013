@@ -21,6 +21,8 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
     
     private static IFrisbeePusher instance;
     
+   private boolean frisbeePusherDirectionIsForward = true;
+    
     public static IFrisbeePusher getInstance()
     {
         if (instance == null)
@@ -35,12 +37,10 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
         
         frisbeePusher = new Relay(BadRobotMap.frisbeePusher);
         frisbeePusher.setDirection(Relay.Direction.kForward);
-        frisbeePusher.set(Relay.Value.kOff);
     }
     
     protected void initialize()
     {
-        
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln)
@@ -68,13 +68,21 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
      */
     public void pushFrisbee(boolean forward)
     {
-        if (forward)
+        if (forward && !frisbeePusherDirectionIsForward)
+        {
             frisbeePusher.setDirection(Relay.Direction.kForward);
-        else
+            frisbeePusherDirectionIsForward = true;
+        }        
+        else if (frisbeePusherDirectionIsForward)
+        {
             frisbeePusher.setDirection(Relay.Direction.kReverse);
+            frisbeePusherDirectionIsForward = false;
+        }
         
         if (frisbeePusher.get() != Relay.Value.kOn)
+        {
             frisbeePusher.set(Relay.Value.kOn);
+        }
     }
     
     /**
@@ -82,8 +90,8 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
      */
     public void stopFrisbeePusher()
     {
-        frisbeePusher.set(Relay.Value.kOff);
-        log(frisbeePusherLimitSwitch.get() + "");
+        if (frisbeePusher.get() != Relay.Value.kOff)
+            frisbeePusher.set(Relay.Value.kOff);
     }
 
     public boolean isFrisbeeRetracted()

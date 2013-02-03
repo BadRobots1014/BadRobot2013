@@ -1,10 +1,10 @@
 
 package com.badrobot;
 
+import com.badrobot.commands.CommandBase;
 import com.badrobot.commands.InjectFrisbee;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -28,13 +28,17 @@ public class OI
         secondaryXboxController = new Joystick(SECONDARY_JOY);    
         
         //button that senses seconadry Right bumper press for shooter injection
-        Button injectFrisbee = new Button() {
-            public boolean get()
-            {
-                return (secondaryXboxController.getRawButton(RB));
-            }
-        };
-        injectFrisbee.whenPressed(new InjectFrisbee());
+        
+        if (CommandBase.frisbeePusher != null)
+        {
+            Button injectFrisbee = new Button() {
+                public boolean get()
+                {
+                    return (primaryXboxController.getRawButton(RB));
+                }
+            };
+            injectFrisbee.whenPressed(new InjectFrisbee());   
+        }
     }
     
     //// CREATING BUTTONS

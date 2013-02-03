@@ -69,9 +69,9 @@ public class BadRobotMap implements Sendable
             frisbeePusherSwitch = 4;
             opticalShooterSensor = 1;
             
-            primaryShooterRelay = 1;
+            primaryShooterRelay = 2;
             secondaryShooterRelay = 2;
-            frisbeePusher = 3;
+            frisbeePusher = 1;
         }
         else
         {

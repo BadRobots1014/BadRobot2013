@@ -5,9 +5,6 @@
 package com.badrobot.commands;
 
 import com.badrobot.OI;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import com.badrobot.commands.Shoot;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -17,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class TriggerToShoot extends CommandBase
 {
-    boolean runShooter;
     double shooterSpeed;
     
     public TriggerToShoot()
@@ -29,7 +25,6 @@ public class TriggerToShoot extends CommandBase
     protected void initialize()
     {
         shooterSpeed = .4;
-        runShooter = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -42,24 +37,17 @@ public class TriggerToShoot extends CommandBase
         //if(OI.primaryXboxController.getRawAxis(3)>=0)//right trigger
         //if (OI.primaryXboxController.getTrigger(GenericHID.Hand.kLeft))
         
-        double rightTriggerValue = OI.getPrimaryRightTrigger();
-        if(rightTriggerValue > 0)
+        double rightTriggerValue = OI.isPrimaryLBButtonPressed() ? -1 : 0;
+        if(rightTriggerValue != 0)
         {
-            if (!runShooter)
-            {
-                SmartDashboard.putBoolean("shooterRunning", true);
-                shooter.runShooter(rightTriggerValue);
-                runShooter = true;
-            }
-            
-            else
-            {
-                
-                SmartDashboard.putBoolean("shooterRunning", false);
-                shooter.runShooter(0);
-                runShooter = false;
-            }            
+            SmartDashboard.putBoolean("shooterRunning", true);
+            shooter.runShooter(rightTriggerValue);
         }
+        else 
+        {    
+            SmartDashboard.putBoolean("shooterRunning", false);
+            shooter.runShooter(0);
+        }   
     }
 
     // Make this return true when this Command no longer needs to run execute()
