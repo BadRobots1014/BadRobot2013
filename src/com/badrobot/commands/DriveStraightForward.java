@@ -53,7 +53,7 @@ public class DriveStraightForward extends BadCommand
     
     protected void initialize() 
     {
-        setSpeed = .2;
+        setSpeed = .6;
         scaleFactor = 1;
         
         driveTrain.getGyro().reset();
@@ -83,7 +83,7 @@ public class DriveStraightForward extends BadCommand
                 }
                 else
                 {
-                    driveTrain.getTrain().tankDrive(setSpeed, setSpeed);
+                    driveTrain.tankDrive(setSpeed, setSpeed);
                 }
                 break;
             
@@ -97,7 +97,7 @@ public class DriveStraightForward extends BadCommand
                 {
                     double scaleCandidate = 1 - Math.abs(gyroAngle*0.025);
                     scaleFactor = (scaleCandidate < .1) ? 0 : scaleCandidate;
-                    driveTrain.getTrain().tankDrive(setSpeed, setSpeed*scaleFactor);
+                    driveTrain.tankDrive(setSpeed, setSpeed*scaleFactor);
                 }
                 break;
                 
@@ -111,7 +111,7 @@ public class DriveStraightForward extends BadCommand
                 {
                     double scaleCandidate = 1 - Math.abs(gyroAngle*0.025);
                     scaleFactor = (scaleCandidate < .1) ? 0 : scaleCandidate;
-                    driveTrain.getTrain().tankDrive(setSpeed*scaleFactor, setSpeed);
+                    driveTrain.tankDrive(setSpeed*scaleFactor, setSpeed);
                 }
                 break;
         }
@@ -131,7 +131,7 @@ public class DriveStraightForward extends BadCommand
 
     protected void end() 
     {
-        driveTrain.getTrain().tankDrive(0,0);
+        driveTrain.tankDrive(0,0);
     }
     
     protected void interrupted() 

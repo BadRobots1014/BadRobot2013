@@ -9,6 +9,7 @@ package com.badrobot;
 
 
 import com.badrobot.commands.CommandBase;
+import com.badrobot.commands.DriveStraightForward;
 import com.badrobot.commands.ExampleCommand;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -44,7 +45,7 @@ public class RobotMain extends IterativeRobot implements Logger
         //Replace ExampleCommand() with autonomous command. 
         //Currently there are none.
         //autoChooser.addDefault("Default program", new DriveForwardAndShoot());
-        autoChooser.addObject("Other program 1", new ExampleCommand());
+        autoChooser.addObject("Other program 1", new DriveStraightForward(2));
         SmartDashboard.putData("Autonomous mode chooser", autoChooser);
     }
 
@@ -67,6 +68,7 @@ public class RobotMain extends IterativeRobot implements Logger
 
     public void teleopInit() {
         Watchdog.getInstance().setEnabled(false);
+        
     }
 
     /**
@@ -75,7 +77,7 @@ public class RobotMain extends IterativeRobot implements Logger
     public void teleopPeriodic() 
     {  
         Scheduler.getInstance().run();
-       // Timer.delay(.1);
+        // Timer.delay(.1);
     }
     
     /**

@@ -313,14 +313,15 @@ public class OI
     }
     
     /**
-     * If the RawAxis(3) (the trigger) is positive, will return the value.
+     * If the RawAxis(3) (the trigger) is negative, will return the value.
      * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
     public static double getPrimaryRightTrigger()
     {
-        if (primaryXboxController.getRawAxis(3) > 0)
+        double triggerValue = primaryXboxController.getRawAxis(3);
+        if (triggerValue < 0)
         {
-            return deadzone(primaryXboxController.getRawAxis(3));
+            return Math.abs(deadzone(triggerValue));
         }
         else
         {
@@ -329,14 +330,15 @@ public class OI
     }
     
     /**
-     * If the RawAxis(3) (the trigger) is negative, will return the value.
+     * If the RawAxis(3) (the trigger) is positive, will return the value.
      * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
     public static double getPrimaryLeftTrigger()
     {
-        if (primaryXboxController.getRawAxis(3) < 0)
+        double triggerValue = primaryXboxController.getRawAxis(3);
+        if (triggerValue > 0)
         {
-            return deadzone(Math.abs(primaryXboxController.getRawAxis(3)));
+            return deadzone(triggerValue);
         }
         else
         {
