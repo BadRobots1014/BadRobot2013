@@ -18,15 +18,17 @@ import java.util.TimerTask;
 public class DriveStraightForward extends BadCommand
 {    
     public double setSpeed;
+    public double dontEatTheMotors;
     public double gyroAngle;
     private double scaleFactor;
     private long startTime;
     private long driveTime;
     
-    public int state;
+    public int state = DRIVING_STRAIGHT;
     public static final int DRIVING_STRAIGHT = 0,
                             TURNING_RIGHT = 1,
-                            TURNING_LEFT = 2;
+                            TURNING_LEFT = 2,
+                            FINISHED = 3;
     
     /**
      * Runs the command for the default time length.
@@ -34,15 +36,15 @@ public class DriveStraightForward extends BadCommand
     public DriveStraightForward()
     {
         requires((Subsystem) driveTrain);
-        driveTime = 6*1000000;
+        driveTime = 10*1000000;
     }
     
     /**
      * Runs the command for the set time length in seconds.
      */
-    public DriveStraightForward(long setTime)
+    public DriveStraightForward(double setTime)
     {
-        long temp = setTime*1000000;
+        long temp = (long) setTime*1000000;
         driveTime = temp;
     }
     
@@ -63,6 +65,7 @@ public class DriveStraightForward extends BadCommand
     protected void execute() 
     {
         gyroAngle = driveTrain.getGyro().getAngle();
+        log("Angle: "+gyroAngle);
         
         //This if statement will make sure the motors do not go in the reverse direction
         //when the angle is over 40 degrees either direction.
@@ -73,11 +76,11 @@ public class DriveStraightForward extends BadCommand
         {
             //Drives robot straight until the angle is greater than 5 degrees either direction.
             case DRIVING_STRAIGHT:
-                if (gyroAngle > 5)
+                if (gyroAngle < -5)
                 {
                     state = TURNING_RIGHT;
                 }
-                else if (gyroAngle < -5)
+                else if (gyroAngle > 5)
                 {
                     state = TURNING_LEFT;
                 }
@@ -114,6 +117,9 @@ public class DriveStraightForward extends BadCommand
                     driveTrain.tankDrive(setSpeed*scaleFactor, setSpeed);
                 }
                 break;
+            case FINISHED:
+                driveTrain.tankDrive(0, 0);
+                break;
         }
     }
     
@@ -121,6 +127,8 @@ public class DriveStraightForward extends BadCommand
     {
         if (Utility.getFPGATime() >= startTime + driveTime)
         {
+            driveTrain.tankDrive(0, 0);
+            state = FINISHED;
             return true;
         }
         else
