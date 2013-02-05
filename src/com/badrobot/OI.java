@@ -113,7 +113,7 @@ public class OI
      */
     public static double getPrimaryControllerLeftStickY()
     {
-        return deadzone(primaryXboxController.getRawAxis(LEFT_STICK_Y));
+        return deadzone(-primaryXboxController.getRawAxis(LEFT_STICK_Y));
     }
 
     /**
@@ -131,7 +131,7 @@ public class OI
      */
     public static double getPrimaryControllerRightStickY()
     {
-        return deadzone(primaryXboxController.getRawAxis(RIGHT_STICK_Y));
+        return deadzone(-primaryXboxController.getRawAxis(RIGHT_STICK_Y));
     }
 
     /**
@@ -350,7 +350,7 @@ public class OI
      * If the RawAxis(3) (the trigger) is positive, will return the value.
      * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
-    public static double geSecondaryRightTrigger()
+    public static double getSecondaryRightTrigger()
     {
         if (secondaryXboxController.getRawAxis(3) > 0)
         {

@@ -8,9 +8,7 @@
 package com.badrobot;
 
 
-import com.badrobot.commands.CommandBase;
-import com.badrobot.commands.DriveStraightForward;
-import com.badrobot.commands.ExampleCommand;
+import com.badrobot.commands.*;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -59,7 +57,7 @@ public class RobotMain extends IterativeRobot implements Logger
         //make sure you dont have to add to scheduler to run autonomous command TODO
         autonomousCommand.start();*/
         
-        Command auto = new DriveStraightForward();
+        Command auto = new DriveForwardTurnShoot();
         auto.start();
     }
     

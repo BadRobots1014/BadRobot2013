@@ -36,7 +36,7 @@ public class DriveStraightForward extends BadCommand
     public DriveStraightForward()
     {
         requires((Subsystem) driveTrain);
-        driveTime = 10*1000000;
+        driveTime = 5*1000000;
     }
     
     /**
@@ -55,7 +55,7 @@ public class DriveStraightForward extends BadCommand
     
     protected void initialize() 
     {
-        setSpeed = .6;
+        setSpeed = .8;
         scaleFactor = 1;
         
         driveTrain.getGyro().reset();
@@ -65,22 +65,16 @@ public class DriveStraightForward extends BadCommand
     protected void execute() 
     {
         gyroAngle = driveTrain.getGyro().getAngle();
-        log("Angle: "+gyroAngle);
-        
-        //This if statement will make sure the motors do not go in the reverse direction
-        //when the angle is over 40 degrees either direction.
-        if(scaleFactor <= 0)
-            scaleFactor = 0;
         
         switch (state)
         {
             //Drives robot straight until the angle is greater than 5 degrees either direction.
             case DRIVING_STRAIGHT:
-                if (gyroAngle < -5)
+                if (gyroAngle < -2)
                 {
                     state = TURNING_RIGHT;
                 }
-                else if (gyroAngle > 5)
+                else if (gyroAngle > 2)
                 {
                     state = TURNING_LEFT;
                 }
@@ -92,7 +86,7 @@ public class DriveStraightForward extends BadCommand
             
             //Turns the robot to the right until it is less than 5 degrees off center.
             case TURNING_RIGHT:
-                if (gyroAngle <= 5)
+                if (Math.abs(gyroAngle) <= 2)
                 {
                     state = DRIVING_STRAIGHT;
                 }
@@ -106,7 +100,7 @@ public class DriveStraightForward extends BadCommand
                 
             //Turns the robot to the left until it is less than 5 degrees off center.
             case TURNING_LEFT:
-                if (gyroAngle >= 5)
+                if (Math.abs(gyroAngle) <= 2)
                 {
                     state = DRIVING_STRAIGHT;
                 }

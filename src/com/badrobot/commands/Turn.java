@@ -29,6 +29,7 @@ public class Turn extends BadCommand
     
     protected void initialize() 
     {
+        log("reset");
         driveTrain.getGyro().reset();
     }
 
@@ -39,16 +40,16 @@ public class Turn extends BadCommand
 
     protected void execute() 
     {
-        if(turnAngle > 0)
-            driveTrain.tankDrive(-.2, .2);
-        else if(turnAngle < 0)
-            driveTrain.tankDrive(.2, -.2);
+        if(turnAngle < 0)
+            driveTrain.tankDrive(-.6, .6);
+        else if(turnAngle > 0)
+            driveTrain.tankDrive(.6, -.6);
     }
 
     protected boolean isFinished() 
     {
         angleDifference = driveTrain.getGyro().getAngle() - turnAngle;
-        if(Math.abs(angleDifference) < 5)
+        if(Math.abs(angleDifference) < 2)
             return true;
         return false;
     }

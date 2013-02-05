@@ -36,7 +36,7 @@ public class CoopDriveWithTriggers extends BadCommand
     {
         if (TANK_DRIVE_MODE)
             driveTrain.tankDrive(-OI.getPrimaryLeftTrigger()+OI.getPrimaryRightTrigger(),
-                        -OI.getSecondaryLeftTrigger()+OI.getPrimaryRightTrigger());
+                        -OI.getSecondaryLeftTrigger()+OI.getSecondaryRightTrigger());
         
         else
             driveTrain.arcadeDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerLeftStickX());

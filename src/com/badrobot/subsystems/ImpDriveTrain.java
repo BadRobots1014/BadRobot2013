@@ -5,8 +5,10 @@ package com.badrobot.subsystems;
  * and open the template in the editor.
  */
 import com.badrobot.BadRobotMap;
+import com.badrobot.commands.CoopDriveWithTriggers;
 import com.badrobot.commands.DriveStraightForward;
 import com.badrobot.commands.DriveWithJoysticks;
+import com.badrobot.commands.Turn;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.tables.ITable;
@@ -58,10 +60,11 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
              
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
         
-        train.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
+        /*train.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         train.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         train.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
         train.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+        */
         
         train.setSafetyEnabled(false);
         
@@ -107,7 +110,8 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
      */
     public void tankDrive(double left, double right) 
     {
-        train.tankDrive(left*speedscale, right*speedscale);
+        //log(left + " left " + right + " right");
+        train.tankDrive(left, right);
         //backLeft.set(left);
         //backRight.set(right);
     }
