@@ -44,25 +44,4 @@ public interface IShooter
      * @param power the decimal percentage of the max rpm to set the shooter at  
      */
     public void pidRunShooter(double power);
-    
-    /**
-     * instructs the window lift motor to run forward or back, driving the 
-     * frisbee into the motors, or retracting to allow a frisbee to drop down
-     * @param forward should be forward to push frisbee into shooter, backwards
-     * to allow frisbee to fall through
-     */
-    public void pushFrisbee(boolean forward);
-    
-    /**
-     * Stops the frisbee pusher from going forward or retracting
-     */
-    public void stopFrisbeePusher();
-    
-    /**
-     * This method should return whether the frisbee pusher is at its one 
-     * revolution point. This is when the pusher should NOT be pushed/withdrawn
-     * any further
-     * @return whether the pusher is at its maximum position of extension 
-     */
-    public boolean isFrisbeePusherAtMaximumExtension();
 }

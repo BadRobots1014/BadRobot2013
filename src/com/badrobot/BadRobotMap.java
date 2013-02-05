@@ -39,7 +39,8 @@ public class BadRobotMap implements Sendable
     public static String visionTrackingCameraAddress = "10.10.14.11";
     public static String frontFacingCameraAddress = "10.10.14.12";
     
-    public static int shooterSpeedController;
+    public static int primaryShooterRelay,
+            secondaryShooterRelay;
     public static int opticalShooterSensor;
     
     public final int[] prototypeMap = {3,1,4,2};//values entered
@@ -49,7 +50,8 @@ public class BadRobotMap implements Sendable
     
     public static int speedSensorPort;
     
-    public static int frisbeePusherPort;
+    public static int frisbeePusher;
+    public static int frisbeePusherSwitch;
     
     public BadRobotMap()
     {
@@ -64,11 +66,16 @@ public class BadRobotMap implements Sendable
             driveTrainUltrasonicPing = 3;
             driveTrainUltrasonicEcho = 2;
             
+            frisbeePusherSwitch = 4;
             opticalShooterSensor = 1;
-            shooterSpeedController = 5;
+            
+            primaryShooterRelay = 2;
+            secondaryShooterRelay = 2;
+            frisbeePusher = 1;
         }
         else
         {
+            
             frontLeftSpeedController = finalMap[0];
             frontRightSpeedController = finalMap[1];
             backLeftSpeedController = finalMap[2];
@@ -80,7 +87,6 @@ public class BadRobotMap implements Sendable
         frontFacingCameraAddress = "10.10.14.10";
         
         speedSensorPort = 5;
-        frisbeePusherPort = 6;
     }
     
     /**

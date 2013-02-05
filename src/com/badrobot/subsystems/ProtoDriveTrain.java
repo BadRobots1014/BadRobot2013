@@ -54,10 +54,10 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
      */
     protected void initialize()
     {
-        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
-        frontRight = new Victor(BadRobotMap.frontRightSpeedController);
-        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
-        backRight = new Victor(BadRobotMap.backRightSpeedController);
+        frontLeft = new Talon(BadRobotMap.frontLeftSpeedController);
+        frontRight = new Talon(BadRobotMap.frontRightSpeedController);
+        backLeft = new Talon(BadRobotMap.backLeftSpeedController);
+        backRight = new Talon(BadRobotMap.backRightSpeedController);
         
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
                 
@@ -92,11 +92,16 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         return "Subsystem";
     }
     
+    /**
+     * runs the drivetrain in ArcadeDrive fashion
+     * @param y the joysticks vertical value (-1 to 1)
+     * @param x the joysticks horizontal value (-1 to 1)
+     */
     public void arcadeDrive(double Y, double X) 
     {
         train.arcadeDrive(Y, X);
     }
-
+    
     /**
      * sets the command to occupy ProtoDriveTrain upon initialization 
      */

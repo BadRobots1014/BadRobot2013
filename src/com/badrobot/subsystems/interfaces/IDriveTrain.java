@@ -33,8 +33,9 @@ public interface IDriveTrain
     
     /**
      * Drives the robot in arcade drive--one stick controls all movement;
-     * pushing forward moves all wheels forward, pushing backwards moves
-     * all wheels backwards, pushing left moves the
+     * pushing forward moves all wheels forward, pushing backwards moves all 
+     * wheels backwards, pushing left turns left, and pushing right turns right.
+     * 
      * @param y the joysticks vertical value (-1 to 1)
      * @param x the joysticks horizontal value (-1 to 1)
      */

@@ -25,14 +25,12 @@ public class InjectFrisbee extends BadCommand
     
     //static state variables, used in state machine
     public static final int BOOTING = 0,
-                        PUSHING_FORWARD = 1,
-                        READY_TO_RETRACT = 2,
-                        RETRACTING = 3,
+                        PUSHING = 1,
                         FINISHED = 4;
     
     public InjectFrisbee()
     {
-        requires((Subsystem) shooter);
+        requires((Subsystem) frisbeePusher);
     }
 
     // Called just before this Command runs the first time
@@ -44,61 +42,44 @@ public class InjectFrisbee extends BadCommand
         state = BOOTING;
     }
     
+    boolean camLeftStart = false;
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
         //state machine
         switch (state)
         {
-            //initializing, grabs start time
-            case BOOTING:
-                startTime = Timer.getFPGATimestamp();
-                state = PUSHING_FORWARD;
+            //initializing
+            case BOOTING:                
+                if (frisbeePusher.isFrisbeeRetracted())
+                {
+                    state = PUSHING;
+                    camLeftStart = false;
+                    break;
+                }
+                
+                frisbeePusher.pushFrisbee(true);
                 break;
             
-            //pushes frisbee for PUSH_TIME seconds
-            case PUSHING_FORWARD:
-                if (shooter.isFrisbeePusherAtMaximumExtension())
+            //pushes frisbee for one revolution
+            case PUSHING:
+                if (!frisbeePusher.isFrisbeeRetracted() && !camLeftStart)
                 {
-                    state = READY_TO_RETRACT;
-                    shooter.stopFrisbeePusher();
-                    break;
+                    camLeftStart = true;
                 }
-                //This is backup code to make sure we aren't running longer than the push limit.
-                else if (Timer.getFPGATimestamp() >= startTime + PUSH_LIMIT)
+                
+                else if (frisbeePusher.isFrisbeeRetracted() && camLeftStart)
                 {
                     state = FINISHED;
-                    shooter.stopFrisbeePusher();
                     break;
                 }
                 
-                shooter.pushFrisbee(true);
-                break;
-                
-           //grabs start time     
-            case READY_TO_RETRACT:
-                startTime = Timer.getFPGATimestamp();
-                state = RETRACTING;
-                break;
-                
-           //retracts piston for PUSH_TIME seconds     
-            case RETRACTING:
-                if (shooter.isFrisbeePusherAtMaximumExtension())
-                {
-                    state = FINISHED;
-                    shooter.stopFrisbeePusher();
-                    break;
-                }
-                //This is backup code to make sure we aren't running for like 20 millions seconds. 
-                else if (Timer.getFPGATimestamp() >= startTime + PUSH_LIMIT)
-                {
-                    state = FINISHED;
-                    shooter.stopFrisbeePusher();
-                    break;
-                }
-                
-                shooter.pushFrisbee(false);
-                break;
+                frisbeePusher.pushFrisbee(true);
+                break;       
+            
+            //all done
+            case FINISHED:
+                frisbeePusher.stopFrisbeePusher();
         }
     }
 
@@ -112,13 +93,14 @@ public class InjectFrisbee extends BadCommand
     // Called once after isFinished returns true
     protected void end()
     {
+        frisbeePusher.stopFrisbeePusher();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted()
     {
-        log("This command cannot be interrupted. Wait your turn, Im almost out of the shower.");
+        log("This command cannot be interrupted. Wait your turn, I'm almost out of the shower.");
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln)

@@ -1,7 +1,10 @@
 
 package com.badrobot;
 
+import com.badrobot.commands.CommandBase;
+import com.badrobot.commands.InjectFrisbee;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,7 +25,20 @@ public class OI
     public void init()
     {
         primaryXboxController = new Joystick(PRIMARY_JOY);
-        secondaryXboxController = new Joystick(SECONDARY_JOY);        
+        secondaryXboxController = new Joystick(SECONDARY_JOY);    
+        
+        //button that senses seconadry Right bumper press for shooter injection
+        
+        if (CommandBase.frisbeePusher != null)
+        {
+            Button injectFrisbee = new Button() {
+                public boolean get()
+                {
+                    return (primaryXboxController.getRawButton(RB));
+                }
+            };
+            injectFrisbee.whenPressed(new InjectFrisbee());   
+        }
     }
     
     //// CREATING BUTTONS
@@ -297,14 +313,15 @@ public class OI
     }
     
     /**
-     * If the RawAxis(3) (the trigger) is positive, will return the value.
+     * If the RawAxis(3) (the trigger) is negative, will return the value.
      * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
     public static double getPrimaryRightTrigger()
     {
-        if (primaryXboxController.getRawAxis(3) > 0)
+        double triggerValue = primaryXboxController.getRawAxis(3);
+        if (triggerValue < 0)
         {
-            return deadzone(primaryXboxController.getRawAxis(3));
+            return Math.abs(deadzone(triggerValue));
         }
         else
         {
@@ -313,14 +330,15 @@ public class OI
     }
     
     /**
-     * If the RawAxis(3) (the trigger) is negative, will return the value.
+     * If the RawAxis(3) (the trigger) is positive, will return the value.
      * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
     public static double getPrimaryLeftTrigger()
     {
-        if (primaryXboxController.getRawAxis(3) < 0)
+        double triggerValue = primaryXboxController.getRawAxis(3);
+        if (triggerValue > 0)
         {
-            return deadzone(Math.abs(primaryXboxController.getRawAxis(3)));
+            return deadzone(triggerValue);
         }
         else
         {

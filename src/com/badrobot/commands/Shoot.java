@@ -6,6 +6,7 @@ package com.badrobot.commands;
 
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
@@ -17,6 +18,9 @@ import edu.wpi.first.wpilibj.tables.ITable;
 public class Shoot extends BadCommand
 {
     double shooterSpeed = .4;
+    double shooterRunTime;
+    double startTime;
+    Timer timer;
     //private ITable ITable;
     
     public Shoot() 
@@ -34,12 +38,23 @@ public class Shoot extends BadCommand
         //smartdash is still under constructing, put it in later.
         shooterSpeed = speed;
     }
+    //third constructor for autonomous
+    public Shoot(double time, double speed)
+    {
+        requires( (Subsystem) shooter);
+        SmartDashboard.putNumber("abc", 1);//this method deals with smartDashboard 
+        //smartdash is still under constructing, put it in later.
+        timer = new Timer();
+        shooterRunTime = time;
+        shooterSpeed = speed;
+    }
 
     // Called just before this Command runs the first time
     protected void initialize() 
     {
         //contructed.
         
+        startTime = timer.getFPGATimestamp();
         shooter.runShooter(shooterSpeed);
     }
 
@@ -52,9 +67,14 @@ public class Shoot extends BadCommand
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
+        
+        if((timer.getFPGATimestamp()-startTime) > shooterRunTime && timer != null)
+            return true;
+        //for debug
         if(OI.primaryXboxController.getBumper(GenericHID.Hand.kLeft) || 
                 OI.primaryXboxController.getRawButton(1))
             return true;
+
         return false;
     }
 

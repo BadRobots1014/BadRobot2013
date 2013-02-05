@@ -55,9 +55,7 @@ public class DriveStraightForward extends BadCommand
     
     protected void initialize() 
     {
-        state = DRIVING_STRAIGHT;
-        
-        setSpeed = 1;
+        setSpeed = .6;
         scaleFactor = 1;
         
         driveTrain.getGyro().reset();
@@ -88,25 +86,35 @@ public class DriveStraightForward extends BadCommand
                 }
                 else
                 {
-                    driveTrain.getTrain().tankDrive(setSpeed, setSpeed);
+                    driveTrain.tankDrive(setSpeed, setSpeed);
                 }
                 break;
             
             //Turns the robot to the right until it is less than 5 degrees off center.
             case TURNING_RIGHT:
+                if (gyroAngle <= 5)
+                {
+                    state = DRIVING_STRAIGHT;
+                }
+                else
+                {
+                    double scaleCandidate = 1 - Math.abs(gyroAngle*0.025);
+                    scaleFactor = (scaleCandidate < .1) ? 0 : scaleCandidate;
+                    driveTrain.tankDrive(setSpeed, setSpeed*scaleFactor);
+                }
+                break;
+                
+            //Turns the robot to the left until it is less than 5 degrees off center.
+            case TURNING_LEFT:
                 if (gyroAngle >= 5)
                 {
                     state = DRIVING_STRAIGHT;
                 }
                 else
                 {
-                    scaleFactor = 1 - Math.abs(gyroAngle*0.025);
-                    dontEatTheMotors = setSpeed*scaleFactor;
-                    if(dontEatTheMotors <= 0.2)
-                    {
-                        dontEatTheMotors = 0;
-                    }
-                    driveTrain.getTrain().tankDrive(setSpeed, dontEatTheMotors);
+                    double scaleCandidate = 1 - Math.abs(gyroAngle*0.025);
+                    scaleFactor = (scaleCandidate < .1) ? 0 : scaleCandidate;
+                    driveTrain.tankDrive(setSpeed*scaleFactor, setSpeed);
                 }
                 break;
                 
@@ -149,7 +157,7 @@ public class DriveStraightForward extends BadCommand
 
     protected void end() 
     {
-        driveTrain.getTrain().tankDrive(0,0);
+        driveTrain.tankDrive(0,0);
     }
     
     protected void interrupted() 
