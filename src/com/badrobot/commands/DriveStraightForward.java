@@ -117,24 +117,6 @@ public class DriveStraightForward extends BadCommand
                     driveTrain.tankDrive(setSpeed*scaleFactor, setSpeed);
                 }
                 break;
-                
-            //Turns the robot to the left until it is less than 5 degrees off center.
-            case TURNING_LEFT:
-                if (gyroAngle <= 5)
-                {
-                    state = DRIVING_STRAIGHT;
-                }
-                else
-                {
-                    scaleFactor = 1 - Math.abs(gyroAngle*0.025);
-                    dontEatTheMotors = setSpeed*scaleFactor;
-                    if(dontEatTheMotors <= 0.2)
-                    {
-                        dontEatTheMotors = 0;
-                    }
-                    driveTrain.getTrain().tankDrive(dontEatTheMotors, setSpeed);
-                }
-                break;
             case FINISHED:
                 driveTrain.tankDrive(0, 0);
                 break;

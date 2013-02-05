@@ -12,6 +12,7 @@ import com.badrobot.commands.CommandBase;
 import com.badrobot.commands.DriveStraightForward;
 import com.badrobot.commands.ExampleCommand;
 import com.badrobot.subsystems.interfaces.Logger;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.command.Command;
