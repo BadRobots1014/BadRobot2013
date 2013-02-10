@@ -53,6 +53,8 @@ public class BadRobotMap implements Sendable
     public static int frisbeePusher;
     public static int frisbeePusherSwitch;
     
+    public static int shooterArticulator;
+    
     public BadRobotMap()
     {
         if(isPrototype == true)
@@ -66,12 +68,14 @@ public class BadRobotMap implements Sendable
             driveTrainUltrasonicPing = 3;
             driveTrainUltrasonicEcho = 2;
             
-            frisbeePusherSwitch = 4;
+            frisbeePusherSwitch = 5; 
             opticalShooterSensor = 1;
             
-            primaryShooterRelay = 2;
+            shooterArticulator = 7;
+            
+            primaryShooterRelay = 1;
             secondaryShooterRelay = 2;
-            frisbeePusher = 1;
+            frisbeePusher = 3;
         }
         else
         {

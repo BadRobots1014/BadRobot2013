@@ -24,15 +24,19 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     SpeedController controller;
     private static ProtoShooter instance;
     
+    
     EasyPID pid;
     GearTooth geartooth;
-    //public static final double FRISBEE_PUSH_TIME = .5;
+
     private static double MAX_SHOOTER_RPM = 600;
     
     Relay shooterRelay,
             secondaryShooterRelay;
     
-    SpeedController shooterController;
+    SpeedController shooterController,
+            shooterArticulatorSpeedController;
+    
+    //boolean shooterArticulatorRelayIsForward = true;
     
     public static ProtoShooter getInstance()
     {
@@ -45,8 +49,16 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     private ProtoShooter()
     {
         shooterRelay = new Relay(BadRobotMap.primaryShooterRelay);
-        shooterRelay.setDirection(Relay.Direction.kReverse);
-        //secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
+        shooterRelay.setDirection(Relay.Direction.kForward);
+        
+        secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
+        secondaryShooterRelay.setDirection(Relay.Direction.kForward);
+        
+        //shooterArticulatorRelay = new Relay(BadRobotMap.shooterArticulator);
+        //shooterArticulatorRelay.setDirection(Relay.Direction.kForward);
+        
+        shooterArticulatorSpeedController = new Talon(BadRobotMap.shooterArticulator);
+        
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
         geartooth = new GearTooth(input);
@@ -61,7 +73,6 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         });*/
         geartooth.start();
         
-        shooterController = new Talon(5);
         initialize();
     }
     
@@ -76,9 +87,6 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         geartooth.reset();
         geartooth.setMaxPeriod(2);
         geartooth.start();
-        
-        //shooterRelay.setDirection(Relay.Direction.kForward);
-        //secondaryShooterRelay.setDirection(Relay.Direction.kForward);
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln)
@@ -96,12 +104,11 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         return "ProtoShooter";
     }
     
-    
 
     public void runShooter(double speed)
     { 
         //final rig code (2 relays)
-        /*if (speed > 0)
+        if (speed != 0)
         {  
             shooterRelay.set(Relay.Value.kOn);
             secondaryShooterRelay.set(Relay.Value.kOn); 
@@ -111,16 +118,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         {
             shooterRelay.set(Relay.Value.kOff);
             secondaryShooterRelay.set(Relay.Value.kOff);
-        }*/
-        
-        
-        //temporary rig code (1 relay + a talon)
-        shooterController.set(speed);
-        if (speed != 0)
-            shooterRelay.set(Relay.Value.kOn);
-        else
-            shooterRelay.set(Relay.Value.kOff);
-        
+        }
         
         //SmartDashboard.putBoolean("sensor", sensor.get());
         SmartDashboard.putNumber("period", geartooth.getPeriod());
@@ -138,20 +136,41 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         SmartDashboard.putNumber("count", geartooth.get());
         SmartDashboard.putNumber("rpm", pid.source.pidGet());
     }
-
-    public void setAngle(double angle)
-    {
-        //later
-    }
-
-    public void setAngle(int state)
-    {
-        //later
-    }
         
     public double getShooterSpeed() 
     {
         return -1;
+    }
+
+    public void raiseShooter()
+    {
+        shooterArticulatorSpeedController.set(1.0);
+        
+        /*
+        if (!shooterArticulatorRelayIsForward)
+        {
+            shooterArticulatorRelay.setDirection(Relay.Direction.kForward);
+            shooterArticulatorRelayIsForward = true;
+        }    
+        shooterArticulatorRelay.set(Relay.Value.kOn);*/
+    }
+
+    public void lowerShooter()
+    {
+        shooterArticulatorSpeedController.set(-1.0);
+        /*
+        if (shooterArticulatorRelayIsForward)
+        {
+            shooterArticulatorRelay.setDirection(Relay.Direction.kReverse);
+            shooterArticulatorRelayIsForward = false;
+        }    
+        shooterArticulatorRelay.set(Relay.Value.kOn);*/
+    }
+    
+    public void lockShooterArticulator()
+    {
+        shooterArticulatorSpeedController.set(0.0);
+        //shooterArticulatorRelay.set(Relay.Value.kOff);
     }
     
 }

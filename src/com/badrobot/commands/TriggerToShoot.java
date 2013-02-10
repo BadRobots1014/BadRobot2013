@@ -37,17 +37,32 @@ public class TriggerToShoot extends CommandBase
         //if(OI.primaryXboxController.getRawAxis(3)>=0)//right trigger
         //if (OI.primaryXboxController.getTrigger(GenericHID.Hand.kLeft))
         
-        double rightTriggerValue = OI.isPrimaryLBButtonPressed() ? -1 : 0;
-        if(rightTriggerValue != 0)
+        double shooterSetValue = OI.isSecondaryLBButtonPressed() ? -1 : 0;
+        if(shooterSetValue != 0)
         {
             SmartDashboard.putBoolean("shooterRunning", true);
-            shooter.runShooter(rightTriggerValue);
+            shooter.runShooter(shooterSetValue);
         }
         else 
         {    
             SmartDashboard.putBoolean("shooterRunning", false);
             shooter.runShooter(0);
-        }   
+        }
+        
+        //shooter articulation sensing
+        if (OI.isSecondaryAButtonPressed())
+        {
+            shooter.lowerShooter();
+        }
+        else if (OI.isSecondaryBButtonPressed())
+        {
+            shooter.raiseShooter();
+        }
+        else
+        {
+            shooter.lockShooterArticulator();
+        }
+        
     }
 
     // Make this return true when this Command no longer needs to run execute()

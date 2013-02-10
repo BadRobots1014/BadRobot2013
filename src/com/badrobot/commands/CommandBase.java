@@ -4,6 +4,8 @@ import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
 import com.badrobot.subsystems.BadCameraSystem;
 import com.badrobot.subsystems.ImpDriveTrain;
+import com.badrobot.subsystems.ProtoFrisbeePusher;
+import com.badrobot.subsystems.ProtoShooter;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import com.badrobot.subsystems.interfaces.IGatherer;
@@ -67,8 +69,8 @@ public abstract class CommandBase extends Command
         
         //driveTrain = ProtoDriveTrain.getInstance();
         driveTrain  = ImpDriveTrain.getInstance();
-        //shooter = ProtoShooter.getInstance();
-        //frisbeePusher = ProtoFrisbeePusher.getInstance();
+        shooter = ProtoShooter.getInstance();
+        frisbeePusher = ProtoFrisbeePusher.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         
         driveChooser = new SendableChooser();
