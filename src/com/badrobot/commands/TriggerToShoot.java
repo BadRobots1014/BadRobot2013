@@ -37,7 +37,7 @@ public class TriggerToShoot extends CommandBase
         //if(OI.primaryXboxController.getRawAxis(3)>=0)//right trigger
         //if (OI.primaryXboxController.getTrigger(GenericHID.Hand.kLeft))
         
-        double rightTriggerValue = OI.isPrimaryLBButtonPressed() ? -1 : 0;
+        double rightTriggerValue = OI.getPrimaryRightTrigger();
         if(rightTriggerValue != 0)
         {
             SmartDashboard.putBoolean("shooterRunning", true);

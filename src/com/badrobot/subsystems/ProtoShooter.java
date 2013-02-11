@@ -37,7 +37,9 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     public static ProtoShooter getInstance()
     {
         if (instance == null)
+        {
             instance = new ProtoShooter();
+        }
         
         return instance;
     }
@@ -46,7 +48,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     {
         shooterRelay = new Relay(BadRobotMap.primaryShooterRelay);
         shooterRelay.setDirection(Relay.Direction.kReverse);
-        //secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
+        secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
         geartooth = new GearTooth(input);
@@ -61,7 +63,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         });*/
         geartooth.start();
         
-        shooterController = new Talon(5);
+        //shooterController = new Talon(5);
         initialize();
     }
     
@@ -77,8 +79,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         geartooth.setMaxPeriod(2);
         geartooth.start();
         
-        //shooterRelay.setDirection(Relay.Direction.kForward);
-        //secondaryShooterRelay.setDirection(Relay.Direction.kForward);
+        shooterRelay.setDirection(Relay.Direction.kForward);
+        secondaryShooterRelay.setDirection(Relay.Direction.kForward);
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln)
@@ -101,7 +103,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     public void runShooter(double speed)
     { 
         //final rig code (2 relays)
-        /*if (speed > 0)
+        if (speed > 0)
         {  
             shooterRelay.set(Relay.Value.kOn);
             secondaryShooterRelay.set(Relay.Value.kOn); 
@@ -111,15 +113,15 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         {
             shooterRelay.set(Relay.Value.kOff);
             secondaryShooterRelay.set(Relay.Value.kOff);
-        }*/
+        }
         
         
         //temporary rig code (1 relay + a talon)
-        shooterController.set(speed);
+        /*shooterController.set(speed);
         if (speed != 0)
             shooterRelay.set(Relay.Value.kOn);
         else
-            shooterRelay.set(Relay.Value.kOff);
+            shooterRelay.set(Relay.Value.kOff); */
         
         
         //SmartDashboard.putBoolean("sensor", sensor.get());

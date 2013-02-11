@@ -15,7 +15,7 @@ public class DriveForwardTurnShoot extends CommandGroup
     
     public DriveForwardTurnShoot() 
     {
-        addSequential(new DriveStraightForward(8));
+        addSequential(new DriveStraightForward(3));
         addSequential(new Turn(90));
         //addSequential(new Shoot());
     }
