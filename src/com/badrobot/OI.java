@@ -34,7 +34,7 @@ public class OI
             Button injectFrisbee = new Button() {
                 public boolean get()
                 {
-                    return (primaryXboxController.getRawButton(RB));
+                    return (secondaryXboxController.getRawButton(RB));
                 }
             };
             injectFrisbee.whenPressed(new InjectFrisbee());   
@@ -120,7 +120,7 @@ public class OI
      * Used with the primary xbox controller
      * @return The deadzone corrected right stick x value
      */
-    public static double getPrimaryControllerRightX()
+    public static double getPrimaryControllerRightStickX()
     {
         return deadzone(-primaryXboxController.getRawAxis(RIGHT_STICK_X));
     }
@@ -214,6 +214,42 @@ public class OI
         return primaryXboxController.getRawButton(START);
     }
 
+    /**
+     * Used with the secondary xbox controller
+     * @return The deadzone corrected left stick x value
+     */
+    public static double getSecondaryControllerLeftStickX()
+    {
+        return deadzone(-secondaryXboxController.getRawAxis(LEFT_STICK_X));
+    }
+    
+    /**
+     * Used with the secondary xbox controller
+     * @return The deadzone corrected left stick y value
+     */
+    public static double getSeondaryControllerLeftStickY()
+    {
+        return deadzone(-primaryXboxController.getRawAxis(LEFT_STICK_Y));
+    }
+
+    /**
+     * Used with the secondary xbox controller
+     * @return The deadzone corrected right stick x value
+     */
+    public static double getSecondaryControllerRightStickX()
+    {
+        return deadzone(-secondaryXboxController.getRawAxis(RIGHT_STICK_X));
+    }
+
+    /**
+     * Used with the secondary xbox controller
+     * @return The deadzone corrected right stick y value
+     */
+    public static double getSecondaryControllerRightStickY()
+    {
+        return deadzone(-secondaryXboxController.getRawAxis(RIGHT_STICK_Y));
+    }
+    
     /**
      * Used with the secondary xbox controller
      * @return The deadzone corrected left stick x value

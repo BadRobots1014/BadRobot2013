@@ -8,6 +8,8 @@ import com.badrobot.BadRobotMap;
 import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
@@ -37,6 +39,7 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
         
         frisbeePusher = new Relay(BadRobotMap.frisbeePusher);
         frisbeePusher.setDirection(Relay.Direction.kForward);
+        
     }
     
     protected void initialize()
@@ -58,6 +61,7 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
 
     protected void initDefaultCommand()
     {
+        
     }    
     
     /**
@@ -68,7 +72,7 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
      */
     public void pushFrisbee(boolean forward)
     {
-        if (forward && !frisbeePusherDirectionIsForward)
+        /*if (forward && !frisbeePusherDirectionIsForward)
         {
             frisbeePusher.setDirection(Relay.Direction.kForward);
             frisbeePusherDirectionIsForward = true;
@@ -77,9 +81,9 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
         {
             frisbeePusher.setDirection(Relay.Direction.kReverse);
             frisbeePusherDirectionIsForward = false;
-        }
+        }*/
         
-        if (frisbeePusher.get() != Relay.Value.kOn)
+        //if (frisbeePusher.get() != Relay.Value.kOn)
         {
             frisbeePusher.set(Relay.Value.kOn);
         }
@@ -90,12 +94,13 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
      */
     public void stopFrisbeePusher()
     {
-        if (frisbeePusher.get() != Relay.Value.kOff)
-            frisbeePusher.set(Relay.Value.kOff);
+        //if (frisbeePusher.get() != Relay.Value.kOff)
+        frisbeePusher.set(Relay.Value.kOff);
     }
 
     public boolean isFrisbeeRetracted()
     {
+        SmartDashboard.putBoolean("frisbee pusher", frisbeePusherLimitSwitch.get());
         return frisbeePusherLimitSwitch.get();
     }
 }

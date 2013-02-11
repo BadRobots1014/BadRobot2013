@@ -8,6 +8,7 @@ import com.badrobot.OI;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.NamedSendable;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITableListener;
@@ -46,13 +47,14 @@ public abstract class BadCommand extends CommandBase implements Logger, NamedSen
      */
     public void initTable(ITable t)
     {
-        log("initting table");
+        table = NetworkTable.getTable(this.getConsoleIdentity());
+        addNetworkTableValues(table);
+        
         if (table != null)
             table.removeTableListener(this);
         table = t;
         
         table.addTableListener(this);
-        addNetworkTableValues(table);
     }
     
     /**

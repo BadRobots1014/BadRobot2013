@@ -37,6 +37,7 @@ public class Shoot extends BadCommand
         //SmartDashboard.putNumber("abc", 1);//this method deals with smartDashboard 
         //smartdash is still under constructing, put it in later.
         shooterSpeed = speed;
+        shooterRunTime = 5;
     }
     //third constructor for autonomous
     public Shoot(double time, double speed)
@@ -44,7 +45,6 @@ public class Shoot extends BadCommand
         requires( (Subsystem) shooter);
         SmartDashboard.putNumber("abc", 1);//this method deals with smartDashboard 
         //smartdash is still under constructing, put it in later.
-        timer = new Timer();
         shooterRunTime = time;
         shooterSpeed = speed;
     }
@@ -68,7 +68,7 @@ public class Shoot extends BadCommand
     protected boolean isFinished() 
     {
         
-        if((timer.getFPGATimestamp()-startTime) > shooterRunTime && timer != null)
+        if((Timer.getFPGATimestamp()-startTime) > shooterRunTime)
             return true;
         //for debug
         if(OI.primaryXboxController.getBumper(GenericHID.Hand.kLeft) || 
