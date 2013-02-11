@@ -50,6 +50,9 @@ public class RobotMain extends IterativeRobot implements Logger
         //autoChooser.addDefault("Default program", new DriveForwardAndShoot());
         autoChooser.addObject("Other program 1", new DriveStraightForward(2));
         SmartDashboard.putData("Autonomous mode chooser", autoChooser);
+        
+        SmartDashboard.putNumber("DriveForwardTurnShoot Angle", 20);
+        SmartDashboard.putNumber("DriveForwardTurnShoot Time", 5);
     }
 
     public void autonomousInit() 

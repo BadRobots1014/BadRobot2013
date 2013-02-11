@@ -23,6 +23,7 @@ public class DriveStraightForward extends BadCommand
     private double scaleFactor;
     private long startTime;
     private long driveTime;
+    private double distance = 0;
     
     public int state = DRIVING_STRAIGHT;
     public static final int DRIVING_STRAIGHT = 0,
@@ -37,6 +38,7 @@ public class DriveStraightForward extends BadCommand
     {
         requires((Subsystem) driveTrain);
         driveTime = 5*1000000;
+        
     }
     
     /**
@@ -46,6 +48,13 @@ public class DriveStraightForward extends BadCommand
     {
         long temp = (long) setTime*1000000;
         driveTime = temp;
+        distance = -1;
+    }
+    
+    public DriveStraightForward(double setTime, double distanceInYards)
+    {
+        driveTime = -1;
+        distance = distanceInYards;
     }
     
     public String getConsoleIdentity() 
@@ -119,16 +128,21 @@ public class DriveStraightForward extends BadCommand
     
     protected boolean isFinished() 
     {
-        if (Utility.getFPGATime() >= startTime + driveTime)
+        //if by time
+        if (driveTime > 0 && Utility.getFPGATime() >= startTime + driveTime)
         {
+            log("time limit hit");
             driveTrain.tankDrive(0, 0);
             state = FINISHED;
             return true;
         }
-        else
+        else if (distance > 0 && driveTrain.getDistanceToWall() < distance*36)
         {
-            return false;
+            log("distance limit hit");
+            return true;
         }
+        
+        return false;
     }
 
     protected void end() 

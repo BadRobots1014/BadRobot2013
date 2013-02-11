@@ -10,6 +10,7 @@ import com.badrobot.commands.Shoot;
 import com.badrobot.commands.Turn;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -20,9 +21,13 @@ public class DriveForwardTurnShoot extends CommandGroup
     
     public DriveForwardTurnShoot() 
     {
-        addSequential(new DriveStraightForward(3));
-        addParallel(new Shoot(6, 1.0));
-        addSequential(new Turn(30));
+        int time = (int) SmartDashboard.getNumber("DriveForwardTurnShoot Time");
+        int angle = (int) SmartDashboard.getNumber("DriveForwardTurnShoot Angle");
+        double distance = 3; // yards
+        
+        addSequential(new DriveStraightForward(time));
+        addParallel(new Shoot(time + 5, 1.0));
+        addSequential(new Turn(angle));
         //time, power
         addSequential(new InjectFrisbee(4));
     }

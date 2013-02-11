@@ -28,6 +28,7 @@ public class DriveWithJoysticks extends BadCommand
     protected void initialize()
     {
         String mode = (String) CommandBase.driveChooser.getSelected();
+        SmartDashboard.putNumber("bumper adjustment magnitude", .2);
 
         if (mode == "tankDrive")
             TANK_DRIVE_MODE = true;
@@ -37,12 +38,27 @@ public class DriveWithJoysticks extends BadCommand
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
-    {
-        if (TANK_DRIVE_MODE)
+    {   
+        if (OI.isPrimaryRBButtonPressed())
+        {
+            double speed = SmartDashboard.getNumber("bumper adjustment magnitude");
+            driveTrain.tankDrive(speed, -speed);
+        }
+        
+        else if (OI.isPrimaryLBButtonPressed())
+        {
+            double speed = SmartDashboard.getNumber("bumper adjustment magnitude"); 
+            driveTrain.tankDrive(-speed, speed);
+        }
+        
+        else if (TANK_DRIVE_MODE)
             driveTrain.tankDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerRightStickY());
         
         else
             driveTrain.arcadeDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerLeftStickX());
+        
+        
+        
         
         //log("Distance To Wall: "+driveTrain.getDistanceToWall());     //works fine.
         //log("Angle: "+driveTrain.getGyro().getAngle());               //doesn't work.

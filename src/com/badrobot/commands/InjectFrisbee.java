@@ -126,8 +126,7 @@ public class InjectFrisbee extends BadCommand
         //done when we are finished with our state machining
         return (
                 (state == FINISHED && currentIteration >= iterations) || 
-                ((Timer.getFPGATimestamp() - startTime) > 2)
-                );
+                ((Timer.getFPGATimestamp() - startTime) > 1.5) );
     }
 
     // Called once after isFinished returns true
