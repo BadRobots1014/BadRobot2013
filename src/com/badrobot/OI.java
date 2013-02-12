@@ -29,7 +29,7 @@ public class OI
         
         //button that senses seconadry Right bumper press for shooter injection
         
-        if (CommandBase.frisbeePusher != null)
+        /*if (CommandBase.frisbeePusher != null)
         {
             Button injectFrisbee = new Button() {
                 public boolean get()
@@ -38,7 +38,7 @@ public class OI
                 }
             };
             injectFrisbee.whenPressed(new InjectFrisbee());   
-        }
+        }*/
     }
     
     //// CREATING BUTTONS
