@@ -47,7 +47,7 @@ public class AimWithCamera extends BadCommand
         TURN_SPEED = SmartDashboard.getNumber("Auto Aim Turn Speed");
         TOLERANCE = SmartDashboard.getNumber("Auto Aim Tolerance");
         
-        if(timeSince > TIME_OUT_IN_SECONDS) {
+        if(timeSince > TIME_OUT_IN_SECONDS || timeSince == -1) {
             log("hang on..... ");
             driveTrain.tankDrive(0, 0);
             return;
