@@ -34,14 +34,13 @@ public class InjectFrisbeesWithController extends BadCommand
         return "InjectFrisbeesWithController";
     }
 
-    protected void execute() 
+    protected void execute()
     {
-        if (!OI.isPrimaryRBButtonPressed() && frisbeePusher.isFrisbeeRetracted())
+        if (frisbeePusher.isFrisbeeRetracted() && !OI.isSecondaryRBButtonPressed())
         {
             frisbeePusher.stopFrisbeePusher();
         }
-        
-        else if (OI.isPrimaryRBButtonPressed() && frisbeePusher.isFrisbeeRetracted())
+        else if (frisbeePusher.isFrisbeeRetracted() && OI.isSecondaryRBButtonPressed())
         {
             frisbeePusher.pushFrisbee(true);
         }
