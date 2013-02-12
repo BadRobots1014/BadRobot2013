@@ -63,8 +63,8 @@ public class RobotMain extends IterativeRobot implements Logger
         //make sure you dont have to add to scheduler to run autonomous command TODO
         autonomousCommand.start();*/
         
-        Command auto = new AimWithCamera();//DriveForwardTurnShoot();
-        auto.start();
+        //Command auto = new AimWithCamera();//DriveForwardTurnShoot();
+        //auto.start();
     }
     
     /**

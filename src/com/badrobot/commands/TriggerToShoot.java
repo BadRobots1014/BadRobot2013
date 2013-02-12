@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TriggerToShoot extends CommandBase
 {
     double shooterSpeed;
+    double height = 100;
     
     public TriggerToShoot()
     {
@@ -25,6 +26,8 @@ public class TriggerToShoot extends CommandBase
     protected void initialize()
     {
         shooterSpeed = .4;
+        
+        //SmartDashboard.putNumber("shooter height", height);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -53,10 +56,16 @@ public class TriggerToShoot extends CommandBase
         if (OI.isSecondaryAButtonPressed())
         {
             shooter.lowerShooter();
+            
+            height--;
+            SmartDashboard.putNumber("shooter height", height);
         }
         else if (OI.isSecondaryBButtonPressed())
         {
             shooter.raiseShooter();
+            
+            height++;
+            SmartDashboard.putNumber("shooter height", height);
         }
         else
         {

@@ -65,7 +65,7 @@ public class AimWithCamera extends BadCommand
         double targetX = table.getNumber("target_x");
         if(Math.abs(targetX) < TOLERANCE){
             driveTrain.tankDrive(0,0);
-            return false; //for now prevent it from ending
+            return true; 
         }
         return false;
     }

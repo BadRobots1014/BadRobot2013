@@ -5,7 +5,6 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
-import com.badrobot.commands.TestShooter;
 import com.badrobot.commands.TriggerToShoot;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.*;
