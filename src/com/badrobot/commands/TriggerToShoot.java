@@ -30,6 +30,8 @@ public class TriggerToShoot extends CommandBase
         //SmartDashboard.putNumber("shooter height", height);
     }
 
+    boolean triggerWasDepressed = false;
+    boolean shoot = false;
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
@@ -40,6 +42,25 @@ public class TriggerToShoot extends CommandBase
         //if(OI.primaryXboxController.getRawAxis(3)>=0)//right trigger
         //if (OI.primaryXboxController.getTrigger(GenericHID.Hand.kLeft))
         
+        boolean isTriggerDepressed = OI.isSecondaryLBButtonPressed();
+        
+        if (isTriggerDepressed)
+        {
+            triggerWasDepressed = true;
+        }
+        
+        if (triggerWasDepressed && !isTriggerDepressed)
+        {
+            shoot = !shoot;
+            triggerWasDepressed = false;
+        }
+        
+        if (shoot)
+            shooter.runShooter(1);
+        else 
+            shooter.runShooter(0);
+        
+        /*
         double shooterSetValue = OI.isSecondaryLBButtonPressed() ? -1 : 0;
         if(shooterSetValue != 0)
         {
@@ -50,7 +71,7 @@ public class TriggerToShoot extends CommandBase
         {    
             SmartDashboard.putBoolean("shooterRunning", false);
             shooter.runShooter(0);
-        }
+        }*/
         
         //shooter articulation sensing
         if (OI.isSecondaryAButtonPressed())

@@ -36,12 +36,13 @@ public class AimWithCamera extends BadCommand
         table = NetworkTable.getTable("IMGPROC");
     }
 
+    double timeSince;
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
         double targetX = table.getNumber("target_x");
         double targetY = table.getNumber("target_y");
-        double timeSince = table.getNumber("time_since");
+        timeSince = table.getNumber("time_since");
         
         TIME_OUT_IN_SECONDS = SmartDashboard.getNumber("Auto Aim Time Out In Seconds");
         TURN_SPEED = SmartDashboard.getNumber("Auto Aim Turn Speed");
@@ -56,6 +57,10 @@ public class AimWithCamera extends BadCommand
             driveTrain.tankDrive(-TURN_SPEED, TURN_SPEED);
         else if (targetX > TOLERANCE)
             driveTrain.tankDrive(TURN_SPEED, -TURN_SPEED);
+        else
+            driveTrain.tankDrive(0,0);
+        
+        log(targetX + " -> target x,   timeSince-> " + timeSince);
         
     }
 
@@ -63,9 +68,10 @@ public class AimWithCamera extends BadCommand
     protected boolean isFinished()
     {
         double targetX = table.getNumber("target_x");
-        if(Math.abs(targetX) < TOLERANCE){
+        if(Math.abs(targetX) < TOLERANCE && timeSince >= 0){
             driveTrain.tankDrive(0,0);
-            return true; 
+            log("finished...   targetX : " + targetX);
+            return false; //for now keep running
         }
         return false;
     }
