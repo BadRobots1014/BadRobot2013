@@ -23,6 +23,7 @@ public class AimWithCamera extends BadCommand
     public AimWithCamera()
     {
         requires((Subsystem) driveTrain);
+        requires((Subsystem) shooter);
         SmartDashboard.putNumber("Auto Aim Time Out In Seconds", TIME_OUT_IN_SECONDS);
         SmartDashboard.putNumber("Auto Aim Turn Speed", TURN_SPEED);
         SmartDashboard.putNumber("Auto Aim Tolerance", TOLERANCE);
@@ -47,15 +48,35 @@ public class AimWithCamera extends BadCommand
         TURN_SPEED = SmartDashboard.getNumber("Auto Aim Turn Speed");
         TOLERANCE = SmartDashboard.getNumber("Auto Aim Tolerance");
         
-        if(timeSince > TIME_OUT_IN_SECONDS || timeSince == -1) {
+        if(timeSince > TIME_OUT_IN_SECONDS || timeSince == -1) 
+        {
             log("hang on..... ");
             driveTrain.tankDrive(0, 0);
             return;
         }
         else if (targetX <  -TOLERANCE)
+        {
             driveTrain.tankDrive(-TURN_SPEED, TURN_SPEED);
+        }
         else if (targetX > TOLERANCE)
+        {
             driveTrain.tankDrive(TURN_SPEED, -TURN_SPEED);
+        }
+        
+        if(timeSince > TIME_OUT_IN_SECONDS || timeSince == -1) 
+        {
+            log("hang on..... ");
+            driveTrain.tankDrive(0, 0);
+            return;
+        }
+        else if (targetY > TOLERANCE)
+        {
+            shooter.raiseShooter();
+        }
+        else if (targetY < TOLERANCE)
+        {
+            shooter.lowerShooter();
+        }
         
     }
 

@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  *
- * @author Jon Buckley
+ * @author Noah Baskes
  */
 public class ProtoShooter extends BadSubsystem implements IShooter
 {
@@ -134,14 +134,14 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         pid.setSetpoint(setpoint);
         
         controller.set(pid.getValue());
-        SmartDashboard.putNumber("period", geartooth.getPeriod());
-        SmartDashboard.putNumber("count", geartooth.get());
-        SmartDashboard.putNumber("rpm", pid.source.pidGet());
+        SmartDashboard.putNumber("Period", geartooth.getPeriod());
+        SmartDashboard.putNumber("Count", geartooth.get());
+        SmartDashboard.putNumber("RPM", pid.source.pidGet());
     }
         
     public double getShooterSpeed() 
     {
-        return -1;
+        return geartooth.getPeriod();
     }
 
     public void raiseShooter()
