@@ -6,17 +6,21 @@ package com.badrobot.commands;
 
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * This command is meant to be a one button solution to shooting frisbees. The shooter
+ * should run continously and the frisbee pusher should push frisbees after ever
+ * second or two. 
  * @author Jon Buckley
  */
-public class TestShooter extends CommandBase
+public class SmartShoot extends BadCommand
 {
     
-    public TestShooter()
+    public SmartShoot()
     {
         requires((Subsystem) shooter);
+        requires((Subsystem) frisbeePusher);
     }
 
     // Called just before this Command runs the first time
@@ -24,13 +28,15 @@ public class TestShooter extends CommandBase
     {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    //runs the shooter, pushes frisbees in at intervals.
     protected void execute()
     {
-        if (OI.secondaryXboxController.getRawButton(1))
+        if (OI.getSecondaryRightTrigger() > 0)
+        {
             shooter.runShooter(1);
-        else
-            shooter.runShooter(0);
+            
+            //TODO inject frisbee code
+        }
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -48,5 +54,18 @@ public class TestShooter extends CommandBase
     // subsystems is scheduled to run
     protected void interrupted()
     {
+    }
+
+    public void valueChanged(ITable itable, String key, Object value, boolean bln)
+    {
+    }
+
+    protected void addNetworkTableValues(ITable table)
+    {
+    }
+
+    public String getConsoleIdentity()
+    {
+        return "SmartShoot";
     }
 }

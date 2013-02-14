@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * v1.0 Working instructions for drivetrain, tested on Shelby 1/12/2013
+ * v1.2 Working instructions for drivetrain, tested on Sevrin 2/11/2013
  * @author Jon Buckley
  */
 public class DriveWithJoysticks extends BadCommand
 {
-    
+    private double BUMPER_SPEED = .5;
     protected boolean TANK_DRIVE_MODE = true;
     public DriveWithJoysticks()
     {
@@ -28,7 +28,6 @@ public class DriveWithJoysticks extends BadCommand
     protected void initialize()
     {
         String mode = (String) CommandBase.driveChooser.getSelected();
-        SmartDashboard.putNumber("bumper adjustment magnitude", .2);
 
         if (mode == "tankDrive")
             TANK_DRIVE_MODE = true;
@@ -41,14 +40,12 @@ public class DriveWithJoysticks extends BadCommand
     {   
         if (OI.isPrimaryRBButtonPressed())
         {
-            double speed = SmartDashboard.getNumber("bumper adjustment magnitude");
-            driveTrain.tankDrive(speed, -speed);
+            driveTrain.tankDrive(BUMPER_SPEED, -BUMPER_SPEED);
         }
         
         else if (OI.isPrimaryLBButtonPressed())
         {
-            double speed = SmartDashboard.getNumber("bumper adjustment magnitude"); 
-            driveTrain.tankDrive(-speed, speed);
+            driveTrain.tankDrive(-BUMPER_SPEED, BUMPER_SPEED);
         }
         
         else if (TANK_DRIVE_MODE)
@@ -57,11 +54,6 @@ public class DriveWithJoysticks extends BadCommand
         else
             driveTrain.arcadeDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerLeftStickX());
         
-        
-        
-        
-        //log("Distance To Wall: "+driveTrain.getDistanceToWall());     //works fine.
-        //log("Angle: "+driveTrain.getGyro().getAngle());               //doesn't work.
         
         SmartDashboard.putNumber("ultrasonic distance", driveTrain.getDistanceToWall());
         SmartDashboard.putNumber("gyro angle", driveTrain.getGyro().getAngle());
