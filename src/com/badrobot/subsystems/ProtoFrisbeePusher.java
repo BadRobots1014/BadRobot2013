@@ -40,7 +40,6 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
         
         frisbeePusher = new Relay(BadRobotMap.frisbeePusher);
         frisbeePusher.setDirection(Relay.Direction.kForward);
-        
     }
     
     protected void initialize()

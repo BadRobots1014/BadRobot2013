@@ -62,6 +62,7 @@ public class AimWithCamera extends BadCommand
         else if (targetX > TOLERANCE)
         {
             driveTrain.tankDrive(TURN_SPEED, -TURN_SPEED);
+        }
         else
             driveTrain.tankDrive(0,0);
         
