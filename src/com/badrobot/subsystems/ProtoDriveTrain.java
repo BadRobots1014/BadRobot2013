@@ -54,9 +54,9 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
      */
     protected void initialize()
     {
-        frontLeft = new Talon(BadRobotMap.frontLeftSpeedController);
+        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
         frontRight = new Talon(BadRobotMap.frontRightSpeedController);
-        backLeft = new Talon(BadRobotMap.backLeftSpeedController);
+        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
         backRight = new Talon(BadRobotMap.backRightSpeedController);
         
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
