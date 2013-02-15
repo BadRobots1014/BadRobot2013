@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GearTooth;
 import edu.wpi.first.wpilibj.Utility;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
@@ -24,7 +25,7 @@ public class InjectFrisbeesWithController extends BadCommand
     static double SHOT_DELAY = 2;
     
     double shooterSpeed;
-    static double REQUIRED_SHOOTER_SPEED = 4000;
+    static double REQUIRED_SHOOTER_SPEED = 5000;
     
     public InjectFrisbeesWithController()
     {
@@ -34,14 +35,13 @@ public class InjectFrisbeesWithController extends BadCommand
     
     protected void initialize() 
     {
-        shooterSpeed = shooter.getShooterSpeed();
-        
-        timeWhenShot = 0;
+        //timeWhenShot = 0;
     }
     
     private boolean isShooterReadyToShoot()
     {
         //return(Utility.getFPGATime() >= (timeWhenShot + SHOT_DELAY*1000000));
+        
         return (shooterSpeed >= REQUIRED_SHOOTER_SPEED);
     }
 
@@ -60,7 +60,7 @@ public class InjectFrisbeesWithController extends BadCommand
         
         if (!frisbeePusher.isFrisbeeRetracted() && !hasReset)
         {
-            timeWhenShot = Utility.getFPGATime();
+            //timeWhenShot = Utility.getFPGATime();
             hasReset = true;
         }
     }
@@ -78,6 +78,10 @@ public class InjectFrisbeesWithController extends BadCommand
 
     protected void execute()
     {
+        shooterSpeed = shooter.getShooterSpeed();
+        
+        SmartDashboard.putNumber("shooter speed", shooterSpeed);
+        SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
         if (OI.isSecondaryRBButtonPressed())
         {
             shooter.runShooter(1);
@@ -85,8 +89,15 @@ public class InjectFrisbeesWithController extends BadCommand
         }
         else
         {
+            if (!frisbeePusher.isFrisbeeRetracted())
+            {
+                frisbeePusher.pushFrisbee(true);
+            }
+            
+            else
+                frisbeePusher.stopFrisbeePusher();
+             
             shooter.runShooter(0);
-            frisbeePusher.stopFrisbeePusher();
         }
     }
 

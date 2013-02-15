@@ -140,12 +140,13 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         
     public double getShooterSpeed() 
     {
-        return geartooth.getPeriod();
+        //Converts from sec/rev to rev/min.
+        return (60/geartooth.getPeriod());  
     }
 
     public void raiseShooter()
     {
-        shooterArticulatorSpeedController.set(1.0);
+        shooterArticulatorSpeedController.set(.5);
         
         /*
         if (!shooterArticulatorRelayIsForward)
