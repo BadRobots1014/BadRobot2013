@@ -5,6 +5,7 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
+import com.badrobot.commands.InjectFrisbeesWithController;
 import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
@@ -39,7 +40,6 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
         
         frisbeePusher = new Relay(BadRobotMap.frisbeePusher);
         frisbeePusher.setDirection(Relay.Direction.kForward);
-        
     }
     
     protected void initialize()
@@ -61,7 +61,7 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
 
     protected void initDefaultCommand()
     {
-        
+        this.setDefaultCommand(new InjectFrisbeesWithController());   
     }    
     
     /**

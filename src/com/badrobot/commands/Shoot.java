@@ -26,7 +26,7 @@ public class Shoot extends BadCommand
     public Shoot() 
     {
         requires( (Subsystem) shooter);
-        SmartDashboard.putNumber("abc", 1);//this method deals with smartDashboard 
+        //SmartDashboard.putNumber("abc", 1);//this method deals with smartDashboard 
         //smartdash is still under constructing, put it in later.
     }
     
@@ -34,7 +34,7 @@ public class Shoot extends BadCommand
     public Shoot(double speed)
     {
         requires( (Subsystem) shooter);
-        SmartDashboard.putNumber("abc", 1);//this method deals with smartDashboard 
+        //SmartDashboard.putNumber("abc", 1);//this method deals with smartDashboard 
         //smartdash is still under constructing, put it in later.
         shooterSpeed = speed;
         shooterRunTime = 5;
