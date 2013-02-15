@@ -20,12 +20,16 @@ public class InjectFrisbeesWithController extends BadCommand
 {
     //Temporary time delay for the shooter (until we get the optical sensor).
     double timeWhenShot;
+    boolean hasReset;
+    static double SHOT_DELAY = 2;
+    
     double shooterSpeed;
-    double shotDelay;
+    static double REQUIRED_SHOOTER_SPEED = 4000;
     
     public InjectFrisbeesWithController()
     {
         requires((Subsystem) frisbeePusher);
+        requires((Subsystem) shooter);
     }
     
     protected void initialize() 
@@ -33,14 +37,34 @@ public class InjectFrisbeesWithController extends BadCommand
         shooterSpeed = shooter.getShooterSpeed();
         
         timeWhenShot = 0;
-        shotDelay = 0.5;
     }
     
-    private boolean isShooterDelayedEnough()
+    private boolean isShooterReadyToShoot()
     {
-        return(Utility.getFPGATime() >= (timeWhenShot + shotDelay*1000000));
+        //return(Utility.getFPGATime() >= (timeWhenShot + SHOT_DELAY*1000000));
+        return (shooterSpeed >= REQUIRED_SHOOTER_SPEED);
     }
 
+    private void push()
+    {
+        if (frisbeePusher.isFrisbeeRetracted() && !isShooterReadyToShoot())
+        {
+            frisbeePusher.stopFrisbeePusher();
+            hasReset = false;
+        }
+        
+        else 
+        {
+            frisbeePusher.pushFrisbee(true);
+        }
+        
+        if (!frisbeePusher.isFrisbeeRetracted() && !hasReset)
+        {
+            timeWhenShot = Utility.getFPGATime();
+            hasReset = true;
+        }
+    }
+    
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
     }
 
@@ -54,14 +78,15 @@ public class InjectFrisbeesWithController extends BadCommand
 
     protected void execute()
     {
-        if (frisbeePusher.isFrisbeeRetracted() && !isShooterDelayedEnough())
+        if (OI.isSecondaryRBButtonPressed())
         {
-            frisbeePusher.stopFrisbeePusher();
+            shooter.runShooter(1);
+            push();
         }
-        else if (frisbeePusher.isFrisbeeRetracted() && OI.isSecondaryRBButtonPressed() && isShooterDelayedEnough())
+        else
         {
-            frisbeePusher.pushFrisbee(true);
-            timeWhenShot = Utility.getFPGATime();
+            shooter.runShooter(0);
+            frisbeePusher.stopFrisbeePusher();
         }
     }
 
