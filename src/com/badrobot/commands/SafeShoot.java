@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
  *
  * @author Isaac
  */
-public class InjectFrisbeesWithController extends BadCommand
+public class SafeShoot extends BadCommand
 {
     //Temporary time delay for the shooter (until we get the optical sensor).
     double timeWhenShot;
@@ -27,7 +27,7 @@ public class InjectFrisbeesWithController extends BadCommand
     double shooterSpeed;
     static double REQUIRED_SHOOTER_SPEED = 5000;
     
-    public InjectFrisbeesWithController()
+    public SafeShoot()
     {
         requires((Subsystem) frisbeePusher);
         requires((Subsystem) shooter);

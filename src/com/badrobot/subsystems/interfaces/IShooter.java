@@ -17,22 +17,6 @@ public interface IShooter
     public void runShooter(double speed);
     
     /**
-     * raises the shooter in angle
-     */
-    public void raiseShooter();
-    
-    /**
-     * lowers the shooter's angle (becomes more parallel to the ground)
-     */
-    public void lowerShooter();
-    
-    
-    /**
-     * locks the position of the shooter articulation mechanism
-     */
-    public void lockShooterArticulator();
-    
-    /**
      * @return Returns the speed of the shooter wheel.
      */
     public double getShooterSpeed();

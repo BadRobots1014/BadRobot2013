@@ -29,7 +29,7 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     Encoder leftEncoder;
     Encoder rightEncoder;
     
-    private double MAX_SPEED = 1600;
+    private static double MAX_SPEED = 1600;
     
     public static double speedscale;
     
@@ -54,10 +54,12 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     {
         leftEncoder = new Encoder(BadRobotMap.leftSideEncoderIn, BadRobotMap.leftSideEncoderOut, true);
         leftEncoder.setDistancePerPulse(1);
+        leftEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         leftEncoder.start();
         
         rightEncoder = new Encoder(BadRobotMap.rightSideEncoderIn, BadRobotMap.rightSideEncoderOut, true);
         rightEncoder.setDistancePerPulse(1);
+        rightEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         rightEncoder.start();
         
         gyro = new Gyro(BadRobotMap.driveTrainGyro);
@@ -72,13 +74,14 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         frontRight = new Talon(BadRobotMap.frontRightSpeedController);
         backLeft = new Talon(BadRobotMap.backLeftSpeedController);
         backRight = new Talon(BadRobotMap.backRightSpeedController);
-        
+                
         leftFrontController = new PIDController(.01, 0, 0, leftEncoder, frontLeft);
         rightFrontController = new PIDController(.01, 0, 0, rightEncoder, frontRight);
         leftBackController = new PIDController(.01, 0, 0, leftEncoder, backLeft);
         rightBackController = new PIDController(.01, 0, 0, rightEncoder, backRight);
         
         SmartDashboard.putData("left front PID",leftFrontController);
+        SmartDashboard.putNumber("Max encoder speed", MAX_SPEED);
         
         leftFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
         rightFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
@@ -89,6 +92,11 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         rightFrontController.setOutputRange(-1,1);
         leftBackController.setOutputRange(-1,1);
         rightBackController.setOutputRange(-1,1);
+        
+        leftFrontController.setPercentTolerance(.05);
+        rightFrontController.setPercentTolerance(.05);
+        leftBackController.setPercentTolerance(.05);
+        rightBackController.setPercentTolerance(.05);
                 
         leftFrontController.enable();
         rightFrontController.enable();
@@ -149,6 +157,7 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     {
         log("left speed: "+leftEncoder.getRate());
         log("right speed: "+rightEncoder.getRate());
+        MAX_SPEED = SmartDashboard.getNumber("Max encoder speed");
         //log(left + " left " + right + " right");
         //train.tankDrive(left, right);
         leftFrontController.setSetpoint(left*MAX_SPEED);

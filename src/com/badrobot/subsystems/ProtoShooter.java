@@ -32,8 +32,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     Relay shooterRelay,
             secondaryShooterRelay;
     
-    SpeedController shooterController,
-            shooterArticulatorSpeedController;
+    SpeedController shooterController;
     
     //boolean shooterArticulatorRelayIsForward = true;
     
@@ -54,11 +53,6 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         
         secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
         secondaryShooterRelay.setDirection(Relay.Direction.kForward);
-        
-        //shooterArticulatorRelay = new Relay(BadRobotMap.shooterArticulator);
-        //shooterArticulatorRelay.setDirection(Relay.Direction.kForward);
-        
-        shooterArticulatorSpeedController = new Talon(BadRobotMap.shooterArticulator);
         
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
@@ -143,36 +137,4 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         //Converts from sec/rev to rev/min.
         return (60/geartooth.getPeriod());  
     }
-
-    public void raiseShooter()
-    {
-        shooterArticulatorSpeedController.set(.5);
-        
-        /*
-        if (!shooterArticulatorRelayIsForward)
-        {
-            shooterArticulatorRelay.setDirection(Relay.Direction.kForward);
-            shooterArticulatorRelayIsForward = true;
-        }    
-        shooterArticulatorRelay.set(Relay.Value.kOn);*/
-    }
-
-    public void lowerShooter()
-    {
-        shooterArticulatorSpeedController.set(-1.0);
-        /*
-        if (shooterArticulatorRelayIsForward)
-        {
-            shooterArticulatorRelay.setDirection(Relay.Direction.kReverse);
-            shooterArticulatorRelayIsForward = false;
-        }    
-        shooterArticulatorRelay.set(Relay.Value.kOn);*/
-    }
-    
-    public void lockShooterArticulator()
-    {
-        shooterArticulatorSpeedController.set(0.0);
-        //shooterArticulatorRelay.set(Relay.Value.kOff);
-    }
-    
 }

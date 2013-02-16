@@ -74,25 +74,6 @@ public class TriggerToShoot extends CommandBase
         }*/
         
         //shooter articulation sensing
-        if (OI.isSecondaryAButtonPressed())
-        {
-            shooter.lowerShooter();
-            
-            height--;
-            SmartDashboard.putNumber("shooter height", height);
-        }
-        else if (OI.isSecondaryBButtonPressed())
-        {
-            shooter.raiseShooter();
-            
-            height++;
-            SmartDashboard.putNumber("shooter height", height);
-        }
-        else
-        {
-            shooter.lockShooterArticulator();
-        }
-        
     }
 
     // Make this return true when this Command no longer needs to run execute()
