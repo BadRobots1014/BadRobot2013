@@ -28,6 +28,11 @@ public class BadRobotMap implements Sendable
     public static int driveTrainUltrasonicPing;
     public static int driveTrainUltrasonicEcho;
     
+    public static int leftSideEncoderIn;
+    public static int leftSideEncoderOut;
+    public static int rightSideEncoderIn;
+    public static int rightSideEncoderOut;
+    
     // The back speed controllers are assigned because there is an issue with 
     // The gearbox and so we only want to drive two of the motors for now. The
     // Back motors are being given non-occupied ports, 11 and 12 to do this
@@ -67,6 +72,11 @@ public class BadRobotMap implements Sendable
             driveTrainGyro = 1;
             driveTrainUltrasonicPing = 3;
             driveTrainUltrasonicEcho = 2;
+            
+            leftSideEncoderIn = 13;
+            leftSideEncoderOut = 14;
+            rightSideEncoderIn = 11;
+            rightSideEncoderOut = 12;
             
             frisbeePusherSwitch = 5; 
             opticalShooterSensor = 1;

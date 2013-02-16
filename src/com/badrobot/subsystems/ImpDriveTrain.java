@@ -24,6 +24,13 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     Ultrasonic ultrasonic;
     Gyro gyro;
     
+    PIDController leftFrontController, rightFrontController, leftBackController, rightBackController;
+    
+    Encoder leftEncoder;
+    Encoder rightEncoder;
+    
+    private double MAX_SPEED = 1600;
+    
     public static double speedscale;
     
     public static ImpDriveTrain instance;
@@ -45,6 +52,14 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize() 
     {
+        leftEncoder = new Encoder(BadRobotMap.leftSideEncoderIn, BadRobotMap.leftSideEncoderOut, true);
+        leftEncoder.setDistancePerPulse(1);
+        leftEncoder.start();
+        
+        rightEncoder = new Encoder(BadRobotMap.rightSideEncoderIn, BadRobotMap.rightSideEncoderOut, true);
+        rightEncoder.setDistancePerPulse(1);
+        rightEncoder.start();
+        
         gyro = new Gyro(BadRobotMap.driveTrainGyro);
         gyro.reset();
         
@@ -57,8 +72,30 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         frontRight = new Talon(BadRobotMap.frontRightSpeedController);
         backLeft = new Talon(BadRobotMap.backLeftSpeedController);
         backRight = new Talon(BadRobotMap.backRightSpeedController);
-             
-        train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+        
+        leftFrontController = new PIDController(.01, 0, 0, leftEncoder, frontLeft);
+        rightFrontController = new PIDController(.01, 0, 0, rightEncoder, frontRight);
+        leftBackController = new PIDController(.01, 0, 0, leftEncoder, backLeft);
+        rightBackController = new PIDController(.01, 0, 0, rightEncoder, backRight);
+        
+        SmartDashboard.putData("left front PID",leftFrontController);
+        
+        leftFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
+        rightFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
+        leftBackController.setInputRange(-MAX_SPEED, MAX_SPEED);
+        rightBackController.setInputRange(-MAX_SPEED, MAX_SPEED);
+        
+        leftFrontController.setOutputRange(-1,1);
+        rightFrontController.setOutputRange(-1,1);
+        leftBackController.setOutputRange(-1,1);
+        rightBackController.setOutputRange(-1,1);
+                
+        leftFrontController.enable();
+        rightFrontController.enable();
+        leftBackController.enable();
+        rightBackController.enable();
+        
+        //train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
         
         /*train.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         train.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
@@ -66,7 +103,7 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         train.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
         */
         
-        train.setSafetyEnabled(false);
+        //train.setSafetyEnabled(false);
         
         //dTrain_Gyro = new Gyro(BadRobotMap.driveTrainGyro);
         speedscale = 1;
@@ -110,10 +147,14 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
      */
     public void tankDrive(double left, double right) 
     {
+        log("left speed: "+leftEncoder.getRate());
+        log("right speed: "+rightEncoder.getRate());
         //log(left + " left " + right + " right");
-        train.tankDrive(left, right);
-        //backLeft.set(left);
-        //backRight.set(right);
+        //train.tankDrive(left, right);
+        leftFrontController.setSetpoint(left*MAX_SPEED);
+        leftBackController.setSetpoint(left*MAX_SPEED);
+        rightFrontController.setSetpoint(right*MAX_SPEED);
+        rightBackController.setSetpoint(right*MAX_SPEED);
     }
 
     public void arcadeDrive(double Y, double X) 
