@@ -58,7 +58,7 @@ public class DriveWithJoysticks extends BadCommand
         SmartDashboard.putNumber("ultrasonic distance", driveTrain.getDistanceToWall());
         SmartDashboard.putNumber("gyro angle", driveTrain.getGyro().getAngle());
     }
-
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
