@@ -5,6 +5,7 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
+import com.badrobot.commands.SafeShoot;
 import com.badrobot.commands.TriggerToShoot;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.*;
@@ -73,7 +74,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     
     public void initDefaultCommand()
     {
-        setDefaultCommand(new TriggerToShoot());
+        setDefaultCommand(new SafeShoot());
     }
 
     protected void initialize()

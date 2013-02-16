@@ -24,8 +24,10 @@ public class SafeShoot extends BadCommand
     boolean hasReset;
     static double SHOT_DELAY = 2;
     
+    boolean hasPushed;
+    
     double shooterSpeed;
-    static double REQUIRED_SHOOTER_SPEED = 5000;
+    static double REQUIRED_SHOOTER_SPEED = 5200;
     
     public SafeShoot()
     {
@@ -50,7 +52,7 @@ public class SafeShoot extends BadCommand
         if (frisbeePusher.isFrisbeeRetracted() && !isShooterReadyToShoot())
         {
             frisbeePusher.stopFrisbeePusher();
-            hasReset = false;
+            //hasReset = false;
         }
         
         else 
@@ -58,11 +60,11 @@ public class SafeShoot extends BadCommand
             frisbeePusher.pushFrisbee(true);
         }
         
-        if (!frisbeePusher.isFrisbeeRetracted() && !hasReset)
+        /*if (!frisbeePusher.isFrisbeeRetracted() && !hasReset)
         {
             //timeWhenShot = Utility.getFPGATime();
             hasReset = true;
-        }
+        }*/
     }
     
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
@@ -82,7 +84,17 @@ public class SafeShoot extends BadCommand
         
         SmartDashboard.putNumber("shooter speed", shooterSpeed);
         SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
-        if (OI.isSecondaryRBButtonPressed())
+        if (OI.isSecondaryXButtonPressed())
+        {
+            shooter.runShooter(0.7);
+        }
+        
+        else if (OI.isSecondaryYButtonPressed())
+        {
+            frisbeePusher.pushFrisbee(true);
+        }
+        
+        else if (OI.isSecondaryRBButtonPressed())
         {
             shooter.runShooter(1);
             push();
@@ -95,8 +107,10 @@ public class SafeShoot extends BadCommand
             }
             
             else
+            {
                 frisbeePusher.stopFrisbeePusher();
-             
+            }
+            
             shooter.runShooter(0);
         }
     }

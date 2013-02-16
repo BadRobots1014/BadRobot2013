@@ -61,7 +61,7 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
 
     protected void initDefaultCommand()
     {
-        this.setDefaultCommand(new SafeShoot());   
+        //this.setDefaultCommand(new SafeShoot());   
     }    
     
     /**
