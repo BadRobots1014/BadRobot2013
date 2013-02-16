@@ -44,7 +44,7 @@ public class BadRobotMap implements Sendable
     public static int opticalShooterSensor;
     
     public final int[] prototypeMap = {3,1,4,2};//values entered
-    public final int[] finalMap = {2,4,3,1};
+    public final int[] finalMap = {3,2,4,1};
     
     private boolean isPrototype = true;
     
@@ -84,6 +84,19 @@ public class BadRobotMap implements Sendable
             frontRightSpeedController = finalMap[1];
             backLeftSpeedController = finalMap[2];
             backRightSpeedController = finalMap[3];
+            
+            driveTrainGyro = 1;
+            driveTrainUltrasonicPing = 3;
+            driveTrainUltrasonicEcho = 2;
+            
+            frisbeePusherSwitch = 5; 
+            opticalShooterSensor = 1;
+            
+            shooterArticulator = 7;
+            
+            primaryShooterRelay = 1;
+            secondaryShooterRelay = 2;
+            frisbeePusher = 3;
         }
         
         //More than likely the IP addresses of the cameras will remain the same

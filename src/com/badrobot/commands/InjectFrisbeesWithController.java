@@ -24,6 +24,8 @@ public class InjectFrisbeesWithController extends BadCommand
     boolean hasReset;
     static double SHOT_DELAY = 2;
     
+    double height = 50;
+    
     double shooterSpeed;
     static double REQUIRED_SHOOTER_SPEED = 5000;
     
@@ -98,6 +100,29 @@ public class InjectFrisbeesWithController extends BadCommand
                 frisbeePusher.stopFrisbeePusher();
              
             shooter.runShooter(0);
+        }
+        
+        
+        
+        //raise/lower shooter
+        if (OI.isSecondaryAButtonPressed())
+        {
+            shooter.lowerShooter();
+            
+            height--;
+            log("lowering");
+            SmartDashboard.putNumber("shooter height", height);
+        }
+        else if (OI.isSecondaryBButtonPressed())
+        {
+            shooter.raiseShooter();
+            
+            height++;
+            SmartDashboard.putNumber("shooter height", height);
+        }
+        else
+        {
+            shooter.lockShooterArticulator();
         }
     }
 

@@ -69,8 +69,8 @@ public abstract class CommandBase extends Command
         
         //driveTrain = ProtoDriveTrain.getInstance();
         driveTrain  = ImpDriveTrain.getInstance();
-        shooter = ProtoShooter.getInstance();
-        frisbeePusher = ProtoFrisbeePusher.getInstance();
+        //shooter = ProtoShooter.getInstance();
+        //frisbeePusher = ProtoFrisbeePusher.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         
         driveChooser = new SendableChooser();
