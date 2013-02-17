@@ -55,10 +55,12 @@ public class TriggerToShoot extends CommandBase
             triggerWasDepressed = false;
         }
         
-        if (shoot)
+        if (shoot || OI.isPrimaryAButtonPressed())
             shooter.runShooter(1);
-        else 
+        else
             shooter.runShooter(0);
+        
+
         
         /*
         double shooterSetValue = OI.isSecondaryLBButtonPressed() ? -1 : 0;

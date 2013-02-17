@@ -89,6 +89,10 @@ public class InjectFrisbeesWithController extends BadCommand
             shooter.runShooter(1);
             push();
         }
+        else if (OI.isPrimaryAButtonPressed())
+        {
+            shooter.runShooter(1.0);
+        }
         else
         {
             if (!frisbeePusher.isFrisbeeRetracted())

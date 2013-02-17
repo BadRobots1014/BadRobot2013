@@ -68,9 +68,9 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         ultrasonic.setEnabled(true);
         ultrasonic.setAutomaticMode(false);
         
-        frontLeft = new Talon(BadRobotMap.frontLeftSpeedController);
+        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
         frontRight = new Talon(BadRobotMap.frontRightSpeedController);
-        backLeft = new Talon(BadRobotMap.backLeftSpeedController);
+        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
         backRight = new Talon(BadRobotMap.backRightSpeedController);
         
         leftFrontController = new PIDController(.01, 0, 0, leftEncoder, frontLeft);
@@ -90,12 +90,12 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         leftBackController.setOutputRange(-1,1);
         rightBackController.setOutputRange(-1,1);
                 
-        leftFrontController.enable();
+        /*leftFrontController.enable();
         rightFrontController.enable();
         leftBackController.enable();
-        rightBackController.enable();
+        rightBackController.enable();*/
         
-        //train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+        train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
         
         /*train.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         train.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
@@ -150,11 +150,11 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         log("left speed: "+leftEncoder.getRate());
         log("right speed: "+rightEncoder.getRate());
         //log(left + " left " + right + " right");
-        //train.tankDrive(left, right);
-        leftFrontController.setSetpoint(left*MAX_SPEED);
+        train.tankDrive(left, right);
+        /*leftFrontController.setSetpoint(left*MAX_SPEED);
         leftBackController.setSetpoint(left*MAX_SPEED);
         rightFrontController.setSetpoint(right*MAX_SPEED);
-        rightBackController.setSetpoint(right*MAX_SPEED);
+        rightBackController.setSetpoint(right*MAX_SPEED);*/
     }
 
     public void arcadeDrive(double Y, double X) 
