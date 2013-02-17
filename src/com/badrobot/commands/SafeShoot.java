@@ -86,14 +86,17 @@ public class SafeShoot extends BadCommand
         SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
         if (OI.isSecondaryXButtonPressed())
         {
-            shooter.runShooter(0.7);
+            shooter.runShooter(1.0);
+        }
+        else
+        {
+            shooter.runShooter(0);
         }
         
-        else if (OI.isSecondaryYButtonPressed())
+        if (OI.isSecondaryYButtonPressed())
         {
             frisbeePusher.pushFrisbee(true);
         }
-        
         else if (OI.isSecondaryRBButtonPressed())
         {
             shooter.runShooter(1);
@@ -110,8 +113,6 @@ public class SafeShoot extends BadCommand
             {
                 frisbeePusher.stopFrisbeePusher();
             }
-            
-            shooter.runShooter(0);
         }
     }
 

@@ -49,7 +49,7 @@ public class BadRobotMap implements Sendable
     public static int opticalShooterSensor;
     
     public final int[] prototypeMap = {3,1,4,2};//values entered
-    public final int[] finalMap = {2,4,3,1};
+    public final int[] finalMap = {3,1,4,2};
     
     public static boolean isPrototype = true;
     
