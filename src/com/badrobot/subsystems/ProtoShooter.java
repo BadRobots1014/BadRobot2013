@@ -5,7 +5,7 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
-import com.badrobot.commands.SmartShoot;
+import com.badrobot.commands.SafeShoot;
 import com.badrobot.commands.TriggerToShoot;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.*;
@@ -33,8 +33,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     Relay shooterRelay,
             secondaryShooterRelay;
     
-    SpeedController shooterController,
-            shooterArticulatorSpeedController;
+    SpeedController shooterController;
     
     //boolean shooterArticulatorRelayIsForward = true;
     
@@ -56,11 +55,6 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
         secondaryShooterRelay.setDirection(Relay.Direction.kForward);
         
-        //shooterArticulatorRelay = new Relay(BadRobotMap.shooterArticulator);
-        //shooterArticulatorRelay.setDirection(Relay.Direction.kForward);
-        
-        shooterArticulatorSpeedController = new Talon(BadRobotMap.shooterArticulator);
-        
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
         geartooth = new GearTooth(input);
@@ -80,7 +74,7 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     
     public void initDefaultCommand()
     {
-        setDefaultCommand(new TriggerToShoot());
+        setDefaultCommand(new SafeShoot());
     }
 
     protected void initialize()
@@ -144,36 +138,4 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         //Converts from sec/rev to rev/min.
         return (60/geartooth.getPeriod());  
     }
-
-    public void raiseShooter()
-    {
-        shooterArticulatorSpeedController.set(.5);
-        
-        /*
-        if (!shooterArticulatorRelayIsForward)
-        {
-            shooterArticulatorRelay.setDirection(Relay.Direction.kForward);
-            shooterArticulatorRelayIsForward = true;
-        }    
-        shooterArticulatorRelay.set(Relay.Value.kOn);*/
-    }
-
-    public void lowerShooter()
-    {
-        shooterArticulatorSpeedController.set(-1.0);
-        /*
-        if (shooterArticulatorRelayIsForward)
-        {
-            shooterArticulatorRelay.setDirection(Relay.Direction.kReverse);
-            shooterArticulatorRelayIsForward = false;
-        }    
-        shooterArticulatorRelay.set(Relay.Value.kOn);*/
-    }
-    
-    public void lockShooterArticulator()
-    {
-        shooterArticulatorSpeedController.set(0.0);
-        //shooterArticulatorRelay.set(Relay.Value.kOff);
-    }
-    
 }

@@ -6,10 +6,12 @@ import com.badrobot.subsystems.BadCameraSystem;
 import com.badrobot.subsystems.ImpDriveTrain;
 import com.badrobot.subsystems.ProtoFrisbeePusher;
 import com.badrobot.subsystems.ProtoShooter;
+import com.badrobot.subsystems.ProtoShooterArticulator;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import com.badrobot.subsystems.interfaces.IGatherer;
 import com.badrobot.subsystems.interfaces.IShooter;
+import com.badrobot.subsystems.interfaces.IShooterArticulator;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,6 +49,7 @@ public abstract class CommandBase extends Command
     //together to work magic - DriveTrain, uses 4 jaguars to control 4 motors.
     public static IDriveTrain driveTrain;
     public static IShooter shooter;
+    public static IShooterArticulator shooterArticulator;
     public static IGatherer gatherer;
     public static IFrisbeePusher frisbeePusher;
     public static BadCameraSystem imageTrackingSystem;
@@ -69,8 +72,9 @@ public abstract class CommandBase extends Command
         
         //driveTrain = ProtoDriveTrain.getInstance();
         driveTrain  = ImpDriveTrain.getInstance();
-        //shooter = ProtoShooter.getInstance();
-        //frisbeePusher = ProtoFrisbeePusher.getInstance();
+        shooter = ProtoShooter.getInstance();
+        frisbeePusher = ProtoFrisbeePusher.getInstance();
+        shooterArticulator = ProtoShooterArticulator.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         
         driveChooser = new SendableChooser();

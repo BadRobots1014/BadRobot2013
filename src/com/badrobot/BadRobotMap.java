@@ -49,9 +49,9 @@ public class BadRobotMap implements Sendable
     public static int opticalShooterSensor;
     
     public final int[] prototypeMap = {3,1,4,2};//values entered
-    public final int[] finalMap = {3,2,4,1};
+    public final int[] finalMap = {3,1,4,2};
     
-    private boolean isPrototype = true;
+    public static boolean isPrototype = true;
     
     public static int speedSensorPort;
     
@@ -98,6 +98,11 @@ public class BadRobotMap implements Sendable
             driveTrainGyro = 1;
             driveTrainUltrasonicPing = 3;
             driveTrainUltrasonicEcho = 2;
+            
+            leftSideEncoderIn = 13;
+            leftSideEncoderOut = 14;
+            rightSideEncoderIn = 11;
+            rightSideEncoderOut = 12;
             
             frisbeePusherSwitch = 5; 
             opticalShooterSensor = 1;

@@ -55,12 +55,10 @@ public class TriggerToShoot extends CommandBase
             triggerWasDepressed = false;
         }
         
-        if (shoot || OI.isPrimaryAButtonPressed())
+        if (shoot)
             shooter.runShooter(1);
-        else
+        else 
             shooter.runShooter(0);
-        
-
         
         /*
         double shooterSetValue = OI.isSecondaryLBButtonPressed() ? -1 : 0;
@@ -76,25 +74,6 @@ public class TriggerToShoot extends CommandBase
         }*/
         
         //shooter articulation sensing
-        if (OI.isSecondaryAButtonPressed())
-        {
-            shooter.lowerShooter();
-            
-            height--;
-            SmartDashboard.putNumber("shooter height", height);
-        }
-        else if (OI.isSecondaryBButtonPressed())
-        {
-            shooter.raiseShooter();
-            
-            height++;
-            SmartDashboard.putNumber("shooter height", height);
-        }
-        else
-        {
-            shooter.lockShooterArticulator();
-        }
-        
     }
 
     // Make this return true when this Command no longer needs to run execute()
