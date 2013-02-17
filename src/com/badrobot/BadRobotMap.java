@@ -60,6 +60,11 @@ public class BadRobotMap implements Sendable
     
     public static int shooterArticulator;
     
+    //Lights
+    public static int redChannel;
+    public static int greenChannel;
+    public static int blueChannel;
+    
     public BadRobotMap()
     {
         if(isPrototype == true)

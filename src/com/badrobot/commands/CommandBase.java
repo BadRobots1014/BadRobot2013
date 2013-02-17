@@ -10,6 +10,7 @@ import com.badrobot.subsystems.ProtoShooterArticulator;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import com.badrobot.subsystems.interfaces.IGatherer;
+import com.badrobot.subsystems.interfaces.ILights;
 import com.badrobot.subsystems.interfaces.IShooter;
 import com.badrobot.subsystems.interfaces.IShooterArticulator;
 import edu.wpi.first.wpilibj.command.Command;
@@ -54,6 +55,7 @@ public abstract class CommandBase extends Command
     public static IFrisbeePusher frisbeePusher;
     public static BadCameraSystem imageTrackingSystem;
     public static SendableChooser driveChooser;
+    public static ILights lightSystem;
 
     //Initilizes all of static variables
     public static void init() 

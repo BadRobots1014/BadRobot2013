@@ -12,6 +12,7 @@ import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Watchdog;
@@ -33,7 +34,7 @@ public class RobotMain extends IterativeRobot implements Logger
 {
     Command autonomousCommand; //Autonomous Command
     SendableChooser autoChooser; //adds a widget to the SmartDashboard
-    DigitalInput input = new DigitalInput(4);
+    
     //for selection.
     /**
      * This function is run when the robot is first started up and should be
@@ -41,7 +42,8 @@ public class RobotMain extends IterativeRobot implements Logger
      */
     public void robotInit() 
     {
-        BadRobotMap.isPrototype = true;
+        BadRobotMap.isPrototype = false;
+        
         
         // Initialize all subsystems
         CommandBase.init();
@@ -75,17 +77,21 @@ public class RobotMain extends IterativeRobot implements Logger
     public void autonomousPeriodic() 
     {
         Scheduler.getInstance().run();
+        Watchdog.getInstance().feed();
+
     }
 
     public void teleopInit() {
         Watchdog.getInstance().setEnabled(false);
     }
+    
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() 
     {  
         Scheduler.getInstance().run();
+        Watchdog.getInstance().feed();
         // Timer.delay(.1);
     }
     /**
