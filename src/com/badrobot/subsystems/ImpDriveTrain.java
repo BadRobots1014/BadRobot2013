@@ -29,9 +29,7 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     Encoder leftEncoder;
     Encoder rightEncoder;
     
-    private double MAX_SPEED = 1600;
-    
-    public static double speedscale;
+    private static double MAX_SPEED = 1600;
     
     public static ImpDriveTrain instance;
     
@@ -52,12 +50,14 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize() 
     {
-        leftEncoder = new Encoder(BadRobotMap.leftSideEncoderIn, BadRobotMap.leftSideEncoderOut, true);
+        leftEncoder = new Encoder(BadRobotMap.leftSideEncoderIn, BadRobotMap.leftSideEncoderOut, false);
         leftEncoder.setDistancePerPulse(1);
+        leftEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         leftEncoder.start();
         
-        rightEncoder = new Encoder(BadRobotMap.rightSideEncoderIn, BadRobotMap.rightSideEncoderOut, true);
+        rightEncoder = new Encoder(BadRobotMap.rightSideEncoderIn, BadRobotMap.rightSideEncoderOut, false);
         rightEncoder.setDistancePerPulse(1);
+        rightEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         rightEncoder.start();
         
         gyro = new Gyro(BadRobotMap.driveTrainGyro);
@@ -68,17 +68,29 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         ultrasonic.setEnabled(true);
         ultrasonic.setAutomaticMode(false);
         
-        frontLeft = new Talon(BadRobotMap.frontLeftSpeedController);
-        frontRight = new Talon(BadRobotMap.frontRightSpeedController);
-        backLeft = new Talon(BadRobotMap.backLeftSpeedController);
-        backRight = new Talon(BadRobotMap.backRightSpeedController);
-        
-        leftFrontController = new PIDController(.01, 0, 0, leftEncoder, frontLeft);
-        rightFrontController = new PIDController(.01, 0, 0, rightEncoder, frontRight);
-        leftBackController = new PIDController(.01, 0, 0, leftEncoder, backLeft);
-        rightBackController = new PIDController(.01, 0, 0, rightEncoder, backRight);
+        if (BadRobotMap.isPrototype)
+        {
+            frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
+            frontRight = new Talon(BadRobotMap.frontRightSpeedController);
+            backLeft = new Victor(BadRobotMap.backLeftSpeedController);
+            backRight = new Talon(BadRobotMap.backRightSpeedController);
+        }
+        else
+        {
+            frontLeft = new Talon(BadRobotMap.frontLeftSpeedController);
+            frontRight = new Talon(BadRobotMap.frontRightSpeedController);
+            backLeft = new Talon(BadRobotMap.backLeftSpeedController);
+            backRight = new Talon(BadRobotMap.backRightSpeedController);
+        }
+                
+        leftFrontController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, frontLeft);
+        rightFrontController = new PIDController(.0005, 0, 0, 0.0, rightEncoder, frontRight);
+        leftBackController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, backLeft);
+        rightBackController = new PIDController(.0005, 0, 0, 0.0, rightEncoder, backRight);
         
         SmartDashboard.putData("left front PID",leftFrontController);
+        SmartDashboard.putData("right front PID", rightFrontController);
+        SmartDashboard.putNumber("Max encoder speed", MAX_SPEED);
         
         leftFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
         rightFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
@@ -89,24 +101,27 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         rightFrontController.setOutputRange(-1,1);
         leftBackController.setOutputRange(-1,1);
         rightBackController.setOutputRange(-1,1);
+        
+        leftFrontController.setPercentTolerance(5);
+        rightFrontController.setPercentTolerance(5);
+        leftBackController.setPercentTolerance(5);
+        rightBackController.setPercentTolerance(5);
                 
-        leftFrontController.enable();
+        /*leftFrontController.enable();
         rightFrontController.enable();
         leftBackController.enable();
-        rightBackController.enable();
+        rightBackController.enable();*/
         
-        //train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
+        
+        train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
         
         /*train.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
         train.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
         train.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
-        train.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
+        train.setInvertedM00otor(RobotDrive.MotorType.kRearRight, true);
         */
         
         //train.setSafetyEnabled(false);
-        
-        //dTrain_Gyro = new Gyro(BadRobotMap.driveTrainGyro);
-        speedscale = 1;
     }
     
     /**
@@ -124,7 +139,6 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void addNetworkTableValues(ITable table) 
     {
-        table.putNumber("Speed Scale", speedscale);
     }
 
     public String getConsoleIdentity() 
@@ -147,14 +161,17 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
      */
     public void tankDrive(double left, double right) 
     {
-        log("left speed: "+leftEncoder.getRate());
+        /*log("left speed: "+leftEncoder.getRate());
         log("right speed: "+rightEncoder.getRate());
-        //log(left + " left " + right + " right");
-        //train.tankDrive(left, right);
-        leftFrontController.setSetpoint(left*MAX_SPEED);
+        log("PIDController output: " + leftFrontController.get() + 
+                "  PIDController output: " + rightFrontController.get());
+        MAX_SPEED = SmartDashboard.getNumber("Max encoder speed");
+        log(left + " left " + right + " right");*/
+        train.tankDrive(left, right);
+        /*leftFrontController.setSetpoint(left*MAX_SPEED);
         leftBackController.setSetpoint(left*MAX_SPEED);
         rightFrontController.setSetpoint(right*MAX_SPEED);
-        rightBackController.setSetpoint(right*MAX_SPEED);
+        rightBackController.setSetpoint(right*MAX_SPEED);*/
     }
 
     public void arcadeDrive(double Y, double X) 
