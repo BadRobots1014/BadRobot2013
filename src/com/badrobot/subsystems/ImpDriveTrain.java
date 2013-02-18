@@ -25,6 +25,7 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     Gyro gyro;
     
     PIDController leftFrontController, rightFrontController, leftBackController, rightBackController;
+    EasyPID leftEncoderPID, rightEncoderPID;
     
     Encoder leftEncoder;
     Encoder rightEncoder;
@@ -50,12 +51,12 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize() 
     {
-        leftEncoder = new Encoder(BadRobotMap.leftSideEncoderIn, BadRobotMap.leftSideEncoderOut, false);
+        leftEncoder = new Encoder(BadRobotMap.leftSideEncoderIn, BadRobotMap.leftSideEncoderOut, true);
         leftEncoder.setDistancePerPulse(1);
         leftEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         leftEncoder.start();
         
-        rightEncoder = new Encoder(BadRobotMap.rightSideEncoderIn, BadRobotMap.rightSideEncoderOut, false);
+        rightEncoder = new Encoder(BadRobotMap.rightSideEncoderIn, BadRobotMap.rightSideEncoderOut, true);
         rightEncoder.setDistancePerPulse(1);
         rightEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
         rightEncoder.start();
@@ -71,9 +72,9 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
         if (BadRobotMap.isPrototype)
         {
             frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
-            frontRight = new Talon(BadRobotMap.frontRightSpeedController);
+            frontRight = new Victor(BadRobotMap.frontRightSpeedController);
             backLeft = new Victor(BadRobotMap.backLeftSpeedController);
-            backRight = new Talon(BadRobotMap.backRightSpeedController);
+            backRight = new Victor(BadRobotMap.backRightSpeedController);
         }
         else
         {
@@ -82,7 +83,10 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
             backLeft = new Talon(BadRobotMap.backLeftSpeedController);
             backRight = new Talon(BadRobotMap.backRightSpeedController);
         }
-                
+        
+        leftEncoderPID = new EasyPID(.001, 0, 0, 0.2, "Left PID", leftEncoder);
+        rightEncoderPID = new EasyPID(.001, 0, 0, 0.2, "Right PID", rightEncoder);
+        
         leftFrontController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, frontLeft);
         rightFrontController = new PIDController(.0005, 0, 0, 0.0, rightEncoder, frontRight);
         leftBackController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, backLeft);
@@ -161,13 +165,20 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
      */
     public void tankDrive(double left, double right) 
     {
-        /*log("left speed: "+leftEncoder.getRate());
-        log("right speed: "+rightEncoder.getRate());
-        log("PIDController output: " + leftFrontController.get() + 
+        train.tankDrive(left, right);
+        
+        leftEncoderPID.setSetpoint(left*MAX_SPEED);
+        rightEncoderPID.setSetpoint(right*MAX_SPEED);
+        //train.tankDrive(leftEncoderPID.getValue(), rightEncoderPID.getValue());
+        
+        SmartDashboard.putNumber("left input", left);
+        SmartDashboard.putNumber("left speed", leftEncoder.getRate());
+        SmartDashboard.putNumber("PID value", leftEncoderPID.getValue());
+        
+        /*log("PIDController output: " + leftFrontController.get() + 
                 "  PIDController output: " + rightFrontController.get());
         MAX_SPEED = SmartDashboard.getNumber("Max encoder speed");
         log(left + " left " + right + " right");*/
-        train.tankDrive(left, right);
         /*leftFrontController.setSetpoint(left*MAX_SPEED);
         leftBackController.setSetpoint(left*MAX_SPEED);
         rightFrontController.setSetpoint(right*MAX_SPEED);
