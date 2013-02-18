@@ -119,28 +119,6 @@ public class SafeShoot extends BadCommand
             }
         }
         
-        
-        
-        //raise/lower shooter
-        if (OI.isSecondaryAButtonPressed())
-        {
-            shooter.lowerShooter();
-            
-            height--;
-            log("lowering");
-            SmartDashboard.putNumber("shooter height", height);
-        }
-        else if (OI.isSecondaryBButtonPressed())
-        {
-            shooter.raiseShooter();
-            
-            height++;
-            SmartDashboard.putNumber("shooter height", height);
-        }
-        else
-        {
-            shooter.lockShooterArticulator();
-        }
     }
 
     protected boolean isFinished() 
