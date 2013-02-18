@@ -14,16 +14,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * This command will control both the shooter and the Frisbee pusher;
+ * Secondary RB will run the shooter and only push when the shooters
+ * are up to the required shooter speed;
+ * Secondary X will run the shooter alone;
+ * Secondary Y will run the Frisbee pusher alone.
  * @author Isaac
  */
 public class SafeShoot extends BadCommand
 {
-    //Temporary time delay for the shooter (until we get the optical sensor).
-    double timeWhenShot;
     boolean hasReset;
-    static double SHOT_DELAY = 2;
-    
     boolean hasPushed;
     
     double shooterSpeed;
@@ -37,13 +37,10 @@ public class SafeShoot extends BadCommand
     
     protected void initialize() 
     {
-        //timeWhenShot = 0;
     }
     
     private boolean isShooterReadyToShoot()
     {
-        //return(Utility.getFPGATime() >= (timeWhenShot + SHOT_DELAY*1000000));
-        
         return (shooterSpeed >= REQUIRED_SHOOTER_SPEED);
     }
 
@@ -52,19 +49,12 @@ public class SafeShoot extends BadCommand
         if (frisbeePusher.isFrisbeeRetracted() && !isShooterReadyToShoot())
         {
             frisbeePusher.stopFrisbeePusher();
-            //hasReset = false;
         }
         
         else 
         {
             frisbeePusher.pushFrisbee(true);
         }
-        
-        /*if (!frisbeePusher.isFrisbeeRetracted() && !hasReset)
-        {
-            //timeWhenShot = Utility.getFPGATime();
-            hasReset = true;
-        }*/
     }
     
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
@@ -102,10 +92,6 @@ public class SafeShoot extends BadCommand
             shooter.runShooter(1);
             push();
         }
-        else if (OI.isPrimaryAButtonPressed())
-        {
-            shooter.runShooter(1.0);
-        }
         else
         {
             if (!frisbeePusher.isFrisbeeRetracted())
@@ -118,7 +104,6 @@ public class SafeShoot extends BadCommand
                 frisbeePusher.stopFrisbeePusher();
             }
         }
-        
     }
 
     protected boolean isFinished() 

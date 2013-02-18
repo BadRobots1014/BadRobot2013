@@ -22,14 +22,15 @@ public class EasyPID
     protected static double 
             P = 0.0,
             I = 0.0, 
-            D = 0.0;
+            D = 0.0,
+            F = 0.0;
     /*
      * Initializes a simplified PID object. This should be used to easily
      * implement a PID controlled value.
      */
     public EasyPID(String name, PIDSource s)
     {
-        this(0.0, 0.0, 0.0, name, s);
+        this(0.0, 0.0, 0.0, 0.0, name, s);
     }
     
     public EasyPID(PIDSource s)
@@ -37,7 +38,7 @@ public class EasyPID
         this("EasyPID", s);
     }
     
-    public EasyPID(double p, double i, double d, String name, PIDSource s)
+    public EasyPID(double p, double i, double d, double f, String name, PIDSource s)
     {
         this.name = name;
         
@@ -47,8 +48,9 @@ public class EasyPID
         P = p;
         I = i;
         D = d;
+        F = f;
         
-        controller = new PIDController(P, I, D, source, output);
+        controller = new PIDController(P, I, D, F, source, output);
         SmartDashboard.putData(name, controller);
     }
     
