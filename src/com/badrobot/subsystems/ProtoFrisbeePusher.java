@@ -98,9 +98,14 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
         frisbeePusher.set(Relay.Value.kOff);
     }
 
+    /**
+     * detects if the Frisbee pusher is at it's backmost position.
+     * @return true if the limit switch is pressed.
+     */
     public boolean isFrisbeeRetracted()
     {
         SmartDashboard.putBoolean("frisbee pusher", frisbeePusherLimitSwitch.get());
+        log ("frisbee pusher: "+ frisbeePusherLimitSwitch.get());
         return frisbeePusherLimitSwitch.get();
     }
 }
