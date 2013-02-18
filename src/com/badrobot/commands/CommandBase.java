@@ -74,10 +74,10 @@ public abstract class CommandBase extends Command
         map = BadRobotMap.getInstance();
         
         //driveTrain = ProtoDriveTrain.getInstance();
-        //driveTrain  = ImpDriveTrain.getInstance();
-        //shooter = ProtoShooter.getInstance();
-        //frisbeePusher = ProtoFrisbeePusher.getInstance();
-        //shooterArticulator = ProtoShooterArticulator.getInstance();
+        driveTrain  = ImpDriveTrain.getInstance();
+        shooter = ProtoShooter.getInstance();
+        frisbeePusher = ProtoFrisbeePusher.getInstance();
+        shooterArticulator = ProtoShooterArticulator.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         lightSystem = ProtoLights.getInstance();
         

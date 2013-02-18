@@ -30,10 +30,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
 
     private static double MAX_SHOOTER_RPM = 600;
     
-    Relay shooterRelay,
-            secondaryShooterRelay;
-    
-    SpeedController shooterController;
+    SpeedController shooterController,
+            secondaryShooterController;
     
     //boolean shooterArticulatorRelayIsForward = true;
     
@@ -49,11 +47,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     
     private ProtoShooter()
     {
-        shooterRelay = new Relay(BadRobotMap.primaryShooterRelay);
-        shooterRelay.setDirection(Relay.Direction.kForward);
-        
-        secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
-        secondaryShooterRelay.setDirection(Relay.Direction.kForward);
+        shooterController = new Talon(BadRobotMap.primaryShooterSpeedController);
+        secondaryShooterController = new Talon(BadRobotMap.secondaryShooterSpeedController);
         
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
@@ -103,19 +98,9 @@ public class ProtoShooter extends BadSubsystem implements IShooter
 
     public void runShooter(double speed)
     { 
-        //final rig code (2 relays)
-        if (speed != 0)
-        {  
-            shooterRelay.set(Relay.Value.kOn);
-            secondaryShooterRelay.set(Relay.Value.kOn); 
-        }
-        
-        else 
-        {
-            shooterRelay.set(Relay.Value.kOff);
-            secondaryShooterRelay.set(Relay.Value.kOff);
-        }
-        
+        shooterController.set(speed);
+        secondaryShooterController.set(speed);
+                
         //SmartDashboard.putBoolean("sensor", sensor.get());
         SmartDashboard.putNumber("period", geartooth.getPeriod());
         SmartDashboard.putNumber("count", geartooth.get());

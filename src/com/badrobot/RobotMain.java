@@ -43,7 +43,7 @@ public class RobotMain extends IterativeRobot implements Logger
      */
     public void robotInit() 
     {
-        BadRobotMap.isPrototype = true;
+        BadRobotMap.isPrototype = false;
         
         
         // Initialize all subsystems
