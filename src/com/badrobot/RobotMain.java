@@ -10,6 +10,7 @@ package com.badrobot;
 
 import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
+import com.badrobot.subsystems.interfaces.ILights;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
@@ -57,6 +58,8 @@ public class RobotMain extends IterativeRobot implements Logger
         
         SmartDashboard.putNumber("DriveForwardTurnShoot Angle", 20);
         SmartDashboard.putNumber("DriveForwardTurnShoot Time", 5);
+        
+        new RunLights(ILights.kYellow).start();
     }
 
     public void autonomousInit() 
@@ -83,6 +86,8 @@ public class RobotMain extends IterativeRobot implements Logger
 
     public void teleopInit() {
         Watchdog.getInstance().setEnabled(false);
+        
+        new RunLights(ILights.kRed).start();
     }
     
     /**
