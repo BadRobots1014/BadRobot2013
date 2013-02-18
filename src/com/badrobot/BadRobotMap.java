@@ -69,6 +69,10 @@ public class BadRobotMap implements Sendable
     {
         if(isPrototype == true)
         {
+            redChannel = 7;
+            greenChannel = 6;
+            blueChannel = 8;
+            
             frontLeftSpeedController = prototypeMap[0];
             frontRightSpeedController = prototypeMap[1];
             backLeftSpeedController = prototypeMap[2];
@@ -94,6 +98,9 @@ public class BadRobotMap implements Sendable
         }
         else
         {
+            redChannel = 7;
+            greenChannel = 5;
+            blueChannel = 6;
             
             frontLeftSpeedController = finalMap[0];
             frontRightSpeedController = finalMap[1];
@@ -109,8 +116,8 @@ public class BadRobotMap implements Sendable
             rightSideEncoderIn = 11;
             rightSideEncoderOut = 12;
             
-            frisbeePusherSwitch = 5; 
-            opticalShooterSensor = 1;
+            frisbeePusherSwitch = 1; 
+            opticalShooterSensor = 9;
             
             shooterArticulator = 7;
             

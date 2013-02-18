@@ -28,4 +28,7 @@ public interface ILights extends Logger
      * @param b blue
      */
     public void setColor(int r, int g, int b);
+    
+    
+    public void setColor(int color);
 }
