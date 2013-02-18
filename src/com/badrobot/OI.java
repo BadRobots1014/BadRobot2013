@@ -1,7 +1,11 @@
 
 package com.badrobot;
 
+import com.badrobot.commands.CommandBase;
+import com.badrobot.commands.InjectFrisbee;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,7 +26,20 @@ public class OI
     public void init()
     {
         primaryXboxController = new Joystick(PRIMARY_JOY);
-        secondaryXboxController = new Joystick(SECONDARY_JOY);        
+        secondaryXboxController = new Joystick(SECONDARY_JOY);    
+        
+        //button that senses seconadry Right bumper press for shooter injection
+        
+        /*if (CommandBase.frisbeePusher != null)
+        {
+            Button injectFrisbee = new Button() {
+                public boolean get()
+                {
+                    return (secondaryXboxController.getRawButton(RB));
+                }
+            };
+            injectFrisbee.whenPressed(new InjectFrisbee());   
+        }*/
     }
     
     //// CREATING BUTTONS
@@ -57,7 +74,7 @@ public class OI
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
     
-    public static final double DEADZONE_MAGIC_NUMBER = .2;
+    public static double DEADZONE_MAGIC_NUMBER = .15;
     
     /**
      * Creates a deadzone for joysticks, the controllers sticks are 
@@ -79,7 +96,7 @@ public class OI
         //When the joystick is used for a purpose (passes the if statements, 
         //hence not just being loose), do math
         return (d / Math.abs(d)) //gets the sign of d, negative or positive
-                * ((Math.abs(d) - .10) / .90); //scales it
+                * ((Math.abs(d) - DEADZONE_MAGIC_NUMBER) / (1-DEADZONE_MAGIC_NUMBER)); //scales it
     }
     
     /**
@@ -97,14 +114,14 @@ public class OI
      */
     public static double getPrimaryControllerLeftStickY()
     {
-        return deadzone(primaryXboxController.getRawAxis(LEFT_STICK_Y));
+        return deadzone(-primaryXboxController.getRawAxis(LEFT_STICK_Y));
     }
 
     /**
      * Used with the primary xbox controller
      * @return The deadzone corrected right stick x value
      */
-    public static double getPrimaryControllerRightX()
+    public static double getPrimaryControllerRightStickX()
     {
         return deadzone(-primaryXboxController.getRawAxis(RIGHT_STICK_X));
     }
@@ -115,7 +132,7 @@ public class OI
      */
     public static double getPrimaryControllerRightStickY()
     {
-        return deadzone(primaryXboxController.getRawAxis(RIGHT_STICK_Y));
+        return deadzone(-primaryXboxController.getRawAxis(RIGHT_STICK_Y));
     }
 
     /**
@@ -198,6 +215,42 @@ public class OI
         return primaryXboxController.getRawButton(START);
     }
 
+    /**
+     * Used with the secondary xbox controller
+     * @return The deadzone corrected left stick x value
+     */
+    public static double getSecondaryControllerLeftStickX()
+    {
+        return deadzone(-secondaryXboxController.getRawAxis(LEFT_STICK_X));
+    }
+    
+    /**
+     * Used with the secondary xbox controller
+     * @return The deadzone corrected left stick y value
+     */
+    public static double getSeondaryControllerLeftStickY()
+    {
+        return deadzone(-primaryXboxController.getRawAxis(LEFT_STICK_Y));
+    }
+
+    /**
+     * Used with the secondary xbox controller
+     * @return The deadzone corrected right stick x value
+     */
+    public static double getSecondaryControllerRightStickX()
+    {
+        return deadzone(-secondaryXboxController.getRawAxis(RIGHT_STICK_X));
+    }
+
+    /**
+     * Used with the secondary xbox controller
+     * @return The deadzone corrected right stick y value
+     */
+    public static double getSecondaryControllerRightStickY()
+    {
+        return deadzone(-secondaryXboxController.getRawAxis(RIGHT_STICK_Y));
+    }
+    
     /**
      * Used with the secondary xbox controller
      * @return The deadzone corrected left stick x value
@@ -297,20 +350,68 @@ public class OI
     }
     
     /**
-     * Triggers = 3rd Axis (Left: -1 - 0, Right: 0 - 1)
-     * @return the right trigger value
+     * If the RawAxis(3) (the trigger) is negative, will return the value.
+     * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
-    public static boolean isRightTriggerPressed()
+    public static double getPrimaryRightTrigger()
     {
-        return (secondaryXboxController.getRawAxis(3) > 0);
+        double triggerValue = primaryXboxController.getRawAxis(3);
+        if (triggerValue < 0)
+        {
+            return Math.abs(deadzone(triggerValue));
+        }
+        else
+        {
+            return 0;
+        }
     }
     
     /**
-     * Triggers = 3rd Axis (Left: -1 - 0, Right: 0 - 1)
-     * @return the left trigger value
+     * If the RawAxis(3) (the trigger) is positive, will return the value.
+     * @return Returns the value of the RightTrigger scaled from 0 to 1.
      */
-    public static boolean isLeftTriggerPressed()
+    public static double getPrimaryLeftTrigger()
     {
-        return (secondaryXboxController.getRawAxis(3) < 0);
+        double triggerValue = primaryXboxController.getRawAxis(3);
+        if (triggerValue > 0)
+        {
+            return deadzone(triggerValue);
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
+     * If the RawAxis(3) (the trigger) is positive, will return the value.
+     * @return Returns the value of the RightTrigger scaled from 0 to 1.
+     */
+    public static double getSecondaryRightTrigger()
+    {
+        if (secondaryXboxController.getRawAxis(3) > 0)
+        {
+            return deadzone(secondaryXboxController.getRawAxis(3));
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
+     * If the RawAxis(3) (the trigger) is negative, will return the value.
+     * @return Returns the value of the RightTrigger scaled from 0 to 1.
+     */
+    public static double getSecondaryLeftTrigger()
+    {
+        if (secondaryXboxController.getRawAxis(3) < 0)
+        {
+            return deadzone(Math.abs(secondaryXboxController.getRawAxis(3)));
+        }
+        else
+        {
+            return 0;
+        }
     }
 }

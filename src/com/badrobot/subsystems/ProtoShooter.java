@@ -5,7 +5,8 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
-import com.badrobot.commands.TestShooter;
+import com.badrobot.commands.SafeShoot;
+import com.badrobot.commands.TriggerToShoot;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -14,7 +15,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  *
- * @author Jon Buckley
+ * @author Noah Baskes
  */
 public class ProtoShooter extends BadSubsystem implements IShooter
 {
@@ -23,29 +24,41 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     SpeedController controller;
     private static ProtoShooter instance;
     
+    
     EasyPID pid;
     GearTooth geartooth;
-    GearTooth frisbeePusherOpticalSensor;
-    
-    Relay frisbeePusher;
-    public static final double FRISBEE_PUSH_TIME = .5;
-    
+
     private static double MAX_SHOOTER_RPM = 600;
+    
+    Relay shooterRelay,
+            secondaryShooterRelay;
+    
+    SpeedController shooterController;
+    
+    //boolean shooterArticulatorRelayIsForward = true;
     
     public static ProtoShooter getInstance()
     {
         if (instance == null)
+        {
             instance = new ProtoShooter();
+        }
         
         return instance;
     }
     
     private ProtoShooter()
     {
-        controller = new Victor(BadRobotMap.shooterSpeedController);
+        shooterRelay = new Relay(BadRobotMap.primaryShooterRelay);
+        shooterRelay.setDirection(Relay.Direction.kForward);
+        
+        secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterRelay);
+        secondaryShooterRelay.setDirection(Relay.Direction.kForward);
+        
+        //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
         geartooth = new GearTooth(input);
-        pid = new EasyPID(0, 0, 0, "Shooter Fly Wheel", new PIDSource()
+        /*pid = new EasyPID(0, 0, 0, "Shooter Fly Wheel", new PIDSource()
         {
             public double pidGet()
             {
@@ -53,22 +66,20 @@ public class ProtoShooter extends BadSubsystem implements IShooter
                 System.out.println("rpm " + (60/(geartooth.getPeriod())));
                 return (60/(geartooth.getPeriod()));
             }
-        });
+        });*/
         geartooth.start();
         
-        frisbeePusher = new Relay(BadRobotMap.frisbeePusherPort);
-        frisbeePusher.setDirection(Relay.Direction.kBoth);
-        frisbeePusher.set(Relay.Value.kOff);
+        initialize();
     }
     
     public void initDefaultCommand()
     {
-        setDefaultCommand(new TestShooter());
+        setDefaultCommand(new SafeShoot());
     }
 
     protected void initialize()
     {
-        controller.set(0.0);
+        //controller.set(0.0);
         geartooth.reset();
         geartooth.setMaxPeriod(2);
         geartooth.start();
@@ -89,15 +100,26 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         return "ProtoShooter";
     }
     
-    
 
     public void runShooter(double speed)
     { 
-        controller.set(speed);
+        //final rig code (2 relays)
+        if (speed != 0)
+        {  
+            shooterRelay.set(Relay.Value.kOn);
+            secondaryShooterRelay.set(Relay.Value.kOn); 
+        }
+        
+        else 
+        {
+            shooterRelay.set(Relay.Value.kOff);
+            secondaryShooterRelay.set(Relay.Value.kOff);
+        }
+        
         //SmartDashboard.putBoolean("sensor", sensor.get());
         SmartDashboard.putNumber("period", geartooth.getPeriod());
         SmartDashboard.putNumber("count", geartooth.get());
-        SmartDashboard.putNumber("rpm", pid.source.pidGet());
+        //SmartDashboard.putNumber("rpm", pid.source.pidGet());
     }
     
     public void pidRunShooter(double power)
@@ -106,49 +128,14 @@ public class ProtoShooter extends BadSubsystem implements IShooter
         pid.setSetpoint(setpoint);
         
         controller.set(pid.getValue());
-        SmartDashboard.putNumber("period", geartooth.getPeriod());
-        SmartDashboard.putNumber("count", geartooth.get());
-        SmartDashboard.putNumber("rpm", pid.source.pidGet());
+        SmartDashboard.putNumber("Period", geartooth.getPeriod());
+        SmartDashboard.putNumber("Count", geartooth.get());
+        SmartDashboard.putNumber("RPM", pid.source.pidGet());
     }
-
-    public void setAngle(double angle)
-    {
-        //later
-    }
-
-    public void setAngle(int state)
-    {
-        //later
-    }
-    
-    /**
-     * instructs the window lift motor to run forward or back, driving the 
-     * frisbee into the motors, or retracting to allow a frisbee to drop down
-     * @param forward should be forward to push frisbee into shooter, backwards
-     * to allow frisbee to fall through
-     */
-    public void pushFrisbee(boolean forward)
-    {
-        if (forward)
-            frisbeePusher.setDirection(Relay.Direction.kForward);
-        else
-            frisbeePusher.setDirection(Relay.Direction.kReverse);
         
-        if (frisbeePusher.get() != Relay.Value.kOn)
-            frisbeePusher.set(Relay.Value.kOn);
-    }
-    
-    /**
-     * stops the window lift motor from running
-     */
-    public void stopFrisbeePusher()
+    public double getShooterSpeed() 
     {
-        frisbeePusher.set(Relay.Value.kOff);
-    }
-
-    public boolean isFrisbeePusherAtMaximumExtension()
-    {
-        //Isaac, fill in this
-        return false;
+        //Converts from sec/rev to rev/min.
+        return (60/geartooth.getPeriod());  
     }
 }

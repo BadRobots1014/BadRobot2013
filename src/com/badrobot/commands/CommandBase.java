@@ -1,16 +1,22 @@
 package com.badrobot.commands;
 
 import com.badrobot.BadRobotMap;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.badrobot.OI;
 import com.badrobot.subsystems.BadCameraSystem;
-import com.badrobot.subsystems.ProtoDriveTrain;
+import com.badrobot.subsystems.ImpDriveTrain;
+import com.badrobot.subsystems.ProtoFrisbeePusher;
+import com.badrobot.subsystems.ProtoLights;
 import com.badrobot.subsystems.ProtoShooter;
+import com.badrobot.subsystems.ProtoShooterArticulator;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
+import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import com.badrobot.subsystems.interfaces.IGatherer;
+import com.badrobot.subsystems.interfaces.ILights;
 import com.badrobot.subsystems.interfaces.IShooter;
+import com.badrobot.subsystems.interfaces.IShooterArticulator;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -43,11 +49,14 @@ public abstract class CommandBase extends Command
     // Create a single static instance of all of your subsystems:
     //Subsystems are a compilation of hardware components that together act 
     //together to work magic - DriveTrain, uses 4 jaguars to control 4 motors.
-    protected static IDriveTrain driveTrain;
-    protected static IShooter shooter;
-    protected static IGatherer gatherer;
-    protected static BadCameraSystem imageTrackingSystem;
+    public static IDriveTrain driveTrain;
+    public static IShooter shooter;
+    public static IShooterArticulator shooterArticulator;
+    public static IGatherer gatherer;
+    public static IFrisbeePusher frisbeePusher;
+    public static BadCameraSystem imageTrackingSystem;
     public static SendableChooser driveChooser;
+    public static ILights lightSystem;
 
     //Initilizes all of static variables
     public static void init() 
@@ -57,23 +66,28 @@ public abstract class CommandBase extends Command
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
-        oi = new OI();
-        oi.init();
+        
         
         //note the getInstance() method, ALWAYS use it when you call them. 
         //Reason why? The getInstance() will not create a new one, it will 
         //give you the existing copy with all the correct values
         map = BadRobotMap.getInstance();
         
-        driveTrain  = ProtoDriveTrain.getInstance();
-        shooter = ProtoShooter.getInstance();
+        //driveTrain = ProtoDriveTrain.getInstance();
+        //driveTrain  = ImpDriveTrain.getInstance();
+        //shooter = ProtoShooter.getInstance();
+        //frisbeePusher = ProtoFrisbeePusher.getInstance();
+        //shooterArticulator = ProtoShooterArticulator.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
+        lightSystem = ProtoLights.getInstance();
         
         driveChooser = new SendableChooser();
         driveChooser.addDefault("Tank Drive", "tankDrive");
         driveChooser.addObject("Arcade Drive", "arcadeDrive");
         SmartDashboard.putData("driveChooser", driveChooser);
-    
+        
+        oi = new OI();
+        oi.init();
     }
     
     //Accessor Methods: remember that protected driveTrain above? How would you 

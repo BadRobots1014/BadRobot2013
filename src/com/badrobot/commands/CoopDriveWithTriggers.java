@@ -4,22 +4,18 @@
  */
 package com.badrobot.commands;
 
-import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * v1.2 Working instructions for drivetrain, tested on Sevrin 2/11/2013
- * @author Jon Buckley
+ *
+ * @author Isaac
  */
-public class DriveWithJoysticks extends BadCommand
+public class CoopDriveWithTriggers extends BadCommand
 {
-    private double BUMPER_SPEED = .5;
     protected boolean TANK_DRIVE_MODE = true;
-    public DriveWithJoysticks()
+    public CoopDriveWithTriggers()
     {
         requires((Subsystem) driveTrain);
     }
@@ -37,31 +33,18 @@ public class DriveWithJoysticks extends BadCommand
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
-    {   
-        if (OI.isPrimaryRBButtonPressed())
-        {
-            driveTrain.tankDrive(BUMPER_SPEED, -BUMPER_SPEED);
-        }
-        
-        else if (OI.isPrimaryLBButtonPressed())
-        {
-            driveTrain.tankDrive(-BUMPER_SPEED, BUMPER_SPEED);
-        }
-        
-        else if (TANK_DRIVE_MODE)
-        {
-            driveTrain.tankDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerRightStickY());
-            log ("LEFT Y: " + OI.getPrimaryControllerLeftStickY() + "  RIGHT Y: " +  OI.getPrimaryControllerRightStickY());
-        }
+    {
+        if (TANK_DRIVE_MODE)
+            driveTrain.tankDrive(-OI.getPrimaryLeftTrigger()+OI.getPrimaryRightTrigger(),
+                        -OI.getSecondaryLeftTrigger()+OI.getSecondaryRightTrigger());
         
         else
             driveTrain.arcadeDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerLeftStickX());
         
-        
-        SmartDashboard.putNumber("ultrasonic distance", driveTrain.getDistanceToWall());
-        SmartDashboard.putNumber("gyro angle", driveTrain.getGyro().getAngle());
+        //log("Distance To Wall: "+driveTrain.getDistanceToWall());     //works fine.
+        //log("Gyro Angle: "+driveTrain.getGyro().getAngle());
     }
-    
+
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {

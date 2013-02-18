@@ -8,15 +8,18 @@
 package com.badrobot;
 
 
+import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
+import com.badrobot.commands.*;
+import com.badrobot.subsystems.interfaces.Logger;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import com.badrobot.commands.CommandBase;
-import com.badrobot.commands.ExampleCommand;
-import com.badrobot.commands.autonomousCommands.DriveForwardAndShoot;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,10 +30,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotMain extends IterativeRobot 
+public class RobotMain extends IterativeRobot implements Logger
 {
     Command autonomousCommand; //Autonomous Command
     SendableChooser autoChooser; //adds a widget to the SmartDashboard
+    
     //for selection.
     /**
      * This function is run when the robot is first started up and should be
@@ -38,6 +42,9 @@ public class RobotMain extends IterativeRobot
      */
     public void robotInit() 
     {
+        BadRobotMap.isPrototype = true;
+        
+        
         // Initialize all subsystems
         CommandBase.init();
         
@@ -45,15 +52,23 @@ public class RobotMain extends IterativeRobot
         //Replace ExampleCommand() with autonomous command. 
         //Currently there are none.
         //autoChooser.addDefault("Default program", new DriveForwardAndShoot());
-        autoChooser.addObject("Other program 1", new ExampleCommand());
+        autoChooser.addObject("Other program 1", new DriveStraightForward(2));
         SmartDashboard.putData("Autonomous mode chooser", autoChooser);
+        
+        SmartDashboard.putNumber("DriveForwardTurnShoot Angle", 20);
+        SmartDashboard.putNumber("DriveForwardTurnShoot Time", 5);
     }
 
     public void autonomousInit() 
     {
         //It will get the selected Command from the SmartDashboard
-        autonomousCommand = (Command) autoChooser.getSelected();
-        autonomousCommand.start();
+        /*autonomousCommand = (Command) autoChooser.getSelected();
+        
+        //make sure you dont have to add to scheduler to run autonomous command TODO
+        autonomousCommand.start();*/
+        
+        Command auto = new AimWithCamera();//DriveForwardTurnShoot();
+        auto.start();
     }
     
     /**
@@ -62,25 +77,35 @@ public class RobotMain extends IterativeRobot
     public void autonomousPeriodic() 
     {
         Scheduler.getInstance().run();
+        Watchdog.getInstance().feed();
+
     }
 
     public void teleopInit() {
         Watchdog.getInstance().setEnabled(false);
     }
-
+    
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() 
-    {
-        Scheduler.getInstance().run();   
+    {  
+        Scheduler.getInstance().run();
+        Watchdog.getInstance().feed();
+        // Timer.delay(.1);
     }
-    
     /**
      * This function is called periodically during test mode
+     * this comment was ammended by Joe Cssidy
      */
     public void testPeriodic() 
     {
         LiveWindow.run();
+    }
+
+    public void log(String out)
+    {
+        if (OI.CONSOLE_OUTPUT_ENABLED)
+            System.out.println("RobotMain: " + out);
     }
 }

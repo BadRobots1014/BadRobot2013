@@ -24,9 +24,18 @@ public class BadRobotMap implements Sendable
     public static int frontLeftSpeedController; //index 0
     public static int frontRightSpeedController; //index 1
     
-    // the back speed controllers are assigned because there is an issue with 
-    // the gearbox and so we only want to drive two of the motors for now. The
-    // back motors are being given non-occupied ports, 11 and 12 to do this
+    public static int driveTrainGyro;
+    public static int driveTrainUltrasonicPing;
+    public static int driveTrainUltrasonicEcho;
+    
+    public static int leftSideEncoderIn;
+    public static int leftSideEncoderOut;
+    public static int rightSideEncoderIn;
+    public static int rightSideEncoderOut;
+    
+    // The back speed controllers are assigned because there is an issue with 
+    // The gearbox and so we only want to drive two of the motors for now. The
+    // Back motors are being given non-occupied ports, 11 and 12 to do this
     public static int backLeftSpeedController; //index 2
     public static int backRightSpeedController; //index 3
     
@@ -35,36 +44,86 @@ public class BadRobotMap implements Sendable
     public static String visionTrackingCameraAddress = "10.10.14.11";
     public static String frontFacingCameraAddress = "10.10.14.12";
     
-    public static int shooterSpeedController;
+    public static int primaryShooterRelay,
+            secondaryShooterRelay;
     public static int opticalShooterSensor;
-   
-    public final int[] prototypeMap = {3,1,4,2};//values entered
-    public final int[] finalMap = {2,4,3,1};
     
-    private boolean isPrototype = true;
+    public final int[] prototypeMap = {3,1,4,2};//values entered
+    public final int[] finalMap = {3,1,4,2};
+    
+    public static boolean isPrototype = true;
     
     public static int speedSensorPort;
     
-    public static int frisbeePusherPort;
+    public static int frisbeePusher;
+    public static int frisbeePusherSwitch;
+    
+    public static int shooterArticulator;
+    
+    //Lights
+    public static int redChannel;
+    public static int greenChannel;
+    public static int blueChannel;
     
     public BadRobotMap()
     {
         if(isPrototype == true)
         {
+            redChannel = 7;
+            greenChannel = 6;
+            blueChannel = 8;
+            
             frontLeftSpeedController = prototypeMap[0];
             frontRightSpeedController = prototypeMap[1];
             backLeftSpeedController = prototypeMap[2];
             backRightSpeedController = prototypeMap[3];
             
+            driveTrainGyro = 1;
+            driveTrainUltrasonicPing = 3;
+            driveTrainUltrasonicEcho = 2;
+            
+            leftSideEncoderIn = 13;
+            leftSideEncoderOut = 14;
+            rightSideEncoderIn = 11;
+            rightSideEncoderOut = 12;
+            
+            frisbeePusherSwitch = 5; 
             opticalShooterSensor = 1;
-            shooterSpeedController = 5;
+            
+            shooterArticulator = 7;
+            
+            primaryShooterRelay = 1;
+            secondaryShooterRelay = 2;
+            frisbeePusher = 3;
         }
         else
         {
+            redChannel = 7;
+            greenChannel = 5;
+            blueChannel = 6;
+            
             frontLeftSpeedController = finalMap[0];
             frontRightSpeedController = finalMap[1];
             backLeftSpeedController = finalMap[2];
             backRightSpeedController = finalMap[3];
+            
+            driveTrainGyro = 1;
+            driveTrainUltrasonicPing = 3;
+            driveTrainUltrasonicEcho = 2;
+            
+            leftSideEncoderIn = 13;
+            leftSideEncoderOut = 14;
+            rightSideEncoderIn = 11;
+            rightSideEncoderOut = 12;
+            
+            frisbeePusherSwitch = 1; 
+            opticalShooterSensor = 9;
+            
+            shooterArticulator = 7;
+            
+            primaryShooterRelay = 1;
+            secondaryShooterRelay = 2;
+            frisbeePusher = 3;
         }
         
         //More than likely the IP addresses of the cameras will remain the same
@@ -72,7 +131,6 @@ public class BadRobotMap implements Sendable
         frontFacingCameraAddress = "10.10.14.10";
         
         speedSensorPort = 5;
-        frisbeePusherPort = 6;
     }
     
     /**

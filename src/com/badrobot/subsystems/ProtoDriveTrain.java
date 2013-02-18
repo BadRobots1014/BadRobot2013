@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
+import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  * v1.1 Working drivetrain on prototype chassis
@@ -20,7 +22,7 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
 {
     SpeedController frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
-    private static double MAX_POWER = .8;
+    private static double MAX_POWER = 1.0;
     
     private static ProtoDriveTrain instance;
     
@@ -52,10 +54,10 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
      */
     protected void initialize()
     {
-        frontLeft = new Jaguar(BadRobotMap.frontLeftSpeedController);
-        frontRight = new Jaguar(BadRobotMap.frontRightSpeedController);
-        backLeft = new Jaguar(BadRobotMap.backLeftSpeedController);
-        backRight = new Jaguar(BadRobotMap.backRightSpeedController);
+        frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
+        frontRight = new Talon(BadRobotMap.frontRightSpeedController);
+        backLeft = new Victor(BadRobotMap.backLeftSpeedController);
+        backRight = new Talon(BadRobotMap.backRightSpeedController);
         
         train = new RobotDrive(frontLeft, backLeft, frontRight, backRight);
                 
@@ -90,11 +92,16 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         return "Subsystem";
     }
     
+    /**
+     * runs the drivetrain in ArcadeDrive fashion
+     * @param y the joysticks vertical value (-1 to 1)
+     * @param x the joysticks horizontal value (-1 to 1)
+     */
     public void arcadeDrive(double Y, double X) 
     {
         train.arcadeDrive(Y, X);
     }
-
+    
     /**
      * sets the command to occupy ProtoDriveTrain upon initialization 
      */
@@ -131,9 +138,25 @@ public class ProtoDriveTrain extends BadSubsystem implements IDriveTrain
         table.putNumber("med power", MAX_POWER/2);
         log("adding net values.");
     }
-
+    
     public String getConsoleIdentity()
     {
         return "ProtoDriveTrain";
+    }
+
+    public Gyro getGyro()
+    {
+        return null;
+    }
+
+    public RobotDrive getTrain() 
+    {
+        return null;
+    }
+
+    public double getDistanceToWall() 
+    {
+        //return distanceToWall;
+        return 0;
     }
 }

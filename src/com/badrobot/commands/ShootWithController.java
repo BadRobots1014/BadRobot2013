@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import com.badrobot.commands.Shoot;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -29,6 +30,8 @@ public class ShootWithController extends CommandBase
     {
         shooterSpeed = .4;
         runShooter = false;
+        
+        SmartDashboard.putNumber("shooter height", 0);
     }
 
     // Called repeatedly when this Command is scheduled to run

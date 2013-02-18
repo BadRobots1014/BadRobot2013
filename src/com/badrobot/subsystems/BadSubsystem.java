@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
  * @author Jon Buckley
@@ -45,12 +46,16 @@ public abstract class BadSubsystem extends Subsystem implements Logger, NamedSen
     public void initTable(ITable t)
     {
         log("initting table");
+        table = NetworkTable.getTable(this.getConsoleIdentity());
+        addNetworkTableValues(table);
+        table.putNumber("test", 203);
+        
         if (table != null)
             table.removeTableListener(this);
         table = t;
         
         table.addTableListener(this);
-        addNetworkTableValues(table);
+        SmartDashboard.putString("test", this.getConsoleIdentity());
     }
     
     /**
