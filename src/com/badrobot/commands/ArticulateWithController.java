@@ -35,11 +35,11 @@ public class ArticulateWithController extends BadCommand
 
     protected void execute() 
     {
-        if (OI.isSecondaryAButtonPressed())
+        if (OI.isSecondaryBButtonPressed())
         {
             shooterArticulator.raiseShooter();
         }
-        else if (OI.isSecondaryBButtonPressed())
+        else if (OI.isSecondaryAButtonPressed())
         {
             shooterArticulator.lowerShooter();
         }

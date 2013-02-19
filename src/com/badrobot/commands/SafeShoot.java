@@ -33,6 +33,8 @@ public class SafeShoot extends BadCommand
     {
         requires((Subsystem) frisbeePusher);
         requires((Subsystem) shooter);
+        
+        SmartDashboard.putNumber("MAX SHOOTER SPEED IN Auto Shoot", REQUIRED_SHOOTER_SPEED);
     }
     
     protected void initialize() 
@@ -41,6 +43,7 @@ public class SafeShoot extends BadCommand
     
     private boolean isShooterReadyToShoot()
     {
+        REQUIRED_SHOOTER_SPEED = SmartDashboard.getNumber("MAX SHOOTER SPEED IN Auto Shoot", 5200);
         return (shooterSpeed >= REQUIRED_SHOOTER_SPEED);
     }
 
