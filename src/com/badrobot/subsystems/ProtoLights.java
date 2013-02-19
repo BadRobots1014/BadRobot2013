@@ -20,13 +20,6 @@ public class ProtoLights extends BadSubsystem implements ILights
     DigitalOutput redChannel;
     DigitalOutput greenChannel;
     DigitalOutput blueChannel;
-    
-    public static final int kBlue = 0,
-                            kRed = 1,
-                            kYellow = 2,
-                            kWhite = 3,
-                            kETech = 4,
-                            kGold = 5;
 
     private static ProtoLights instance;
     
@@ -126,25 +119,25 @@ public class ProtoLights extends BadSubsystem implements ILights
     public void setColor(int color) {
         switch (color)
         {
-            case kBlue:
+            case ILights.kBlue:
                 setColor(0, 0, 255);
                 break;
             
-            case kRed:
+            case ILights.kRed:
                 setColor(255, 0, 0);
                 break;
             
-            case kYellow:
+            case ILights.kYellow:
                 setColor(255, 50, 0);
                 break;
             
-            case kWhite:
+            case ILights.kWhite:
                 setColor(200, 50, 30);
                 
-            case kETech:
+            case ILights.kETech:
                 setColor(255, 0, 30);
                 
-            case kGold:
+            case ILights.kGold:
                 setColor(200, 30, 10);
         }
     }

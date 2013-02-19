@@ -10,6 +10,13 @@ package com.badrobot.subsystems.interfaces;
  */
 public interface ILights extends Logger
 {
+    public static final int kBlue = 0,
+                            kRed = 1,
+                            kYellow = 2,
+                            kWhite = 3,
+                            kETech = 4,
+                            kGold = 5;
+    
     /**
      * Turns the lights on the robot on.
      */

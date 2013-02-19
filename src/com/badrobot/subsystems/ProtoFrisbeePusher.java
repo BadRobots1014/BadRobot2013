@@ -5,6 +5,7 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
+import com.badrobot.commands.InjectFrisbee;
 import com.badrobot.commands.SafeShoot;
 import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -61,7 +62,7 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
 
     protected void initDefaultCommand()
     {
-        //this.setDefaultCommand(new SafeShoot());   
+        //this.setDefaultCommand(new InjectFrisbee());   
     }    
     
     /**
