@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  * @author Isaac
  */
-public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
+public class DriveTrain extends BadSubsystem implements IDriveTrain
 {
     SpeedController frontLeft, frontRight, backLeft, backRight;
     RobotDrive train;
@@ -32,18 +32,18 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     
     private static double MAX_SPEED = 1600;
     
-    public static ImpDriveTrain instance;
+    public static DriveTrain instance;
     
-    public static ImpDriveTrain getInstance()
+    public static DriveTrain getInstance()
     {
         if (instance == null)
         {
-            instance = new ImpDriveTrain();
+            instance = new DriveTrain();
         }
         return instance;
     }
     
-    private ImpDriveTrain()
+    private DriveTrain()
     {
         initialize();
         SmartDashboard.putData("ImpDriveTrain", this);
