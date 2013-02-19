@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * This command will let us control the light's red green and blue values
+ * through the SmartDashboard.
+ * 
  * @author Isaac
  */
 public class ControlLighting extends BadCommand
@@ -90,6 +92,7 @@ public class ControlLighting extends BadCommand
         /*red = (int) (MathUtils.rint(.4) * 255);
         green = (int) (MathUtils.rint(.4) * 255);
         blue = (int) (MathUtils.rint(.4) * 255);*/
+        
         lightSystem.setColor(red, green, blue);
     }
 

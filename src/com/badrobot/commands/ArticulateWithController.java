@@ -9,7 +9,14 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * This command controls the shooter articulator with the XBox controller;
+ * Keep in mind that both will raise and lower if the rope is wrapped around
+ * the wrong way, and do not use A to raise or B to lower—if this happens
+ * just continue to raise until they switch back to normal;
+ * 
+ * Secondary B raises the shooter;
+ * Secondary A lowers the shooter.
+ * 
  * @author Isaac
  */
 public class ArticulateWithController extends BadCommand
@@ -35,11 +42,11 @@ public class ArticulateWithController extends BadCommand
 
     protected void execute() 
     {
-        if (OI.isSecondaryAButtonPressed())
+        if (OI.isSecondaryBButtonPressed())
         {
             shooterArticulator.raiseShooter();
         }
-        else if (OI.isSecondaryBButtonPressed())
+        else if (OI.isSecondaryAButtonPressed())
         {
             shooterArticulator.lowerShooter();
         }
