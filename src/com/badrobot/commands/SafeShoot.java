@@ -15,10 +15,13 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * This command will control both the shooter and the Frisbee pusher;
+ * 
  * Secondary RB will run the shooter and only push when the shooters
  * are up to the required shooter speed;
+ * 
  * Secondary X will run the shooter alone;
  * Secondary Y will run the Frisbee pusher alone.
+ * 
  * @author Isaac
  */
 public class SafeShoot extends BadCommand

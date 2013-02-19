@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * This command is super important and allows us to drive the robot using
+ * two separate controllers and both of their triggers.
+ * 
  * @author Isaac
  */
 public class CoopDriveWithTriggers extends BadCommand
