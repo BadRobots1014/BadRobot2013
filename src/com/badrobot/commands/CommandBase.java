@@ -2,18 +2,8 @@ package com.badrobot.commands;
 
 import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
-import com.badrobot.subsystems.BadCameraSystem;
-import com.badrobot.subsystems.ImpDriveTrain;
-import com.badrobot.subsystems.ProtoFrisbeePusher;
-import com.badrobot.subsystems.ProtoLights;
-import com.badrobot.subsystems.ProtoShooter;
-import com.badrobot.subsystems.ProtoShooterArticulator;
-import com.badrobot.subsystems.interfaces.IDriveTrain;
-import com.badrobot.subsystems.interfaces.IFrisbeePusher;
-import com.badrobot.subsystems.interfaces.IGatherer;
-import com.badrobot.subsystems.interfaces.ILights;
-import com.badrobot.subsystems.interfaces.IShooter;
-import com.badrobot.subsystems.interfaces.IShooterArticulator;
+import com.badrobot.subsystems.*;
+import com.badrobot.subsystems.interfaces.*;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -57,6 +47,7 @@ public abstract class CommandBase extends Command
     public static BadCameraSystem imageTrackingSystem;
     public static SendableChooser driveChooser;
     public static ILights lightSystem;
+    public static ICameraLight cameraLight;
 
     //Initilizes all of static variables
     public static void init() 
@@ -80,6 +71,7 @@ public abstract class CommandBase extends Command
         shooterArticulator = ProtoShooterArticulator.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         lightSystem = ProtoLights.getInstance();
+        cameraLight = CameraLight.getInstance();
         
         driveChooser = new SendableChooser();
         driveChooser.addDefault("Tank Drive", "tankDrive");

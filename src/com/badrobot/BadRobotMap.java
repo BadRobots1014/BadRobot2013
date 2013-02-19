@@ -60,6 +60,8 @@ public class BadRobotMap implements Sendable
     
     public static int shooterArticulator;
     
+    public static int cameraLightRelay;
+    
     //Lights
     public static int redChannel;
     public static int greenChannel;
@@ -124,6 +126,8 @@ public class BadRobotMap implements Sendable
             primaryShooterSpeedController = 5;
             secondaryShooterSpeedController = 6;
             frisbeePusher = 3;
+            
+            cameraLightRelay = 1;
         }
         
         //More than likely the IP addresses of the cameras will remain the same

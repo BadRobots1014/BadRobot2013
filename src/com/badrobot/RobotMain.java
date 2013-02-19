@@ -59,7 +59,8 @@ public class RobotMain extends IterativeRobot implements Logger
         SmartDashboard.putNumber("DriveForwardTurnShoot Angle", 20);
         SmartDashboard.putNumber("DriveForwardTurnShoot Time", 5);
         
-        new RunLights(ILights.kYellow).start();
+        if (CommandBase.lightSystem != null)
+            new RunLights(ILights.kYellow).start();
     }
 
     public void autonomousInit() 
@@ -87,7 +88,8 @@ public class RobotMain extends IterativeRobot implements Logger
     public void teleopInit() {
         Watchdog.getInstance().setEnabled(false);
         
-        new RunLights(ILights.kRed).start();
+        if (CommandBase.lightSystem != null)
+            new RunLights(ILights.kRed).start();
     }
     
     /**

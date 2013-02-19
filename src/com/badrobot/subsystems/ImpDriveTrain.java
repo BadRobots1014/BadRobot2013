@@ -167,8 +167,8 @@ public class ImpDriveTrain extends BadSubsystem implements IDriveTrain
     {
         train.tankDrive(left, right);
         
-        leftEncoderPID.setSetpoint(left*MAX_SPEED);
-        rightEncoderPID.setSetpoint(right*MAX_SPEED);
+        //leftEncoderPID.setSetpoint(left*MAX_SPEED);
+        //rightEncoderPID.setSetpoint(right*MAX_SPEED);
         //train.tankDrive(leftEncoderPID.getValue(), rightEncoderPID.getValue());
         
         SmartDashboard.putNumber("left input", left);
