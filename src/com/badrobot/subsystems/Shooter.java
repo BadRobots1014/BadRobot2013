@@ -17,12 +17,12 @@ import edu.wpi.first.wpilibj.tables.ITable;
  *
  * @author Noah Baskes
  */
-public class ProtoShooter extends BadSubsystem implements IShooter
+public class Shooter extends BadSubsystem implements IShooter
 {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     SpeedController controller;
-    private static ProtoShooter instance;
+    private static Shooter instance;
     
     
     EasyPID pid;
@@ -35,17 +35,17 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     
     //boolean shooterArticulatorRelayIsForward = true;
     
-    public static ProtoShooter getInstance()
+    public static Shooter getInstance()
     {
         if (instance == null)
         {
-            instance = new ProtoShooter();
+            instance = new Shooter();
         }
         
         return instance;
     }
     
-    private ProtoShooter()
+    private Shooter()
     {
         shooterController = new Talon(BadRobotMap.primaryShooterSpeedController);
         secondaryShooterController = new Talon(BadRobotMap.secondaryShooterSpeedController);

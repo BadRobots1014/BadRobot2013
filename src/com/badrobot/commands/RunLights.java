@@ -4,7 +4,7 @@
  */
 package com.badrobot.commands;
 
-import com.badrobot.subsystems.ProtoLights;
+import com.badrobot.subsystems.DecorativeLights;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
