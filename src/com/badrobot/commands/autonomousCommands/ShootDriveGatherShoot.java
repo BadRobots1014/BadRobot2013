@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ShootDriveGatherShoot extends CommandGroup
 {
-    public double driveTime = .4;
+    //public double driveTime = .4;
     public int gatherCount = 2;
     public double shootTime = 3.0;
     public double shootTime2 = shootTime;
