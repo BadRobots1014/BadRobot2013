@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.tables.ITable;
 /**
  * On average one pass takes up around 200ms
  * definitely going to need to run this on either
- * the driver station, or on a Pi
+ * the driver station, or on a Pi.
+ * 
  * @author ajtgarber
  */
 public class DefaultTrackingCommand extends BadCommand {

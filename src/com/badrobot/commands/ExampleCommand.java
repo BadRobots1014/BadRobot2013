@@ -2,7 +2,8 @@
 package com.badrobot.commands;
 
 /**
- *
+ * This is an example layout of a basic command.
+ * 
  * @author bradmiller
  */
 public class ExampleCommand extends CommandBase {

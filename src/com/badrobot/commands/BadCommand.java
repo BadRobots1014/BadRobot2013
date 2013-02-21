@@ -14,7 +14,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 
 /**
- *
+ * An abstract class that all commands should extend.
+ * 
  * @author adrian
  */
 public abstract class BadCommand extends CommandBase implements Logger, NamedSendable, ITableListener

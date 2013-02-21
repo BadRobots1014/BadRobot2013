@@ -123,4 +123,25 @@ public class Shooter extends BadSubsystem implements IShooter
         //Converts from sec/rev to rev/min.
         return (60/geartooth.getPeriod());  
     }
+
+    /**
+     * Runs the shooter with the back wheel starting up with a delay before
+     * the front wheel does.
+     * @param speed the speed at which to run the motor, from -1 to 1.
+     */
+    public void runShooterDelayed(double speed) 
+    {
+        double start = Utility.getFPGATime();
+        double delay = 0.5 * 1000000;
+        
+        secondaryShooterController.set(speed);
+        
+        if (Utility.getFPGATime() >= start+delay)
+        {
+            shooterController.set(speed);
+        }
+        
+        SmartDashboard.putNumber("period", geartooth.getPeriod());
+        SmartDashboard.putNumber("count", geartooth.get());
+    }
 }
