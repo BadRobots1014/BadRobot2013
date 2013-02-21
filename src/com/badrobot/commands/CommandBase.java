@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * programmers to build up code without a physical robot. It also centralizes
  * the access to hardware components (ie Drive Train or Shooter). 
  * ---CommandBase is extended BY Commands (ie DriveWithJoystick)---
+ * 
  * @author Author
  */
 public abstract class CommandBase extends Command 

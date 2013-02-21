@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * This command will position the robot onto the center of the
+ * detected goal using our vision tracking code.
+ * 
  * @author Jon Buckley
  */
 public class AimWithCamera extends BadCommand

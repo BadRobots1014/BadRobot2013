@@ -12,7 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * Runs the shooter at either the set speed or set time and speed;
+ * We do not currently use this command.
+ * 
  * @author Paul_Chao
  */
 public class Shoot extends BadCommand

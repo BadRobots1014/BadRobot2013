@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * Gathers the frisbees with our gatherer which does not exist.
+ * 
  * @author Kevin Edwards
  */
 public class Gather extends BadCommand

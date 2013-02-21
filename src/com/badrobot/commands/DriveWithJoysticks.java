@@ -12,7 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * v1.2 Working instructions for drivetrain, tested on Sevrin 2/11/2013
+ * This command will drive the robot using the right and left primary
+ * joysticks; Primary RB and LB will turn the robot slowly right or left
+ * for easy aiming adjustments;
+ * 
+ * This is the command we mainly use when driving and shooting;
+ * 
+ * v1.2 Working instructions for drivetrain, tested on Sevrin 2/11/2013.
+ * 
  * @author Jon Buckley
  */
 public class DriveWithJoysticks extends BadCommand

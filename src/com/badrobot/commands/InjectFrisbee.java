@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * Injects frisbees into the shooter wheels for a set amount of
+ * iterations; We currently use SafeShoot to insert frisbees into the shooter.
+ * 
  * @author Jon Buckley
  */
 public class InjectFrisbee extends BadCommand
