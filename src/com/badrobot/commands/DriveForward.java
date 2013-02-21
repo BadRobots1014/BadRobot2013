@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * This command will run the robot forward for the set drive time;
+ * We do not currently use this command.
+ * 
  * @author Paul_Chao
  */
 public class DriveForward extends BadCommand 
@@ -33,6 +35,9 @@ public class DriveForward extends BadCommand
     
     private final double DRIVE_SPEED = 1;
     
+    /**
+     * Drive forward the default amount of time (DRIVE_TIME).
+     */
     public DriveForward()
     {
         requires( (Subsystem) driveTrain);

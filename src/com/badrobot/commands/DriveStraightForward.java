@@ -12,7 +12,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Drives the robot in a straight line (using the gyro).
+ * Drives the robot in a straight line (using the gyro) for either
+ * the set amount of time or the default time.
+ * 
  * @author Isaac
  */
 public class DriveStraightForward extends BadCommand

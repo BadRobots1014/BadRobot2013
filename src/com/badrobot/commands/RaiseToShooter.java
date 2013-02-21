@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * Raises the frisbee to the shooter using the gatherer which
+ * does not yet exist.
+ * 
  * @author Kevin Edwards
  */
 public class RaiseToShooter extends BadCommand

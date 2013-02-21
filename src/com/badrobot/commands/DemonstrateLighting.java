@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * This command will demonstrate our lights by cycling through
+ * the possible colors in a smooth constant change.
+ * 
  * @author Jon Buckley
  */
 public class DemonstrateLighting extends BadCommand
