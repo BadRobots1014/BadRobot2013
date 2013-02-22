@@ -82,11 +82,11 @@ public class SafeShoot extends BadCommand
         SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
         if (OI.isSecondaryXButtonPressed())
         {
-            shooter.runShooter(1.0);
+            shooter.runShooterDelayed(1.0);
         }
         else
         {
-            shooter.runShooter(0);
+            shooter.runShooterDelayed(0);
         }
         
         if (OI.isSecondaryYButtonPressed())
@@ -95,7 +95,7 @@ public class SafeShoot extends BadCommand
         }
         else if (OI.isSecondaryRBButtonPressed())
         {
-            shooter.runShooter(1);
+            shooter.runShooterDelayed(1);
             push();
         }
         else
