@@ -23,6 +23,8 @@ public class OI
     private static int A_BUTTON = 1, B_BUTTON = 2, X_BUTTON = 3, Y_BUTTON = 4, LB = 5, RB = 6, SELECT = 7, START = 8
             , LEFT_JOY_CLICK = 9, RIGHT_JOY_CLICK = 10;
     
+    public static boolean IS_DEMO_MODE = true;
+    
     public void init()
     {
         primaryXboxController = new Joystick(PRIMARY_JOY);

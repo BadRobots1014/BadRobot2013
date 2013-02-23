@@ -94,9 +94,9 @@ public class BadRobotMap implements Sendable
             
             shooterArticulator = 7;
             
-            primaryShooterSpeedController = 1;
-            secondaryShooterSpeedController = 2;
-            frisbeePusher = 3;
+            primaryShooterSpeedController = 3;
+            secondaryShooterSpeedController = 1;
+            frisbeePusher = 2;
         }
         else
         {

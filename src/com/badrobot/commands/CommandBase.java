@@ -68,10 +68,10 @@ public abstract class CommandBase extends Command
         driveTrain  = ImpDriveTrain.getInstance();
         shooter = ProtoShooter.getInstance();
         frisbeePusher = ProtoFrisbeePusher.getInstance();
-        shooterArticulator = ProtoShooterArticulator.getInstance();
+        //shooterArticulator = ProtoShooterArticulator.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
-        lightSystem = ProtoLights.getInstance();
-        cameraLight = CameraLight.getInstance();
+        //lightSystem = ProtoLights.getInstance();
+        //cameraLight = CameraLight.getInstance();
         
         driveChooser = new SendableChooser();
         driveChooser.addDefault("Tank Drive", "tankDrive");

@@ -65,7 +65,7 @@ public class ProtoShooterArticulator extends BadSubsystem implements IShooterArt
 
     public void lowerShooter() 
     {
-        shooterArticulatorSpeedController.set(-0.7);
+        shooterArticulatorSpeedController.set(-1.0);
     }
 
     public void lockShooterArticulator() 

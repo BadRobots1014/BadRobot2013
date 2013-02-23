@@ -80,34 +80,72 @@ public class SafeShoot extends BadCommand
         
         SmartDashboard.putNumber("shooter speed", shooterSpeed);
         SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
-        if (OI.isSecondaryXButtonPressed())
-        {
-            shooter.runShooter(1.0);
-        }
-        else
-        {
-            shooter.runShooter(0);
-        }
         
-        if (OI.isSecondaryYButtonPressed())
+        if (OI.IS_DEMO_MODE)
         {
-            frisbeePusher.pushFrisbee(true);
-        }
-        else if (OI.isSecondaryRBButtonPressed())
-        {
-            shooter.runShooter(1);
-            push();
-        }
-        else
-        {
-            if (!frisbeePusher.isFrisbeeRetracted())
+            if (OI.isPrimaryXButtonPressed())
+            {
+                shooter.runShooter(1.0);
+            }
+            else
+            {
+                shooter.runShooter(0);
+            }
+
+            if (OI.isPrimaryYButtonPressed())
             {
                 frisbeePusher.pushFrisbee(true);
             }
-            
+            else if (OI.getPrimaryRightTrigger() > 0)
+            {
+                shooter.runShooter(1);
+                push();
+            }
             else
             {
-                frisbeePusher.stopFrisbeePusher();
+                if (!frisbeePusher.isFrisbeeRetracted())
+                {
+                    frisbeePusher.pushFrisbee(true);
+                }
+
+                else
+                {
+                    frisbeePusher.stopFrisbeePusher();
+                }
+            }   
+        }
+        
+        else 
+        {
+            if (OI.isSecondaryXButtonPressed())
+            {
+                shooter.runShooter(1.0);
+            }
+            else
+            {
+                shooter.runShooter(0);
+            }
+
+            if (OI.isSecondaryYButtonPressed())
+            {
+                frisbeePusher.pushFrisbee(true);
+            }
+            else if (OI.isSecondaryRBButtonPressed())
+            {
+                shooter.runShooter(1);
+                push();
+            }
+            else
+            {
+                if (!frisbeePusher.isFrisbeeRetracted())
+                {
+                    frisbeePusher.pushFrisbee(true);
+                }
+
+                else
+                {
+                    frisbeePusher.stopFrisbeePusher();
+                }
             }
         }
     }

@@ -33,6 +33,8 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     SpeedController shooterController,
             secondaryShooterController;
     
+    Relay primaryShooterRelay, secondaryShooterRelay;
+    
     //boolean shooterArticulatorRelayIsForward = true;
     
     public static ProtoShooter getInstance()
@@ -47,9 +49,19 @@ public class ProtoShooter extends BadSubsystem implements IShooter
     
     private ProtoShooter()
     {
-        shooterController = new Talon(BadRobotMap.primaryShooterSpeedController);
-        secondaryShooterController = new Talon(BadRobotMap.secondaryShooterSpeedController);
-        
+        if (BadRobotMap.isPrototype)
+        {
+            primaryShooterRelay = new Relay(BadRobotMap.primaryShooterSpeedController);
+            secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterSpeedController);
+            
+            primaryShooterRelay.setDirection(Relay.Direction.kForward);
+            secondaryShooterRelay.setDirection(Relay.Direction.kForward);
+        }
+        else 
+        {
+            shooterController = new Talon(BadRobotMap.primaryShooterSpeedController);
+            secondaryShooterController = new Talon(BadRobotMap.secondaryShooterSpeedController); 
+        }
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
         geartooth = new GearTooth(input);
@@ -98,8 +110,22 @@ public class ProtoShooter extends BadSubsystem implements IShooter
 
     public void runShooter(double speed)
     { 
-        shooterController.set(speed);
-        secondaryShooterController.set(speed);
+        if (!BadRobotMap.isPrototype)
+        {
+            shooterController.set(speed);
+            secondaryShooterController.set(speed);
+        }
+        else if (speed != 0)
+        {
+            primaryShooterRelay.set(Relay.Value.kOn);
+            secondaryShooterRelay.set(Relay.Value.kOn);
+        }
+        else 
+        {
+            primaryShooterRelay.set(Relay.Value.kOff);
+            secondaryShooterRelay.set(Relay.Value.kOff);
+        }
+        
                 
         //SmartDashboard.putBoolean("sensor", sensor.get());
         SmartDashboard.putNumber("period", geartooth.getPeriod());
