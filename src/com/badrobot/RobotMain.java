@@ -12,11 +12,7 @@ import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
 import com.badrobot.subsystems.interfaces.ILights;
 import com.badrobot.subsystems.interfaces.Logger;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Relay;
-import edu.wpi.first.wpilibj.Watchdog;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -82,7 +78,6 @@ public class RobotMain extends IterativeRobot implements Logger
     {
         Scheduler.getInstance().run();
         Watchdog.getInstance().feed();
-
     }
 
     public void teleopInit() {

@@ -134,6 +134,9 @@ public class OI
      */
     public static double getPrimaryControllerRightStickY()
     {
+        System.out.println("Raw: " + primaryXboxController.getRawAxis(RIGHT_STICK_Y) + 
+                "  Deadzoned: " + deadzone(primaryXboxController.getRawAxis(RIGHT_STICK_Y)));
+        
         return deadzone(-primaryXboxController.getRawAxis(RIGHT_STICK_Y));
     }
 
