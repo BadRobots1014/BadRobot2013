@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Runs the shooter with... Toggle or not?
+ * 
  * @author Jon Buckley
  */
 public class ShootWithController extends CommandBase

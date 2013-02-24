@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
  *
  * @author Jon Buckley
  */
-public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
+public class FrisbeePusher extends BadSubsystem implements IFrisbeePusher
 {
     DigitalInput frisbeePusherLimitSwitch;
     Relay frisbeePusher;
@@ -30,12 +30,12 @@ public class ProtoFrisbeePusher extends BadSubsystem implements IFrisbeePusher
     public static IFrisbeePusher getInstance()
     {
         if (instance == null)
-            instance = new ProtoFrisbeePusher();
+            instance = new FrisbeePusher();
         
         return instance;
     }
     
-    private ProtoFrisbeePusher()
+    private FrisbeePusher()
     {
         frisbeePusherLimitSwitch = new DigitalInput(BadRobotMap.frisbeePusherSwitch);
         

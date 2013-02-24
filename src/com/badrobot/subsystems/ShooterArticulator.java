@@ -17,22 +17,22 @@ import edu.wpi.first.wpilibj.tables.ITable;
  *
  * @author Isaac
  */
-public class ProtoShooterArticulator extends BadSubsystem implements IShooterArticulator
+public class ShooterArticulator extends BadSubsystem implements IShooterArticulator
 {
     SpeedController shooterArticulatorSpeedController;
     
-    public static ProtoShooterArticulator instance;
+    public static ShooterArticulator instance;
     
-    private ProtoShooterArticulator()
+    private ShooterArticulator()
     {
         shooterArticulatorSpeedController = new Talon(BadRobotMap.shooterArticulator);
     }
     
-    public static ProtoShooterArticulator getInstance()
+    public static ShooterArticulator getInstance()
     {
         if (instance == null)
         {
-            instance = new ProtoShooterArticulator();
+            instance = new ShooterArticulator();
         }
         return instance;
     }

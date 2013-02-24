@@ -4,11 +4,13 @@
  */
 package com.badrobot.commands;
 
-import com.badrobot.subsystems.ProtoLights;
+import com.badrobot.subsystems.DecorativeLights;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Sets the lights to run at the specified color (all colors are listed
+ * in the DecorativeLights subsystem.
+ * 
  * @author Jon Buckley
  */
 public class RunLights extends CommandBase

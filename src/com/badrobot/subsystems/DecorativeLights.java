@@ -15,15 +15,15 @@ import edu.wpi.first.wpilibj.tables.ITable;
  *
  * @author Isaac
  */
-public class ProtoLights extends BadSubsystem implements ILights
+public class DecorativeLights extends BadSubsystem implements ILights
 {
     DigitalOutput redChannel;
     DigitalOutput greenChannel;
     DigitalOutput blueChannel;
 
-    private static ProtoLights instance;
+    private static DecorativeLights instance;
     
-    private ProtoLights()
+    private DecorativeLights()
     {
         redChannel = new DigitalOutput(BadRobotMap.redChannel);
         greenChannel = new DigitalOutput(BadRobotMap.greenChannel);
@@ -37,11 +37,11 @@ public class ProtoLights extends BadSubsystem implements ILights
     protected void initialize() {
     }
 
-    public static ProtoLights getInstance()
+    public static DecorativeLights getInstance()
     {
         if (instance == null)
         {
-            instance = new ProtoLights();
+            instance = new DecorativeLights();
         }
         return instance;
     }
