@@ -105,8 +105,8 @@ public class FrisbeePusher extends BadSubsystem implements IFrisbeePusher
      */
     public boolean isFrisbeeRetracted()
     {
-        SmartDashboard.putBoolean("frisbee pusher", frisbeePusherLimitSwitch.get());
-        log ("frisbee pusher: "+ frisbeePusherLimitSwitch.get());
+        SmartDashboard.putBoolean("frisbee pusher limit switch", frisbeePusherLimitSwitch.get());
+        log ("frisbee pusher limit switch: "+ frisbeePusherLimitSwitch.get());
         return frisbeePusherLimitSwitch.get();
     }
 }

@@ -33,7 +33,8 @@ public class Shooter extends BadSubsystem implements IShooter
     SpeedController shooterController,
             secondaryShooterController;
     
-    Relay primaryShooterRelay, secondaryShooterRelay;
+    Victor primaryShooterVictor, secondaryShooterVictor;
+    //Relay primaryShooterRelay, secondaryShooterRelay;
     
     //boolean shooterArticulatorRelayIsForward = true;
     
@@ -51,11 +52,16 @@ public class Shooter extends BadSubsystem implements IShooter
     {
         if (BadRobotMap.isPrototype)
         {
+            primaryShooterVictor = new Victor(BadRobotMap.primaryShooterSpeedController);
+            secondaryShooterVictor = new Victor(BadRobotMap.secondaryShooterSpeedController);
+            
+            /*
             primaryShooterRelay = new Relay(BadRobotMap.primaryShooterSpeedController);
             secondaryShooterRelay = new Relay(BadRobotMap.secondaryShooterSpeedController);
             
             primaryShooterRelay.setDirection(Relay.Direction.kForward);
             secondaryShooterRelay.setDirection(Relay.Direction.kForward);
+            */
         }
         else 
         {
@@ -117,13 +123,23 @@ public class Shooter extends BadSubsystem implements IShooter
         }
         else if (speed != 0)
         {
+            primaryShooterVictor.set(speed);
+            secondaryShooterVictor.set(speed);
+            
+            /*
             primaryShooterRelay.set(Relay.Value.kOn);
             secondaryShooterRelay.set(Relay.Value.kOn);
+            */
         }
         else 
         {
+            primaryShooterVictor.set(0);
+            secondaryShooterVictor.set(0);
+            
+            /*
             primaryShooterRelay.set(Relay.Value.kOff);
             secondaryShooterRelay.set(Relay.Value.kOff);
+            */
         }
         
                 
