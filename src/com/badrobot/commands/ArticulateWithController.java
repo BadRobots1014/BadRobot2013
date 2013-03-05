@@ -42,18 +42,38 @@ public class ArticulateWithController extends BadCommand
 
     protected void execute() 
     {
-        if (OI.isSecondaryBButtonPressed())
+        if (OI.isDemoMode())
         {
-            shooterArticulator.raiseShooter();
+            if (OI.isPrimaryBButtonPressed())
+            {
+                shooterArticulator.raiseShooter();
+            }
+            else if (OI.isPrimaryAButtonPressed())
+            {
+                shooterArticulator.lowerShooter();
+            }
+            else
+            {
+                shooterArticulator.lockShooterArticulator();
+            }
         }
-        else if (OI.isSecondaryAButtonPressed())
-        {
-            shooterArticulator.lowerShooter();
-        }
+        
         else
         {
-            shooterArticulator.lockShooterArticulator();
+            if (OI.isSecondaryBButtonPressed())
+            {
+                shooterArticulator.raiseShooter();
+            }
+            else if (OI.isSecondaryAButtonPressed())
+            {
+                shooterArticulator.lowerShooter();
+            }
+            else
+            {
+                shooterArticulator.lockShooterArticulator();
+            }
         }
+        
     }
 
     protected boolean isFinished() 

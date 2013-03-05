@@ -80,8 +80,9 @@ public class SafeShoot extends BadCommand
         
         SmartDashboard.putNumber("shooter speed", shooterSpeed);
         SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
+        SmartDashboard.putBoolean("frisbee pusher", frisbeePusher.isFrisbeeRetracted());
         
-        if (OI.IS_DEMO_MODE)
+        if (OI.isDemoMode())
         {
             if (OI.isPrimaryXButtonPressed())
             {

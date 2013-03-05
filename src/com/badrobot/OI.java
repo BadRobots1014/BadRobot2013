@@ -50,6 +50,11 @@ public class OI
         }*/
     }
     
+    public static boolean isDemoMode()
+    {
+        return DriverStation.getInstance().getDigitalIn(1);
+    }
+    
     public static double DEADZONE_MAGIC_NUMBER = .15;
     
     /**

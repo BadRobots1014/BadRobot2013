@@ -50,7 +50,7 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
 
     public String getConsoleIdentity() 
     {
-        return "ProtoShooterArticulator";
+        return "ShooterArticulator";
     }
 
     protected void initDefaultCommand() 
