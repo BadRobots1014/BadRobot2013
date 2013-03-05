@@ -89,13 +89,13 @@ public class BadRobotMap implements Sendable
             rightSideEncoderIn = 11;
             rightSideEncoderOut = 12;
             
-            frisbeePusherSwitch = 5; 
+            frisbeePusherSwitch = 5;
             opticalShooterSensor = 1;
             
             shooterArticulator = 7;
             
-            primaryShooterSpeedController = 3;
-            secondaryShooterSpeedController = 1;
+            primaryShooterSpeedController = 10;
+            secondaryShooterSpeedController = 8;
             frisbeePusher = 2;
         }
         else
