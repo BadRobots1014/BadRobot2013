@@ -128,4 +128,8 @@ public class DemonstrateLighting extends BadCommand
     {
         return "Demonstrate Lighting";
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

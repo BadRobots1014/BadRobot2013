@@ -67,4 +67,8 @@ public class Turn extends BadCommand
 
     protected void addNetworkTableValues(ITable table) {
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

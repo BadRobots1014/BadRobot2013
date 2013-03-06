@@ -117,4 +117,8 @@ public class Shoot extends BadCommand
     {
         
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

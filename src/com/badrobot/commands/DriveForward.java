@@ -114,4 +114,8 @@ public class DriveForward extends BadCommand
     {
         
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

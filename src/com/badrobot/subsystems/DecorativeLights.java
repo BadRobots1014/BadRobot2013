@@ -141,4 +141,8 @@ public class DecorativeLights extends BadSubsystem implements ILights
                 setColor(200, 30, 10);
         }
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

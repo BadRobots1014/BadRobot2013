@@ -109,4 +109,8 @@ public class FrisbeePusher extends BadSubsystem implements IFrisbeePusher
         log ("frisbee pusher limit switch: "+ frisbeePusherLimitSwitch.get());
         return frisbeePusherLimitSwitch.get();
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

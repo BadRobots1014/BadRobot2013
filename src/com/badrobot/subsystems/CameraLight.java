@@ -68,4 +68,8 @@ public class CameraLight extends BadSubsystem implements ICameraLight
     {
         lightRelay.set(Relay.Value.kOff);
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

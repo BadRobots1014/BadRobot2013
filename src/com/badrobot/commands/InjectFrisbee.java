@@ -156,4 +156,8 @@ public class InjectFrisbee extends BadCommand
     {
         return "InjectFrisbee Command";
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

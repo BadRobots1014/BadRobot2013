@@ -63,4 +63,8 @@ public class RaiseToShooter extends BadCommand
 
     protected void interrupted() {
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

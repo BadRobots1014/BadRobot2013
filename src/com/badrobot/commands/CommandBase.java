@@ -1,5 +1,6 @@
 package com.badrobot.commands;
 
+import com.badrobot.BadPreferences;
 import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
 import com.badrobot.subsystems.*;
@@ -45,7 +46,6 @@ public abstract class CommandBase extends Command
     public static IShooterArticulator shooterArticulator;
     public static IGatherer gatherer;
     public static IFrisbeePusher frisbeePusher;
-    public static BadCameraSystem imageTrackingSystem;
     public static SendableChooser driveChooser;
     public static ILights lightSystem;
     public static ICameraLight cameraLight;
@@ -89,10 +89,6 @@ public abstract class CommandBase extends Command
     public static IDriveTrain getDriveTrain()
     {
         return driveTrain;
-    }
-    public static BadCameraSystem getImageTrackingSubsystem() 
-    {
-        return imageTrackingSystem;
     }
 
     //Constructor

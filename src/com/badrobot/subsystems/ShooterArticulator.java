@@ -72,4 +72,8 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
     {
         shooterArticulatorSpeedController.set(0.0);
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

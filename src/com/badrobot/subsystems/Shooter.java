@@ -187,4 +187,8 @@ public class Shooter extends BadSubsystem implements IShooter
         SmartDashboard.putNumber("period", geartooth.getPeriod());
         SmartDashboard.putNumber("count", geartooth.get());
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

@@ -65,5 +65,9 @@ public class AllColors extends BadCommand {
 
     protected void interrupted() {
     }
+
+    public void registerPreferencesValues()
+    {
+    }
     
 }

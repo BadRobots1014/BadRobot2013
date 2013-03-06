@@ -69,4 +69,8 @@ public class HUD extends BadSubsystem implements IHUD
             ex.printStackTrace();
         }
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

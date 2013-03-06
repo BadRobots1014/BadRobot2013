@@ -4,6 +4,7 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.IPreferencesDataSource;
 import com.badrobot.OI;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.NamedSendable;
@@ -18,7 +19,8 @@ import edu.wpi.first.wpilibj.tables.ITableListener;
  * 
  * @author adrian
  */
-public abstract class BadCommand extends CommandBase implements Logger, NamedSendable, ITableListener
+public abstract class BadCommand extends CommandBase implements Logger, NamedSendable, ITableListener,
+        IPreferencesDataSource
 {
     protected static final boolean CONSOLE_OUTPUT_ENABLED = true;
     
@@ -56,6 +58,9 @@ public abstract class BadCommand extends CommandBase implements Logger, NamedSen
         table = t;
         
         table.addTableListener(this);
+        
+        //Hack -- I am very sorry future generations of Team 1014ers 
+        registerPreferencesValues();
     }
     
     /**

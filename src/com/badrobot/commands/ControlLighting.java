@@ -106,5 +106,9 @@ public class ControlLighting extends BadCommand
 
     protected void interrupted() {
     }
+
+    public void registerPreferencesValues()
+    {
+    }
     
 }

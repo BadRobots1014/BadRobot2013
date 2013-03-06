@@ -1,5 +1,6 @@
 package com.badrobot.subsystems;
 
+import com.badrobot.IPreferencesDataSource;
 import com.badrobot.OI;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.NamedSendable;
@@ -14,7 +15,8 @@ import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 /**
  * @author Jon Buckley
  */
-public abstract class BadSubsystem extends Subsystem implements Logger, NamedSendable, ITableListener
+public abstract class BadSubsystem extends Subsystem implements Logger, NamedSendable, ITableListener,
+        IPreferencesDataSource
 {   
     //is logging enabled
     protected boolean CONSOLE_OUTPUT_ENABLED = true;
@@ -48,14 +50,15 @@ public abstract class BadSubsystem extends Subsystem implements Logger, NamedSen
         log("initting table");
         table = NetworkTable.getTable(this.getConsoleIdentity());
         addNetworkTableValues(table);
-        table.putNumber("test", 203);
         
         if (table != null)
             table.removeTableListener(this);
         table = t;
         
         table.addTableListener(this);
-        SmartDashboard.putString("test", this.getConsoleIdentity());
+        
+        //HACKYYY
+        registerPreferencesValues();
     }
     
     /**

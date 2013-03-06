@@ -8,6 +8,7 @@
 package com.badrobot;
 
 
+import com.badrobot.commands.autonomousCommands.AutoAimAndShoot;
 import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
 import com.badrobot.subsystems.interfaces.ILights;

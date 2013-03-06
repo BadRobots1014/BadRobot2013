@@ -86,5 +86,9 @@ public class ArticulateWithController extends BadCommand
 
     protected void interrupted() {
     }
+
+    public void registerPreferencesValues()
+    {
+    }
     
 }

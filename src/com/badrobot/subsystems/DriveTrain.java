@@ -5,7 +5,6 @@ package com.badrobot.subsystems;
  * and open the template in the editor.
  */
 import com.badrobot.BadRobotMap;
-import com.badrobot.commands.CoopDriveWithTriggers;
 import com.badrobot.commands.DriveStraightForward;
 import com.badrobot.commands.DriveWithJoysticks;
 import com.badrobot.commands.Turn;
@@ -210,5 +209,9 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
             Thread.sleep(30);
         } catch(Exception ex) {}
         return ultrasonic.getRangeInches();
+    }
+
+    public void registerPreferencesValues()
+    {
     }
 }

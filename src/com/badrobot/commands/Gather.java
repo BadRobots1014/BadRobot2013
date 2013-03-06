@@ -81,4 +81,8 @@ public class Gather extends BadCommand
     {
         
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

@@ -102,4 +102,8 @@ public class DriveWithJoysticks extends BadCommand
     {
         
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

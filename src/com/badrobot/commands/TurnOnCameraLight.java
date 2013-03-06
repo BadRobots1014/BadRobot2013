@@ -61,4 +61,8 @@ public class TurnOnCameraLight extends BadCommand
     {
         return "TurnOnCameraLights";
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }

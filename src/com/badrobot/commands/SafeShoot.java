@@ -164,4 +164,8 @@ public class SafeShoot extends BadCommand
     protected void interrupted() 
     {
     }
+
+    public void registerPreferencesValues()
+    {
+    }
 }
