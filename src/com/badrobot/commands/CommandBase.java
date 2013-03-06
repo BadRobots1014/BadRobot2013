@@ -72,7 +72,7 @@ public abstract class CommandBase extends Command
         shooterArticulator = ShooterArticulator.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
         //lightSystem = ProtoLights.getInstance();
-        //cameraLight = CameraLight.getInstance();
+        cameraLight = CameraLight.getInstance();
         
         driveChooser = new SendableChooser();
         driveChooser.addDefault("Tank Drive", "tankDrive");

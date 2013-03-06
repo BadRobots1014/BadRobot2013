@@ -30,7 +30,7 @@ public class SafeShoot extends BadCommand
     boolean hasPushed;
     
     double shooterSpeed;
-    static double REQUIRED_SHOOTER_SPEED = 5200;
+    static double REQUIRED_SHOOTER_SPEED = 4800;
     
     public SafeShoot()
     {

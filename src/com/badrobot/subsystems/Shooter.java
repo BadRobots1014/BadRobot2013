@@ -123,8 +123,8 @@ public class Shooter extends BadSubsystem implements IShooter
         }
         else if (speed != 0)
         {
-            primaryShooterVictor.set(speed);
-            secondaryShooterVictor.set(speed);
+            primaryShooterVictor.set(-speed);
+            secondaryShooterVictor.set(-speed);
             
             /*
             primaryShooterRelay.set(Relay.Value.kOn);
@@ -162,6 +162,7 @@ public class Shooter extends BadSubsystem implements IShooter
         
     public double getShooterSpeed() 
     {
+        log("shooter speed: "+60/geartooth.getPeriod());
         //Converts from sec/rev to rev/min.
         return (60/geartooth.getPeriod());  
     }

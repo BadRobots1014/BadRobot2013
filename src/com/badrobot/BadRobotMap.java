@@ -83,7 +83,7 @@ public class BadRobotMap implements Sendable
             driveTrainGyro = 1;
             driveTrainUltrasonicPing = 3;
             driveTrainUltrasonicEcho = 2;
-             
+            
             leftSideEncoderIn = 13;
             leftSideEncoderOut = 14;
             rightSideEncoderIn = 11;
@@ -97,6 +97,8 @@ public class BadRobotMap implements Sendable
             primaryShooterSpeedController = 10;
             secondaryShooterSpeedController = 8;
             frisbeePusher = 2;
+            
+            cameraLightRelay = 1;
         }
         else
         {

@@ -67,8 +67,14 @@ public class RobotMain extends IterativeRobot implements Logger
         //make sure you dont have to add to scheduler to run autonomous command TODO
         autonomousCommand.start();*/
         
-        Command auto = new AimWithCamera();//DriveForwardTurnShoot();
+        Command turnOnCameraLight = new TurnOnCameraLight();
+        /*Command auto = new AimWithCamera();//DriveForwardTurnShoot();
+        auto.start();*/
+        
+        Command auto = new AutoAimAndShoot();
         auto.start();
+        
+        turnOnCameraLight.start();
     }
     
     /**
@@ -82,6 +88,15 @@ public class RobotMain extends IterativeRobot implements Logger
 
     public void teleopInit() {
         Watchdog.getInstance().setEnabled(false);
+        
+        Command driveTrainControls = new DriveWithJoysticks();
+        driveTrainControls.start();
+        
+        Command shooterControls = new SafeShoot();
+        shooterControls.start();
+        
+        Command articulate = new ArticulateWithController();
+        articulate.start();
         
         if (CommandBase.lightSystem != null)
             new RunLights(ILights.kRed).start();
