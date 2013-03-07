@@ -11,6 +11,8 @@ package com.badrobot;
 import com.badrobot.commands.autonomousCommands.AutoAimAndShoot;
 import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
+import com.badrobot.commands.autonomousCommands.AimWithCamera;
+import com.badrobot.commands.autonomousCommands.DriveForwardAutoAimShoot;
 import com.badrobot.subsystems.interfaces.ILights;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.*;
@@ -33,7 +35,6 @@ public class RobotMain extends IterativeRobot implements Logger
     Command autonomousCommand; //Autonomous Command
     SendableChooser autoChooser; //adds a widget to the SmartDashboard
     
-    //for selection.
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -42,40 +43,28 @@ public class RobotMain extends IterativeRobot implements Logger
     {
         BadRobotMap.isPrototype = true;
         
-        
         // Initialize all subsystems
         CommandBase.init();
-        
+               
         autoChooser = new SendableChooser();
-        //Replace ExampleCommand() with autonomous command. 
-        //Currently there are none.
-        //autoChooser.addDefault("Default program", new DriveForwardAndShoot());
-        autoChooser.addObject("Other program 1", new DriveStraightForward(2));
-        SmartDashboard.putData("Autonomous mode chooser", autoChooser);
         
-        SmartDashboard.putNumber("DriveForwardTurnShoot Angle", 20);
-        SmartDashboard.putNumber("DriveForwardTurnShoot Time", 5);
+        autoChooser.addDefault("Drive Forward + Auto Fire", new DriveForwardAutoAimShoot());
+        autoChooser.addObject("Drive Straight Forward + Turn (5s , 20 deg)", new DriveStraightForward(5));
+        autoChooser.addObject("Auto Aim", new AimWithCamera());
+        
+        SmartDashboard.putData("Autonomous mode chooser", autoChooser);
         
         if (CommandBase.lightSystem != null)
             new RunLights(ILights.kYellow).start();
     }
-
+   
     public void autonomousInit() 
     {
-        //It will get the selected Command from the SmartDashboard
-        /*autonomousCommand = (Command) autoChooser.getSelected();
-        
-        //make sure you dont have to add to scheduler to run autonomous command TODO
-        autonomousCommand.start();*/
+        autonomousCommand = (Command) autoChooser.getSelected();        
+        Scheduler.getInstance().add(autonomousCommand);
         
         Command turnOnCameraLight = new TurnOnCameraLight();
-        /*Command auto = new AimWithCamera();//DriveForwardTurnShoot();
-        auto.start();*/
-        
-        Command auto = new AutoAimAndShoot();
-        auto.start();
-        
-        turnOnCameraLight.start();
+        Scheduler.getInstance().add(turnOnCameraLight);
     }
     
     /**
@@ -90,17 +79,17 @@ public class RobotMain extends IterativeRobot implements Logger
     public void teleopInit() {
         Watchdog.getInstance().setEnabled(false);
         
-        Command driveTrainControls = new DriveWithJoysticks();
-        driveTrainControls.start();
+        Command driveTrainControls = new DriveWithController();
+        Scheduler.getInstance().add(driveTrainControls);
         
         Command shooterControls = new SafeShoot();
-        shooterControls.start();
+        Scheduler.getInstance().add(shooterControls);
         
         Command articulate = new ArticulateWithController();
-        articulate.start();
+        Scheduler.getInstance().add(articulate);
         
         if (CommandBase.lightSystem != null)
-            new RunLights(ILights.kRed).start();
+            Scheduler.getInstance().add(new RunLights(ILights.kRed));
     }
     
     /**

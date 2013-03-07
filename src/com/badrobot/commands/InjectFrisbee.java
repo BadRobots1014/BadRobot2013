@@ -4,6 +4,7 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.subsystems.interfaces.ILights;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
@@ -33,14 +34,23 @@ public class InjectFrisbee extends BadCommand
                         PUSHING = 1,
                         FINISHED = 4;
     
+    private int incumbentColor = 0;
+    
     public InjectFrisbee()
     {
         requires((Subsystem) frisbeePusher);
+        
+        if(CommandBase.lightSystem != null)
+        {
+            requires((Subsystem) lightSystem);
+            incumbentColor = lightSystem.getColor();
+        }
     }
     
     public InjectFrisbee(int numIterations)
     {
-        requires((Subsystem) frisbeePusher);
+        this();
+        
         iterations = numIterations;
         currentIteration = 0;
         log("initing, iterations = " + iterations  );
@@ -97,6 +107,8 @@ public class InjectFrisbee extends BadCommand
                 }
                 
                 frisbeePusher.pushFrisbee(true);
+                
+                lightSystem.setColor(ILights.kETech);
                 break;       
             
             //all done
@@ -104,6 +116,9 @@ public class InjectFrisbee extends BadCommand
             {
                 currentIteration++;
                 log("current iteration " + currentIteration);
+                
+                if (CommandBase.lightSystem != null)
+                    lightSystem.setColor(incumbentColor);
                 
                 if(currentIteration < iterations)
                 {
@@ -118,6 +133,8 @@ public class InjectFrisbee extends BadCommand
                     log("max iterations hit, stopping");
                     frisbeePusher.stopFrisbeePusher();
                 }
+                
+                
             }
         }
     }

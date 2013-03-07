@@ -29,6 +29,7 @@ public class OI
     
     public static int ALLIANCE_COLOR;
     
+    public static BadPreferences preferencesManagers;
     
     public void init()
     {
@@ -37,6 +38,8 @@ public class OI
         
         ALLIANCE_COLOR = DriverStation.getInstance().getAlliance().value;
         
+        preferencesManagers = BadPreferences.getInstance();
+
         //button that senses seconadry Right bumper press for shooter injection
         /*if (CommandBase.frisbeePusher != null)
         {

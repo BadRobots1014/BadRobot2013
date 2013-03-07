@@ -22,11 +22,11 @@ import edu.wpi.first.wpilibj.tables.ITable;
  * 
  * @author Jon Buckley
  */
-public class DriveWithJoysticks extends BadCommand
+public class DriveWithController extends BadCommand
 {
     private double BUMPER_SPEED = .5;
     protected boolean TANK_DRIVE_MODE = true;
-    public DriveWithJoysticks()
+    public DriveWithController()
     {
         requires((Subsystem) driveTrain);
     }

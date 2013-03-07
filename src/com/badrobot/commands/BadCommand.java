@@ -24,6 +24,11 @@ public abstract class BadCommand extends CommandBase implements Logger, NamedSen
 {
     protected static final boolean CONSOLE_OUTPUT_ENABLED = true;
     
+    protected BadCommand()
+    {
+        registerPreferencesValues();   
+    }
+    
     /**
      * Subclasses should implement their own implementations on initialize. This
      * method is meant to instantiate any hardware or variables that will be 

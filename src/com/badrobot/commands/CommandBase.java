@@ -1,6 +1,5 @@
 package com.badrobot.commands;
 
-import com.badrobot.BadPreferences;
 import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
 import com.badrobot.subsystems.*;
@@ -20,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * the access to hardware components (ie Drive Train or Shooter). 
  * ---CommandBase is extended BY Commands (ie DriveWithJoystick)---
  * 
- * @author Author
+ * @author Team 1014
  */
 public abstract class CommandBase extends Command 
 {
@@ -58,8 +57,7 @@ public abstract class CommandBase extends Command
         // which commands extend), subsystems are not guaranteed to be
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
-        
-        
+           
         //note the getInstance() method, ALWAYS use it when you call them. 
         //Reason why? The getInstance() will not create a new one, it will 
         //give you the existing copy with all the correct values
@@ -78,17 +76,9 @@ public abstract class CommandBase extends Command
         driveChooser.addDefault("Tank Drive", "tankDrive");
         driveChooser.addObject("Arcade Drive", "arcadeDrive");
         SmartDashboard.putData("driveChooser", driveChooser);
-        
+                
         oi = new OI();
         oi.init();
-    }
-    
-    //Accessor Methods: remember that protected driveTrain above? How would you 
-    //get to use it outside of the class? You make accessor methods as such 
-    //below. The benefits: the variable cannot be changed but can be used.
-    public static IDriveTrain getDriveTrain()
-    {
-        return driveTrain;
     }
 
     //Constructor

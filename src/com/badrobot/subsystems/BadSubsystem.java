@@ -18,6 +18,12 @@ import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 public abstract class BadSubsystem extends Subsystem implements Logger, NamedSendable, ITableListener,
         IPreferencesDataSource
 {   
+    protected BadSubsystem()
+    {
+        initialize();
+        registerPreferencesValues();   
+    }
+    
     //is logging enabled
     protected boolean CONSOLE_OUTPUT_ENABLED = true;
     
@@ -56,9 +62,6 @@ public abstract class BadSubsystem extends Subsystem implements Logger, NamedSen
         table = t;
         
         table.addTableListener(this);
-        
-        //HACKYYY
-        registerPreferencesValues();
     }
     
     /**

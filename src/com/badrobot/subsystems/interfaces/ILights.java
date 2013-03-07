@@ -12,6 +12,7 @@ public interface ILights extends Logger
 {
     public static final int kBlue = 0,
                             kRed = 1,
+                            kGreen = 6,
                             kYellow = 2,
                             kWhite = 3,
                             kETech = 4,
@@ -38,4 +39,10 @@ public interface ILights extends Logger
     
     
     public void setColor(int color);
+    
+    /**
+     * 
+     * @return the enumerated color value as specified by the constants in this interface
+     */
+    public int getColor();
 }

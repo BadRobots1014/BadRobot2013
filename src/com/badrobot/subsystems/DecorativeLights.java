@@ -8,7 +8,6 @@ import com.badrobot.BadRobotMap;
 import com.badrobot.commands.ControlLighting;
 import com.badrobot.subsystems.interfaces.ILights;
 import edu.wpi.first.wpilibj.DigitalOutput;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
@@ -23,15 +22,13 @@ public class DecorativeLights extends BadSubsystem implements ILights
 
     private static DecorativeLights instance;
     
+    private int currentColor = 0;
+    
     private DecorativeLights()
     {
         redChannel = new DigitalOutput(BadRobotMap.redChannel);
         greenChannel = new DigitalOutput(BadRobotMap.greenChannel);
         blueChannel = new DigitalOutput(BadRobotMap.blueChannel);
-        
-        LiveWindow.addActuator("ProtoLights", "red", redChannel);
-        LiveWindow.addActuator("ProtoLights", "green", greenChannel);
-        LiveWindow.addActuator("ProtoLights", "blue", blueChannel);
     }
     
     protected void initialize() {
@@ -54,7 +51,7 @@ public class DecorativeLights extends BadSubsystem implements ILights
 
     public String getConsoleIdentity() 
     {
-        return "ProtoLights";
+        return "DecorativeLights";
     }
 
     protected void initDefaultCommand() 
@@ -71,20 +68,14 @@ public class DecorativeLights extends BadSubsystem implements ILights
 
     public void turnOn() 
     {
-        /*redChannel.set(false);
-        blueChannel.set(false);
-        greenChannel.set(false);*/
-        
-        redChannel.enablePWM(byteToPWM(0));
-        greenChannel.enablePWM(byteToPWM(0));
-        blueChannel.enablePWM(byteToPWM(0));
+        setColor(ILights.kYellow);
     }
 
     public void turnOff() 
     {
-        //redChannel.disablePWM();
-        //greenChannel.disablePWM();
-        //blueChannel.disablePWM();
+        redChannel.updateDutyCycle(0);
+        greenChannel.updateDutyCycle(0);
+        blueChannel.updateDutyCycle(0);
     }
 
     /**
@@ -95,25 +86,9 @@ public class DecorativeLights extends BadSubsystem implements ILights
      */
     public void setColor(int r, int g, int b) 
     {
-        log("Byte to PWM of Math.abs(g)"+byteToPWM(Math.abs(g)));
-        log("Byte to PWM of Math.abs(r)"+byteToPWM(Math.abs(r)));
-        log("Byte to PWM of Math.abs(b)"+byteToPWM(Math.abs(b)));
-        
-        
-        //redChannel.pulse()
-        
         redChannel.updateDutyCycle(byteToPWM(Math.abs(r)));
         greenChannel.updateDutyCycle(byteToPWM(Math.abs(g)));
         blueChannel.updateDutyCycle(byteToPWM(Math.abs(b)));
-        
-        
-        /*redChannel.setPWMRate(byteToPWM(Math.abs(r)));
-        greenChannel.setPWMRate(byteToPWM(Math.abs(g)));
-        blueChannel.setPWMRate(byteToPWM(Math.abs(b)));*/
-        
-        /*redChannel.set((r > 0));
-        blueChannel.set((b > 0));
-        greenChannel.set((g > 0));*/
     }
 
     public void setColor(int color) {
@@ -139,10 +114,20 @@ public class DecorativeLights extends BadSubsystem implements ILights
                 
             case ILights.kGold:
                 setColor(200, 30, 10);
+                
+            case ILights.kGreen:
+                setColor(0, 255, 0);
         }
+        
+        currentColor = color;
     }
 
     public void registerPreferencesValues()
     {
+    }
+
+    public int getColor()
+    {
+        return currentColor;
     }
 }

@@ -6,8 +6,10 @@ package com.badrobot.commands.autonomousCommands;
 
 import com.badrobot.BadPreferences;
 import com.badrobot.commands.BadCommand;
+import com.badrobot.commands.CommandBase;
+import com.badrobot.subsystems.DecorativeLights;
+import com.badrobot.subsystems.interfaces.ILights;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,22 +28,31 @@ public class AimWithCamera extends BadCommand
     static double TOLERANCE = .15;
     static double TURN_SPEED = .5;
     
-    static String toleranceKey = "AUTO_AIM_TOLERANCE";
-    static String turnKey = "AUTO_AIM_TURN_SPEED";
+    static String toleranceKey = "AUTO AIM TOLERANCE",
+                  turnKey = "AUTO AIM TURN SPEED",
+                  neededCyclesKey = "AUTO AIM NEEDED CYCLES TO VERIFY";
     
     public AimWithCamera()
     {
         requires((Subsystem) driveTrain);
-        requires((Subsystem) shooterArticulator);        
+        requires((Subsystem) shooterArticulator);       
+        
+        if (CommandBase.lightSystem != null)
+            requires((Subsystem) lightSystem);
+        
+        table = NetworkTable.getTable("IMGPROC");   
+        
+        TOLERANCE = Double.parseDouble(BadPreferences.getValue(toleranceKey, "" + TOLERANCE));
+        TURN_SPEED = Double.parseDouble(BadPreferences.getValue(turnKey, "" + TURN_SPEED));
+        NUMBER_CYCLES_TO_VERIFY = Integer.parseInt(
+                BadPreferences.getValue(neededCyclesKey, "" + NUMBER_CYCLES_TO_VERIFY));
     }
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        table = NetworkTable.getTable("IMGPROC");
-        
-        SmartDashboard.getNumber(turnKey, TURN_SPEED);
-        SmartDashboard.putNumber(toleranceKey, TOLERANCE);
+        if (lightSystem != null)
+            lightSystem.setColor(DecorativeLights.kRed);
     }
 
     private static double SWEET_SPOT_X = .22,
@@ -70,10 +81,6 @@ public class AimWithCamera extends BadCommand
         deltaX = (SWEET_SPOT_X - targetX);
         deltaY = (SWEET_SPOT_Y - targetY);
         
-        TIME_OUT_IN_SECONDS = SmartDashboard.getNumber("Auto Aim Time Out In Seconds", TIME_OUT_IN_SECONDS);
-        TURN_SPEED = SmartDashboard.getNumber("Auto Aim Turn Speed", TURN_SPEED);
-        TOLERANCE = SmartDashboard.getNumber("Auto Aim Tolerance", TOLERANCE);
-       
         //if too much lag, stops the robot where it is and waits for a better connection
         if(timeSince > TIME_OUT_IN_SECONDS || timeSince == -1) 
         {
@@ -87,6 +94,9 @@ public class AimWithCamera extends BadCommand
         {
             driveTrain.tankDrive(0,0);
             numberOfCyclesXAligned++;
+            
+            if (lightSystem != null)
+                lightSystem.setColor(DecorativeLights.kGold);
         }
         else
         {
@@ -94,11 +104,13 @@ public class AimWithCamera extends BadCommand
             if (numberOfCyclesXAligned != 0)
                 numberOfCyclesXAligned = 0;
             
+            //turn left
             if (deltaX <  -TOLERANCE)
             {     
                 //proportional speed (the P of PID -- we dont need no goddamn ID)
                 driveTrain.tankDrive(deltaX*Kp + TURN_SPEED, -deltaX*Kp - TURN_SPEED);
             }
+            //turn right
             else if (deltaX > TOLERANCE)
             {
                 //protportional speed
@@ -145,7 +157,8 @@ public class AimWithCamera extends BadCommand
         if(Math.abs(SWEET_SPOT_X - targetX) < TOLERANCE  &&
                 Math.abs(SWEET_SPOT_Y - targetY) < TOLERANCE &&
                 numberOfCyclesXAligned >= NUMBER_CYCLES_TO_VERIFY &&
-                numberOfCyclesYAligned >= NUMBER_CYCLES_TO_VERIFY){
+                numberOfCyclesYAligned >= NUMBER_CYCLES_TO_VERIFY)
+        {
             return true;
         }
         return false;
@@ -179,7 +192,8 @@ public class AimWithCamera extends BadCommand
 
     public void registerPreferencesValues()
     {
-        //BadPreferences.registerValue(toleranceKey, "" + TOLERANCE);
-        //BadPreferences.registerValue(turnKey, "" + TURN_SPEED);
+        BadPreferences.registerValue(toleranceKey, "" + TOLERANCE);
+        BadPreferences.registerValue(turnKey, "" + TURN_SPEED);
+        BadPreferences.registerValue(neededCyclesKey, "" + NUMBER_CYCLES_TO_VERIFY);
     }
 }

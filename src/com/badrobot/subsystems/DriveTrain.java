@@ -6,7 +6,7 @@ package com.badrobot.subsystems;
  */
 import com.badrobot.BadRobotMap;
 import com.badrobot.commands.DriveStraightForward;
-import com.badrobot.commands.DriveWithJoysticks;
+import com.badrobot.commands.DriveWithController;
 import com.badrobot.commands.Turn;
 import com.badrobot.subsystems.interfaces.IDriveTrain;
 import edu.wpi.first.wpilibj.*;
@@ -151,7 +151,7 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initDefaultCommand() 
     {
-        this.setDefaultCommand(new DriveWithJoysticks());
+        this.setDefaultCommand(new DriveWithController());
     }
 
     /**

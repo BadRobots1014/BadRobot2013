@@ -21,8 +21,8 @@ public class DriveForwardTurnShoot extends CommandGroup
     
     public DriveForwardTurnShoot() 
     {
-        int time = (int) SmartDashboard.getNumber("DriveForwardTurnShoot Time");
-        int angle = (int) SmartDashboard.getNumber("DriveForwardTurnShoot Angle");
+        int time = 5;//(int) SmartDashboard.getNumber("DriveForwardTurnShoot Time");
+        int angle = 20;//(int) SmartDashboard.getNumber("DriveForwardTurnShoot Angle");
         double distance = 3; // yards
         
         addSequential(new DriveStraightForward(time));
