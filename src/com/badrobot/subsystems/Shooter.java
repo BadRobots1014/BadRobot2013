@@ -9,6 +9,7 @@ import com.badrobot.commands.SafeShoot;
 import com.badrobot.commands.TriggerToShoot;
 import com.badrobot.subsystems.interfaces.IShooter;
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.Ultrasonic.Unit;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
@@ -24,6 +25,7 @@ public class Shooter extends BadSubsystem implements IShooter
     SpeedController controller;
     private static Shooter instance;
     
+    Ultrasonic ultrasonic;
     
     EasyPID pid;
     GearTooth geartooth;
@@ -54,6 +56,9 @@ public class Shooter extends BadSubsystem implements IShooter
         {
             primaryShooterVictor = new Victor(BadRobotMap.primaryShooterSpeedController);
             secondaryShooterVictor = new Victor(BadRobotMap.secondaryShooterSpeedController);
+            
+            ultrasonic = new Ultrasonic(BadRobotMap.articulatorUltrasonicPing, 
+                    BadRobotMap.articulatorUltrasonicEcho, Unit.kInches);
             
             /*
             primaryShooterRelay = new Relay(BadRobotMap.primaryShooterSpeedController);

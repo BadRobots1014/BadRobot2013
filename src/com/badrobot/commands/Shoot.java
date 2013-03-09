@@ -4,6 +4,7 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.BadPreferences;
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Timer;
@@ -69,7 +70,6 @@ public class Shoot extends BadCommand
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() 
     {
-        
         if((Timer.getFPGATimestamp()-startTime) > shooterRunTime)
             return true;
         //for debug
