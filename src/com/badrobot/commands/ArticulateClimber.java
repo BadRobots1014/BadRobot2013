@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * Articulate the climber arms with controller.
+ * 
  * @author Isaac
  */
 public class ArticulateClimber extends BadCommand

@@ -32,6 +32,8 @@ public class BadRobotMap implements Sendable
     public static int articulatorUltrasonicEcho;
     
     public static int climberArticulator;
+    public static int climberEncoderIn;
+    public static int climberEncoderOut;
     
     public static int leftSideEncoderIn;
     public static int leftSideEncoderOut;
@@ -104,6 +106,8 @@ public class BadRobotMap implements Sendable
             frisbeePusher = 2;
             
             cameraLightRelay = 1;
+            
+            climberArticulator = 6;
         }
         else
         {

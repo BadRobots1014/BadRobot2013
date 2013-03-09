@@ -6,6 +6,7 @@ package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
 import com.badrobot.subsystems.interfaces.IClimber;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.tables.ITable;
@@ -20,6 +21,8 @@ public class Climber extends BadSubsystem implements IClimber
     
     SpeedController climberController;
     
+    Encoder encoder;
+    
     public static Climber getInstance()
     {
         if (instance == null)
@@ -32,6 +35,7 @@ public class Climber extends BadSubsystem implements IClimber
     protected void initialize() 
     {
         climberController = new Jaguar(BadRobotMap.climberArticulator);
+        encoder = new Encoder(BadRobotMap.climberEncoderIn, BadRobotMap.climberEncoderOut, true);
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
