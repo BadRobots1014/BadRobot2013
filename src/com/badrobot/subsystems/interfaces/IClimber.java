@@ -9,21 +9,14 @@ package com.badrobot.subsystems.interfaces;
  * @author Jon Buckley
  */
 public interface IClimber
-{ 
+{
     /**
-     * climbs the first tier of the pyramid, no big deal
+     * Raise the climber arms.
      */
-    public void climbFirstLevel();
+    public void raiseClimber();
     
     /**
-     * climbs the middle tier of the pyramid, assumed to start already on 
-     * the first tier. Things are gettin' tricky now
+     * Lower the climber arms.
      */
-    public void climbSecondLevel();
-    
-    /**
-     * climbs the last tier of the pyramid... hard hats and steel toed boots are
-     * recommended 
-     */
-    public void climbTheGodDamnThirdLevel();
+    public void lowerClimber();
 }

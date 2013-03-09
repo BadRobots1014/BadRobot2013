@@ -12,7 +12,7 @@ import com.badrobot.commands.autonomousCommands.AutoAimAndShoot;
 import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
 import com.badrobot.commands.autonomousCommands.AimWithCamera;
-import com.badrobot.commands.autonomousCommands.DriveForwardAutoAimShoot;
+//import com.badrobot.commands.autonomousCommands.DriveForwardAutoAimShoot;
 import com.badrobot.subsystems.interfaces.ILights;
 import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.*;
@@ -49,7 +49,7 @@ public class RobotMain extends IterativeRobot implements Logger
                
         autoChooser = new SendableChooser();
         
-        autoChooser.addDefault("Drive Forward + Auto Fire", new DriveForwardAutoAimShoot());
+        //autoChooser.addDefault("Drive Forward + Auto Fire", new DriveForwardAutoAimShoot());
         autoChooser.addObject("Drive Straight Forward + Turn (5s , 20 deg)", new DriveStraightForward(5));
         autoChooser.addObject("Auto Aim", new AimWithCamera());
         autoChooser.addObject("Auto Aim And Shoot", new AutoAimAndShoot());

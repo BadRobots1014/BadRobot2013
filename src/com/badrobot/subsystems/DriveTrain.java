@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
- *
+ * Subsystem for the drivetrain.
  * @author Isaac
  */
 public class DriveTrain extends BadSubsystem implements IDriveTrain
