@@ -44,7 +44,6 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
     
     private DriveTrain()
     {
-        initialize();
         SmartDashboard.putData("ImpDriveTrain", this);
     }
     

@@ -55,10 +55,31 @@ public class BadPreferences implements Logger
      */
     public static void registerValue(String key, String val)
     {
-        valuePairs[size][0] = key;
+       String parsedKey = key;
+       if (contains(key))
+           return;
+        
+       if (key.indexOf(' ') >= 0)
+           parsedKey = key.replace(' ', '_');
+       
+        valuePairs[size][0] = parsedKey;
         valuePairs[size][1] = val;
         
         size++;
+    }
+    
+    public static boolean contains(String key)
+    {
+        if (size == 0)
+            return false;
+        
+        for (int i = 0; i < size; i++)
+        {
+            if (valuePairs[size][0].compareTo(key)==0)
+                return true;
+        }
+        
+        return false;
     }
     
     /**

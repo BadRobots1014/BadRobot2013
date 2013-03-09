@@ -28,9 +28,9 @@ public class AimWithCamera extends BadCommand
     static double TOLERANCE = .15;
     static double TURN_SPEED = .5;
     
-    static String toleranceKey = "AUTO AIM TOLERANCE",
-                  turnKey = "AUTO AIM TURN SPEED",
-                  neededCyclesKey = "AUTO AIM NEEDED CYCLES TO VERIFY";
+    static String toleranceKey = "AUTO_AIM_TOLERANCE",
+                  turnKey = "AUTO_AIM_TURN_SPEED",
+                  neededCyclesKey = "AUTO_AIM_NEEDED_CYCLES_TO_VERIFY";
     
     public AimWithCamera()
     {
