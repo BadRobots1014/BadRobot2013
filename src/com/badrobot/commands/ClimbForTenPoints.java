@@ -18,7 +18,7 @@ public class ClimbForTenPoints extends BadCommand
     double bearing;
     static double DRIVE_SPEED;
     static String driveSpeedKey = "CLIMBING_DRIVE_SPEED";
-    static double Kp = .1;
+    static double Kp = .01;
     
     public ClimbForTenPoints()
     {
@@ -38,7 +38,7 @@ public class ClimbForTenPoints extends BadCommand
     {
         //go straight
         driveTrain.getTrain().drive(DRIVE_SPEED,
-                (driveTrain.getGyro().getAngle() - bearing) * Kp);
+                -(driveTrain.getGyro().getAngle() - bearing) * Kp);
     }
 
     // Make this return true when this Command no longer needs to run execute()

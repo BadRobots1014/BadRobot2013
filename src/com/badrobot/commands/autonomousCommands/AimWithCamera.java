@@ -25,7 +25,7 @@ public class AimWithCamera extends BadCommand
 {
     NetworkTable table;
     static double TIME_OUT_IN_SECONDS = .5;
-    static double TOLERANCE = .15;
+    static double TOLERANCE = .1;
     static double TURN_SPEED = .5;
     
     static String toleranceKey = "AUTO_AIM_TOLERANCE",
@@ -55,7 +55,7 @@ public class AimWithCamera extends BadCommand
             lightSystem.setColor(DecorativeLights.kRed);
     }
 
-    private static double SWEET_SPOT_X = .22,
+    private static double SWEET_SPOT_X = .25,
             SWEET_SPOT_Y = -.07;
     
     private static int NUMBER_CYCLES_TO_VERIFY = 3;

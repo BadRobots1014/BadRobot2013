@@ -56,8 +56,8 @@ public class BadPreferences implements Logger
     public static void registerValue(String key, String val)
     {
        String parsedKey = key;
-       if (contains(key))
-           return;
+       /*if (contains(parsedKey))
+           return;*/
         
        if (key.indexOf(' ') >= 0)
            parsedKey = key.replace(' ', '_');
@@ -70,7 +70,7 @@ public class BadPreferences implements Logger
     
     public static boolean contains(String key)
     {
-        if (size == 0)
+        if (size <= 0)
             return false;
         
         for (int i = 0; i < size; i++)

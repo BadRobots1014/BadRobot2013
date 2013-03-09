@@ -44,11 +44,11 @@ public class ArticulateWithController extends BadCommand
     {
         if (OI.isDemoMode())
         {
-            if (OI.isPrimaryBButtonPressed())
+            if (OI.isPrimaryLeftJoyClick())
             {
                 shooterArticulator.raiseShooter();
             }
-            else if (OI.isPrimaryAButtonPressed())
+            else if (OI.isPrimaryRightJoyClick())
             {
                 shooterArticulator.lowerShooter();
             }

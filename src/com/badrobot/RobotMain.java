@@ -52,6 +52,7 @@ public class RobotMain extends IterativeRobot implements Logger
         autoChooser.addDefault("Drive Forward + Auto Fire", new DriveForwardAutoAimShoot());
         autoChooser.addObject("Drive Straight Forward + Turn (5s , 20 deg)", new DriveStraightForward(5));
         autoChooser.addObject("Auto Aim", new AimWithCamera());
+        autoChooser.addObject("Auto Aim And Shoot", new AutoAimAndShoot());
         
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
         
@@ -62,7 +63,9 @@ public class RobotMain extends IterativeRobot implements Logger
     public void autonomousInit() 
     {
         autonomousCommand = (Command) autoChooser.getSelected();        
-        Scheduler.getInstance().add(autonomousCommand);
+        autonomousCommand.start();
+        
+        //Scheduler.getInstance().add(autonomousCommand);
         
         Command turnOnCameraLight = new TurnOnCameraLight();
         Scheduler.getInstance().add(turnOnCameraLight);
@@ -78,16 +81,22 @@ public class RobotMain extends IterativeRobot implements Logger
     }
 
     public void teleopInit() {
+        if (autonomousCommand != null)
+            autonomousCommand.cancel();
+        
         Watchdog.getInstance().setEnabled(false);
         
         Command driveTrainControls = new DriveWithController();
-        Scheduler.getInstance().add(driveTrainControls);
+        driveTrainControls.start();
+        //Scheduler.getInstance().add(driveTrainControls);
         
         Command shooterControls = new SafeShoot();
-        Scheduler.getInstance().add(shooterControls);
+        shooterControls.start();
+        //Scheduler.getInstance().add(shooterControls);
         
         Command articulate = new ArticulateWithController();
-        Scheduler.getInstance().add(articulate);
+        articulate.start();
+        //Scheduler.getInstance().add(articulate);
         
         if (CommandBase.lightSystem != null)
             Scheduler.getInstance().add(new RunLights(ILights.kRed));
