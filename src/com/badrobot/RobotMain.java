@@ -18,6 +18,7 @@ import com.badrobot.subsystems.interfaces.Logger;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -52,7 +53,7 @@ public class RobotMain extends IterativeRobot implements Logger
         autoChooser.addObject("Drive Straight Forward + Turn (5s , 20 deg)", new DriveStraightForward(5));
         autoChooser.addObject("Auto Aim", new AimWithCamera());
         
-        SmartDashboard.putData("Autonomous mode chooser", autoChooser);
+        SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
         
         if (CommandBase.lightSystem != null)
             new RunLights(ILights.kYellow).start();
@@ -100,6 +101,11 @@ public class RobotMain extends IterativeRobot implements Logger
         Scheduler.getInstance().run();
         Watchdog.getInstance().feed();
         // Timer.delay(.1);
+        
+        if (((Subsystem) CommandBase.driveTrain).getCurrentCommand() == null)
+        {
+            Scheduler.getInstance().add(new DriveWithController());
+        }
     }
     /**
      * This function is called periodically during test mode

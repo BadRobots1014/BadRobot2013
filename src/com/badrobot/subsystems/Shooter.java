@@ -50,7 +50,17 @@ public class Shooter extends BadSubsystem implements IShooter
     
     private Shooter()
     {
-        if (BadRobotMap.isPrototype)
+   
+    }
+    
+    public void initDefaultCommand()
+    {
+        setDefaultCommand(new SafeShoot());
+    }
+
+    protected void initialize()
+    {
+                if (BadRobotMap.isPrototype)
         {
             primaryShooterVictor = new Victor(BadRobotMap.primaryShooterSpeedController);
             secondaryShooterVictor = new Victor(BadRobotMap.secondaryShooterSpeedController);
@@ -80,18 +90,7 @@ public class Shooter extends BadSubsystem implements IShooter
                 return (60/(geartooth.getPeriod()));
             }
         });*/
-        geartooth.start();
         
-        initialize();
-    }
-    
-    public void initDefaultCommand()
-    {
-        setDefaultCommand(new SafeShoot());
-    }
-
-    protected void initialize()
-    {
         //controller.set(0.0);
         geartooth.reset();
         geartooth.setMaxPeriod(2);

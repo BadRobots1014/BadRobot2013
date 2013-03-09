@@ -1,6 +1,7 @@
 
 package com.badrobot;
 
+import com.badrobot.commands.ClimbForTenPoints;
 import com.badrobot.commands.CommandBase;
 import com.badrobot.commands.InjectFrisbee;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -51,6 +52,15 @@ public class OI
             };
             injectFrisbee.whenPressed(new InjectFrisbee());   
         }*/
+        
+        //press A to climb
+        Button climb = new Button() {
+            public boolean get()
+            {
+                return (isPrimaryAButtonPressed());
+            }
+        };
+        climb.whenPressed(new ClimbForTenPoints());
     }
     
     public static boolean isDemoMode()
