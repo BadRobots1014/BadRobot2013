@@ -43,6 +43,7 @@ public abstract class CommandBase extends Command
     public static IDriveTrain driveTrain;
     public static IShooter shooter;
     public static IShooterArticulator shooterArticulator;
+    public static IClimber climberArticulator;
     public static IGatherer gatherer;
     public static IFrisbeePusher frisbeePusher;
     public static SendableChooser driveChooser;
@@ -71,6 +72,8 @@ public abstract class CommandBase extends Command
         //imageTrackingSystem = BadCameraSystem.getInstance();
         //lightSystem = ProtoLights.getInstance();
         cameraLight = CameraLight.getInstance();
+        
+        climberArticulator = Climber.getInstance();
         
         driveChooser = new SendableChooser();
         driveChooser.addDefault("Tank Drive", "tankDrive");

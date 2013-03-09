@@ -31,6 +31,8 @@ public class BadRobotMap implements Sendable
     public static int articulatorUltrasonicPing;
     public static int articulatorUltrasonicEcho;
     
+    public static int climberArticulator;
+    
     public static int leftSideEncoderIn;
     public static int leftSideEncoderOut;
     public static int rightSideEncoderIn;
