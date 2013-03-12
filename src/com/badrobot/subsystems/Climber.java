@@ -4,7 +4,9 @@
  */
 package com.badrobot.subsystems;
 
+import com.badrobot.BadPreferences;
 import com.badrobot.BadRobotMap;
+import com.badrobot.commands.ArticulateClimber;
 import com.badrobot.subsystems.interfaces.IClimber;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Jaguar;
@@ -32,10 +34,15 @@ public class Climber extends BadSubsystem implements IClimber
         return instance;
     }
     
-    protected void initialize() 
+    private Climber()
     {
         climberController = new Jaguar(BadRobotMap.climberArticulator);
-        encoder = new Encoder(BadRobotMap.climberEncoderIn, BadRobotMap.climberEncoderOut, true);
+        //encoder = new Encoder(BadRobotMap.climberEncoderIn, BadRobotMap.climberEncoderOut, true);
+    }
+    
+    protected void initialize() 
+    {
+        RUN_SPEED = Double.parseDouble(BadPreferences.getValue("CLIMBER_ARTICULATION_SPEED", ".5"));
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
@@ -50,19 +57,28 @@ public class Climber extends BadSubsystem implements IClimber
     }
 
     protected void initDefaultCommand() {
+        setDefaultCommand(new ArticulateClimber());
     }
 
-    public void registerPreferencesValues() {
+    public void registerPreferencesValues() 
+    {
+        
     }
     
+    private static double RUN_SPEED = .5;
     public void raiseClimber() 
     {
-        climberController.set(1);
+        climberController.set(RUN_SPEED);
     }
 
     public void lowerClimber() 
     {
-        climberController.set(-1);
+        climberController.set(-RUN_SPEED);
+    }
+    
+    public void lockClimber()
+    {
+        climberController.set(0.0);
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.OI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -34,6 +35,24 @@ public class ArticulateClimber extends BadCommand
     }
 
     protected void execute() {
+        
+        if (OI.isDemoMode())
+        {
+            if (OI.isSecondaryLeftJoyClick())
+            {
+                climberArticulator.lowerClimber();
+            }
+            
+            else if (OI.isSecondaryRightJoyClick())
+            {
+                climberArticulator.raiseClimber();
+            }
+            
+            else
+            {
+                climberArticulator.lockClimber();
+            }
+        }
     }
 
     protected boolean isFinished() 

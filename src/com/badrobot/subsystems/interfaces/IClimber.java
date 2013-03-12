@@ -19,4 +19,9 @@ public interface IClimber
      * Lower the climber arms.
      */
     public void lowerClimber();
+    
+    /**
+     * Locks the climber at its current position (stops it from going any further)
+     */
+    public void lockClimber();
 }

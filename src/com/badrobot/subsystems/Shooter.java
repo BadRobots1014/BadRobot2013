@@ -67,8 +67,8 @@ public class Shooter extends BadSubsystem implements IShooter
             primaryShooterVictor = new Victor(BadRobotMap.primaryShooterSpeedController);
             secondaryShooterVictor = new Victor(BadRobotMap.secondaryShooterSpeedController);
             
-            ultrasonic = new Ultrasonic(BadRobotMap.articulatorUltrasonicPing, 
-                    BadRobotMap.articulatorUltrasonicEcho, Unit.kInches);
+            //ultrasonic = new Ultrasonic(BadRobotMap.articulatorUltrasonicPing, 
+              //      BadRobotMap.articulatorUltrasonicEcho, Unit.kInches);
             
             /*
             primaryShooterRelay = new Relay(BadRobotMap.primaryShooterSpeedController);
