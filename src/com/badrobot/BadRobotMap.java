@@ -108,6 +108,9 @@ public class BadRobotMap implements Sendable
             cameraLightRelay = 1;
             
             climberArticulator = 6;
+            
+            climberEncoderIn = 7;
+            climberEncoderOut = 9;
         }
         else
         {

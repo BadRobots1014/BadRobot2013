@@ -68,10 +68,17 @@ public class ArticulateWithController extends BadCommand
             {
                 shooterArticulator.lowerShooter();
             }
+            else if (OI.getSeondaryControllerLeftStickY() != 0)
+            {
+                log ("left stick change");
+                shooterArticulator.raiseShooter(OI.getSeondaryControllerLeftStickY());
+            }
             else
             {
                 shooterArticulator.lockShooterArticulator();
             }
+            
+            
         }
         
     }

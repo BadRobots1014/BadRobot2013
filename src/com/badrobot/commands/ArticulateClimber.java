@@ -5,6 +5,8 @@
 package com.badrobot.commands;
 
 import com.badrobot.OI;
+import com.badrobot.subsystems.Climber;
+import com.badrobot.subsystems.interfaces.IClimber;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -40,15 +42,40 @@ public class ArticulateClimber extends BadCommand
         {
             if (OI.isSecondaryLeftJoyClick())
             {
+                climberArticulator.setPosition(IClimber.kDown);
+            }          
+            else if (OI.isSecondaryRightJoyClick())
+            {
+                climberArticulator.setPosition(IClimber.kUp);
+                log ("right joy click!");
+            }           
+            
+            else if (OI.isSecondaryAButtonPressed())
+            {
                 climberArticulator.lowerClimber();
             }
-            
-            else if (OI.isSecondaryRightJoyClick())
+            else if (OI.isSecondaryBButtonPressed())
             {
                 climberArticulator.raiseClimber();
             }
-            
-            else
+            else 
+            {
+                ((Climber) climberArticulator).climberController.set(0.0);
+                climberArticulator.lockClimber();
+            }
+        }
+        
+        else
+        {
+            if (OI.isSecondaryXButtonPressed())
+            {
+                climberArticulator.setPosition(IClimber.kDown);
+            }          
+            else if (OI.isSecondaryYButtonPressed())
+            {
+                climberArticulator.setPosition(IClimber.kUp);
+            }   
+            else 
             {
                 climberArticulator.lockClimber();
             }

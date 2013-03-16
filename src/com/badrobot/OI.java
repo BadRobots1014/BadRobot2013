@@ -227,7 +227,7 @@ public class OI
      */
     public static double getSeondaryControllerLeftStickY()
     {
-        return deadzone(-primaryXboxController.getRawAxis(LEFT_STICK_Y));
+        return deadzone(-secondaryXboxController.getRawAxis(LEFT_STICK_Y));
     }
 
     /**
@@ -386,9 +386,9 @@ public class OI
      */
     public static double getSecondaryRightTrigger()
     {
-        if (secondaryXboxController.getRawAxis(3) > 0)
+        if (secondaryXboxController.getRawAxis(3) < 0)
         {
-            return deadzone(secondaryXboxController.getRawAxis(3));
+            return Math.abs(deadzone(secondaryXboxController.getRawAxis(3)));
         }
         else
         {
@@ -402,9 +402,9 @@ public class OI
      */
     public static double getSecondaryLeftTrigger()
     {
-        if (secondaryXboxController.getRawAxis(3) < 0)
+        if (secondaryXboxController.getRawAxis(3) > 0)
         {
-            return deadzone(Math.abs(secondaryXboxController.getRawAxis(3)));
+            return deadzone(secondaryXboxController.getRawAxis(3));
         }
         else
         {

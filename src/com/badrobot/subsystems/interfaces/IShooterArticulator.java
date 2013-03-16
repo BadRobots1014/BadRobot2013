@@ -24,4 +24,8 @@ public interface IShooterArticulator
      * Locks the shooter articulator at the current position.
      */
     public void lockShooterArticulator();
+    
+    public void raiseShooter(double speed);
+    
+    public void lowerShooter(double speed);
 }

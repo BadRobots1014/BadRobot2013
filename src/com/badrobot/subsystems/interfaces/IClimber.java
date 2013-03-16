@@ -10,6 +10,9 @@ package com.badrobot.subsystems.interfaces;
  */
 public interface IClimber
 {
+    public static int kDown = 0, 
+            kUp = 1;
+    
     /**
      * Raise the climber arms.
      */
@@ -24,4 +27,6 @@ public interface IClimber
      * Locks the climber at its current position (stops it from going any further)
      */
     public void lockClimber();
+    
+    public void setPosition(int pos);
 }

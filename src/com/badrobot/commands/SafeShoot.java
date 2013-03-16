@@ -119,7 +119,7 @@ public class SafeShoot extends BadCommand
         
         else 
         {
-            if (OI.isSecondaryXButtonPressed())
+            if (OI.isSecondaryLBButtonPressed())
             {
                 shooter.runShooter(1.0);
             }
@@ -128,11 +128,11 @@ public class SafeShoot extends BadCommand
                 shooter.runShooter(0);
             }
 
-            if (OI.isSecondaryYButtonPressed())
+            if (OI.isSecondaryRBButtonPressed())
             {
                 frisbeePusher.pushFrisbee(true);
             }
-            else if (OI.isSecondaryRBButtonPressed())
+            else if (OI.getSecondaryRightTrigger() > 0)
             {
                 shooter.runShooter(1);
                 push();
