@@ -29,4 +29,6 @@ public interface IClimber
     public void lockClimber();
     
     public void setPosition(int pos);
+    
+    public void zeroPosition();
 }

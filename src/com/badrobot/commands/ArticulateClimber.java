@@ -67,7 +67,15 @@ public class ArticulateClimber extends BadCommand
         
         else
         {
-            if (OI.isSecondaryXButtonPressed())
+            if (OI.isSecondaryLeftJoyClick())
+            {
+                climberArticulator.raiseClimber();
+            }
+            else if (OI.isSecondaryRightJoyClick())
+            {
+                climberArticulator.lowerClimber();
+            }
+            else if (OI.isSecondaryXButtonPressed())
             {
                 climberArticulator.setPosition(IClimber.kDown);
             }          
@@ -78,6 +86,11 @@ public class ArticulateClimber extends BadCommand
             else 
             {
                 climberArticulator.lockClimber();
+            }
+            
+            if (OI.getSecondaryLeftTrigger() > 0)
+            {
+                climberArticulator.zeroPosition();
             }
         }
     }
