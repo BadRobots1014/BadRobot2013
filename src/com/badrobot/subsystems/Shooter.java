@@ -30,12 +30,11 @@ public class Shooter extends BadSubsystem implements IShooter
     EasyPID pid;
     GearTooth geartooth;
 
-    private static double MAX_SHOOTER_RPM = 600;
+    private static double MAX_SHOOTER_RPM = 5000;
     
     SpeedController shooterController,
             secondaryShooterController;
     
-    Victor primaryShooterVictor, secondaryShooterVictor;
     //Relay primaryShooterRelay, secondaryShooterRelay;
     
     //boolean shooterArticulatorRelayIsForward = true;
@@ -52,7 +51,7 @@ public class Shooter extends BadSubsystem implements IShooter
     
     private Shooter()
     {
-   
+        
     }
     
     public void initDefaultCommand()
@@ -62,10 +61,12 @@ public class Shooter extends BadSubsystem implements IShooter
 
     protected void initialize()
     {
-                if (BadRobotMap.isPrototype)
+        MAX_SHOOTER_RPM = SmartDashboard.getNumber("MAX SHOOTER SPEED IN Auto Shoot", 5200);
+
+        if (BadRobotMap.isPrototype)
         {
-            primaryShooterVictor = new Victor(BadRobotMap.primaryShooterSpeedController);
-            secondaryShooterVictor = new Victor(BadRobotMap.secondaryShooterSpeedController);
+            shooterController = new Victor(BadRobotMap.primaryShooterSpeedController);
+            secondaryShooterController = new Victor(BadRobotMap.secondaryShooterSpeedController);
             
             //ultrasonic = new Ultrasonic(BadRobotMap.articulatorUltrasonicPing, 
               //      BadRobotMap.articulatorUltrasonicEcho, Unit.kInches);
@@ -86,15 +87,20 @@ public class Shooter extends BadSubsystem implements IShooter
         //controller = new Victor(BadRobotMap.shooterSpeedController);
         DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
         geartooth = new GearTooth(input);
-        /*pid = new EasyPID(0, 0, 0, "Shooter Fly Wheel", new PIDSource()
+        pid = new EasyPID(0.01, 0.0, 0.0, 0.0, "Shooter Fly Wheel", new PIDSource()
         {
             public double pidGet()
             {
                 //convert from Seconds/Revolutions to Revolutions/Minute
-                System.out.println("rpm " + (60/(geartooth.getPeriod())));
+                //System.out.println("rpm " + (60/(geartooth.getPeriod())));
                 return (60/(geartooth.getPeriod()));
             }
-        });*/
+        });
+        
+        pid.controller.enable();
+        
+        pid.controller.setInputRange(0, 5200);
+        pid.controller.setOutputRange(0, 1.0);
         
         //controller.set(0.0);
         geartooth.reset();
@@ -125,26 +131,17 @@ public class Shooter extends BadSubsystem implements IShooter
             shooterController.set(speed);
             secondaryShooterController.set(speed);
         }
-        else if (speed != 0)
+        else
         {
-            primaryShooterVictor.set(-speed);
-            secondaryShooterVictor.set(-speed);
+            shooterController.set(-speed);
+            secondaryShooterController.set(-speed);
             
             /*
             primaryShooterRelay.set(Relay.Value.kOn);
             secondaryShooterRelay.set(Relay.Value.kOn);
             */
         }
-        else 
-        {
-            primaryShooterVictor.set(0);
-            secondaryShooterVictor.set(0);
-            
-            /*
-            primaryShooterRelay.set(Relay.Value.kOff);
-            secondaryShooterRelay.set(Relay.Value.kOff);
-            */
-        }
+       
         
                 
         //SmartDashboard.putBoolean("sensor", sensor.get());
@@ -158,9 +155,10 @@ public class Shooter extends BadSubsystem implements IShooter
         double setpoint = power*MAX_SHOOTER_RPM;
         pid.setSetpoint(setpoint);
         
-        controller.set(pid.getValue());
+        shooterController.set(-pid.getValue());
+        secondaryShooterController.set((power > 0) ? -1 : 0);//;-pid.getValue());
         SmartDashboard.putNumber("Period", geartooth.getPeriod());
-        SmartDashboard.putNumber("Count", geartooth.get());
+        SmartDashboard.putNumber("Output", pid.getValue());
         SmartDashboard.putNumber("RPM", pid.source.pidGet());
     }
         
