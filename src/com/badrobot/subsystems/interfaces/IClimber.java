@@ -33,4 +33,6 @@ public interface IClimber
      * @param pos the enumerable position (saved in ILights)
      */
     public void setPosition(int pos);
+    
+    public void zeroPosition();
 }

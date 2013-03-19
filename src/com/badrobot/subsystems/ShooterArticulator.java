@@ -6,8 +6,10 @@ package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
-import com.badrobot.commands.ArticulateWithController;
+import com.badrobot.commands.ArticulateShooter;
 import com.badrobot.subsystems.interfaces.IShooterArticulator;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.GearTooth;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,6 +22,8 @@ import edu.wpi.first.wpilibj.tables.ITable;
 public class ShooterArticulator extends BadSubsystem implements IShooterArticulator
 {
     SpeedController shooterArticulatorSpeedController;
+    
+    GearTooth geartooth;
     
     public static ShooterArticulator instance;
     
@@ -39,7 +43,9 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
 
     protected void initialize() 
     {
-        
+        DigitalInput digiputi = new DigitalInput(BadRobotMap.shooterArticulatorOpticalSensor);
+        geartooth = new GearTooth(digiputi);
+        geartooth.start();
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
@@ -55,7 +61,7 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
 
     protected void initDefaultCommand() 
     {
-        this.setDefaultCommand(new ArticulateWithController());
+        this.setDefaultCommand(new ArticulateShooter());
     }
 
     public void raiseShooter() 
@@ -85,5 +91,10 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
     public void lowerShooter(double speed)
     {
         shooterArticulatorSpeedController.set(speed);
+    }
+
+    public double getAngle() 
+    {
+        return geartooth.get();
     }
 }

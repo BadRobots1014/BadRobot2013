@@ -12,6 +12,7 @@ import com.badrobot.commands.autonomousCommands.AutoAimAndShoot;
 import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
 import com.badrobot.commands.autonomousCommands.AimWithCamera;
+import com.badrobot.subsystems.DecorativeLights;
 //import com.badrobot.commands.autonomousCommands.DriveForwardAutoAimShoot;
 import com.badrobot.subsystems.interfaces.ILights;
 import com.badrobot.subsystems.interfaces.Logger;
@@ -94,12 +95,15 @@ public class RobotMain extends IterativeRobot implements Logger
         shooterControls.start();
         //Scheduler.getInstance().add(shooterControls);
         
-        Command articulate = new ArticulateWithController();
+        Command articulate = new ArticulateShooter();
         articulate.start();
         //Scheduler.getInstance().add(articulate);
         
-        if (CommandBase.lightSystem != null)
-            Scheduler.getInstance().add(new RunLights(ILights.kRed));
+        /*if (CommandBase.lightSystem != null)
+            Scheduler.getInstance().add(new RunLights(ILights.kRed));*/
+        new RunLights(ILights.kRed).start();     
+        
+        SmartDashboard.putData("Red Lights", new RunLights(ILights.kRed));
     }
     
     /**
@@ -116,6 +120,17 @@ public class RobotMain extends IterativeRobot implements Logger
             Scheduler.getInstance().add(new DriveWithController());
         }
     }
+    
+    public void disabledInit()
+    {
+        super.disabledInit();
+        if (CommandBase.lightSystem != null)
+        {
+            log("disabled init");
+           DecorativeLights.getInstance().setColor(ILights.kYellow);
+        }
+    }
+    
     /**
      * This function is called periodically during test mode
      * this comment was ammended by Joe Cssidy

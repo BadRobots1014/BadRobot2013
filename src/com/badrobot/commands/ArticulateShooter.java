@@ -6,6 +6,7 @@ package com.badrobot.commands;
 
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
@@ -19,9 +20,9 @@ import edu.wpi.first.wpilibj.tables.ITable;
  * 
  * @author Isaac
  */
-public class ArticulateWithController extends BadCommand
+public class ArticulateShooter extends BadCommand
 {
-    public ArticulateWithController()
+    public ArticulateShooter()
     {
         requires ((Subsystem) shooterArticulator);
     }
@@ -77,8 +78,7 @@ public class ArticulateWithController extends BadCommand
             {
                 shooterArticulator.lockShooterArticulator();
             }
-            
-            
+            SmartDashboard.putNumber("shooter anlgle", shooterArticulator.getAngle());
         }
         
     }

@@ -70,7 +70,7 @@ public abstract class CommandBase extends Command
         frisbeePusher = FrisbeePusher.getInstance();
         shooterArticulator = ShooterArticulator.getInstance();
         //imageTrackingSystem = BadCameraSystem.getInstance();
-        //lightSystem = ProtoLights.getInstance();
+        lightSystem = DecorativeLights.getInstance();
         cameraLight = CameraLight.getInstance();
         
         climberArticulator = Climber.getInstance();

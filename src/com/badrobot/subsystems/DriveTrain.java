@@ -5,6 +5,7 @@ package com.badrobot.subsystems;
  * and open the template in the editor.
  */
 import com.badrobot.BadRobotMap;
+import com.badrobot.OI;
 import com.badrobot.commands.DriveStraightForward;
 import com.badrobot.commands.DriveWithController;
 import com.badrobot.commands.Turn;
@@ -49,15 +50,18 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
     
     protected void initialize() 
     {
-        leftEncoder = new Encoder(BadRobotMap.leftSideEncoderIn, BadRobotMap.leftSideEncoderOut, true);
-        leftEncoder.setDistancePerPulse(1);
-        leftEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
-        leftEncoder.start();
+        if (!BadRobotMap.isPrototype)
+        {
+            leftEncoder = new Encoder(BadRobotMap.leftSideEncoderIn, BadRobotMap.leftSideEncoderOut, true);
+            leftEncoder.setDistancePerPulse(1);
+            leftEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
+            leftEncoder.start();
         
-        rightEncoder = new Encoder(BadRobotMap.rightSideEncoderIn, BadRobotMap.rightSideEncoderOut, true);
-        rightEncoder.setDistancePerPulse(1);
-        rightEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
-        rightEncoder.start();
+            rightEncoder = new Encoder(BadRobotMap.rightSideEncoderIn, BadRobotMap.rightSideEncoderOut, true);
+            rightEncoder.setDistancePerPulse(1);
+            rightEncoder.setPIDSourceParameter(Encoder.PIDSourceParameter.kRate);
+            rightEncoder.start();
+        }
         
         gyro = new Gyro(BadRobotMap.driveTrainGyro);
         gyro.reset();
@@ -67,12 +71,39 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
         ultrasonic.setEnabled(true);
         ultrasonic.setAutomaticMode(false);
         
-        if (BadRobotMap.isPrototype)
+        if (!BadRobotMap.isPrototype)
         {
             frontLeft = new Victor(BadRobotMap.frontLeftSpeedController);
             frontRight = new Victor(BadRobotMap.frontRightSpeedController);
             backLeft = new Victor(BadRobotMap.backLeftSpeedController);
             backRight = new Victor(BadRobotMap.backRightSpeedController);
+            
+            leftEncoderPID = new EasyPID(.001, 0, 0, 0.2, "Left PID", leftEncoder);
+            rightEncoderPID = new EasyPID(.001, 0, 0, 0.2, "Right PID", rightEncoder);
+        
+            leftFrontController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, frontLeft);
+            rightFrontController = new PIDController(.0005, 0, 0, 0.0, rightEncoder, frontRight);
+            leftBackController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, backLeft);
+            rightBackController = new PIDController(.0005, 0, 0, 0.0, rightEncoder, backRight);
+        
+            SmartDashboard.putData("left front PID",leftFrontController);
+            SmartDashboard.putData("right front PID", rightFrontController);
+            SmartDashboard.putNumber("Max encoder speed", MAX_SPEED);
+        
+            leftFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
+            rightFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
+            leftBackController.setInputRange(-MAX_SPEED, MAX_SPEED);
+            rightBackController.setInputRange(-MAX_SPEED, MAX_SPEED);
+        
+            leftFrontController.setOutputRange(-1,1);
+            rightFrontController.setOutputRange(-1,1);
+            leftBackController.setOutputRange(-1,1);
+            rightBackController.setOutputRange(-1,1);
+        
+            leftFrontController.setPercentTolerance(5);
+            rightFrontController.setPercentTolerance(5);
+            leftBackController.setPercentTolerance(5);
+            rightBackController.setPercentTolerance(5);
         }
         else
         {
@@ -81,33 +112,6 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
             backLeft = new Talon(BadRobotMap.backLeftSpeedController);
             backRight = new Talon(BadRobotMap.backRightSpeedController);
         }
-        
-        leftEncoderPID = new EasyPID(.001, 0, 0, 0.2, "Left PID", leftEncoder);
-        rightEncoderPID = new EasyPID(.001, 0, 0, 0.2, "Right PID", rightEncoder);
-        
-        leftFrontController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, frontLeft);
-        rightFrontController = new PIDController(.0005, 0, 0, 0.0, rightEncoder, frontRight);
-        leftBackController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, backLeft);
-        rightBackController = new PIDController(.0005, 0, 0, 0.0, rightEncoder, backRight);
-        
-        SmartDashboard.putData("left front PID",leftFrontController);
-        SmartDashboard.putData("right front PID", rightFrontController);
-        SmartDashboard.putNumber("Max encoder speed", MAX_SPEED);
-        
-        leftFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
-        rightFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
-        leftBackController.setInputRange(-MAX_SPEED, MAX_SPEED);
-        rightBackController.setInputRange(-MAX_SPEED, MAX_SPEED);
-        
-        leftFrontController.setOutputRange(-1,1);
-        rightFrontController.setOutputRange(-1,1);
-        leftBackController.setOutputRange(-1,1);
-        rightBackController.setOutputRange(-1,1);
-        
-        leftFrontController.setPercentTolerance(5);
-        rightFrontController.setPercentTolerance(5);
-        leftBackController.setPercentTolerance(5);
-        rightBackController.setPercentTolerance(5);
                 
         /*leftFrontController.enable();
         rightFrontController.enable();
@@ -169,9 +173,9 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
         //rightEncoderPID.setSetpoint(right*MAX_SPEED);
         //train.tankDrive(leftEncoderPID.getValue(), rightEncoderPID.getValue());
         
-        SmartDashboard.putNumber("left input", left);
-        SmartDashboard.putNumber("left speed", leftEncoder.getRate());
-        SmartDashboard.putNumber("PID value", leftEncoderPID.getValue());
+        //SmartDashboard.putNumber("left input", left);
+        //SmartDashboard.putNumber("left speed", leftEncoder.getRate());
+        //SmartDashboard.putNumber("PID value", leftEncoderPID.getValue());
         
         /*log("PIDController output: " + leftFrontController.get() + 
                 "  PIDController output: " + rightFrontController.get());

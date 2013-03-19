@@ -69,6 +69,8 @@ public class BadRobotMap implements Sendable
     
     public static int cameraLightRelay;
     
+    public static int shooterArticulatorOpticalSensor;
+    
     //Lights
     public static int redChannel;
     public static int greenChannel;
@@ -78,9 +80,9 @@ public class BadRobotMap implements Sendable
     {
         if(isPrototype == true)
         {
-            redChannel = 7;
-            greenChannel = 6;
-            blueChannel = 8;
+            redChannel = 10;
+            greenChannel = 11;
+            blueChannel = 12;
             
             frontLeftSpeedController = prototypeMap[0];
             frontRightSpeedController = prototypeMap[1];
@@ -111,6 +113,8 @@ public class BadRobotMap implements Sendable
             
             climberEncoderIn = 7;
             climberEncoderOut = 9;
+            
+            shooterArticulatorOpticalSensor = 4;
         }
         else
         {

@@ -8,6 +8,7 @@ import com.badrobot.OI;
 import com.badrobot.subsystems.Climber;
 import com.badrobot.subsystems.interfaces.IClimber;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
@@ -67,7 +68,15 @@ public class ArticulateClimber extends BadCommand
         
         else
         {
-            if (OI.isSecondaryXButtonPressed())
+            if (OI.isSecondaryLeftJoyClick())
+            {
+                climberArticulator.raiseClimber();
+            }
+            else if (OI.isSecondaryRightJoyClick())
+            {
+                climberArticulator.lowerClimber();
+            }
+            else if (OI.isSecondaryXButtonPressed())
             {
                 climberArticulator.setPosition(IClimber.kDown);
             }          
@@ -78,6 +87,11 @@ public class ArticulateClimber extends BadCommand
             else 
             {
                 climberArticulator.lockClimber();
+            }
+            
+            if (OI.getSecondaryLeftTrigger() > 0)
+            {
+                climberArticulator.zeroPosition();
             }
         }
     }
