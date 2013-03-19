@@ -30,7 +30,7 @@ public class SafeShoot extends BadCommand
     boolean hasPushed;
     
     double shooterSpeed;
-    static double REQUIRED_SHOOTER_SPEED = 4800;
+    static double REQUIRED_SHOOTER_SPEED = 5100;
     
     public SafeShoot()
     {
@@ -87,10 +87,14 @@ public class SafeShoot extends BadCommand
             if (OI.isPrimaryXButtonPressed())
             {
                 shooter.runShooter(1.0);
+                //shooter.pidRunShooter(1.0);
             }
             else
-            {
-                shooter.runShooter(0);
+            {               
+                shooter.runShooter(0.0);
+
+                
+                //shooter.pidRunShooter(0);
             }
 
             if (OI.isPrimaryYButtonPressed())
@@ -121,11 +125,15 @@ public class SafeShoot extends BadCommand
         {
             if (OI.isSecondaryLBButtonPressed())
             {
-                shooter.runShooter(1.0);
+                                shooter.runShooter(1.0);
+
+                //shooter.pidRunShooter(1.0);
             }
             else
             {
-                shooter.runShooter(0);
+                                shooter.runShooter(0.0);
+
+                //shooter.pidRunShooter(0);
             }
 
             if (OI.isSecondaryRBButtonPressed())
@@ -134,7 +142,9 @@ public class SafeShoot extends BadCommand
             }
             else if (OI.getSecondaryRightTrigger() > 0)
             {
-                shooter.runShooter(1);
+                                shooter.runShooter(1.0);
+
+               // shooter.pidRunShooter(1);
                 push();
             }
             else

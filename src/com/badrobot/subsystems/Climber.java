@@ -125,5 +125,10 @@ public class Climber extends BadSubsystem implements IClimber
                 break;
         }
     }
+
+    public void zeroPosition() 
+    {
+        encoder.reset();
+    }
     
 }

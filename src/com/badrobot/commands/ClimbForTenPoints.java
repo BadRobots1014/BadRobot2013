@@ -6,6 +6,7 @@ package com.badrobot.commands;
 
 import com.badrobot.BadPreferences;
 import com.badrobot.OI;
+import com.badrobot.subsystems.interfaces.IClimber;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -24,6 +25,7 @@ public class ClimbForTenPoints extends BadCommand
     {
         requires((Subsystem) driveTrain);
         requires((Subsystem) shooterArticulator);
+        requires((Subsystem) climberArticulator);
     }
 
     // Called just before this Command runs the first time
@@ -36,6 +38,8 @@ public class ClimbForTenPoints extends BadCommand
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+        climberArticulator.setPosition(IClimber.kUp);
+        
         //go straight
         driveTrain.getTrain().drive(DRIVE_SPEED,
                 -(driveTrain.getGyro().getAngle() - bearing) * Kp);
