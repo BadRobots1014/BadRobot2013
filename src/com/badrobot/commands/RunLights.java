@@ -6,6 +6,7 @@ package com.badrobot.commands;
 
 import com.badrobot.subsystems.DecorativeLights;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * Sets the lights to run at the specified color (all colors are listed
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * 
  * @author Jon Buckley
  */
-public class RunLights extends CommandBase
+public class RunLights extends BadCommand
 {
     int color = 0;
     public RunLights(int color)
@@ -26,6 +27,7 @@ public class RunLights extends CommandBase
     protected void initialize()
     {
         lightSystem.setColor(color);
+        log("Initializing");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -49,5 +51,18 @@ public class RunLights extends CommandBase
     // subsystems is scheduled to run
     protected void interrupted()
     {
+    }
+
+    public void valueChanged(ITable itable, String key, Object value, boolean bln) {
+    }
+
+    protected void addNetworkTableValues(ITable table) {
+    }
+
+    public String getConsoleIdentity() {
+        return "RunLights";
+    }
+
+    public void registerPreferencesValues() {
     }
 }

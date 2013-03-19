@@ -7,6 +7,7 @@ package com.badrobot.commands;
 import com.badrobot.BadPreferences;
 import com.badrobot.OI;
 import com.badrobot.subsystems.interfaces.IClimber;
+import com.badrobot.subsystems.interfaces.ILights;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -21,11 +22,13 @@ public class ClimbForTenPoints extends BadCommand
     static String driveSpeedKey = "CLIMBING_DRIVE_SPEED";
     static double Kp = .01;
     
+    private int incumbentColor;
     public ClimbForTenPoints()
     {
         requires((Subsystem) driveTrain);
         requires((Subsystem) shooterArticulator);
         requires((Subsystem) climberArticulator);
+       // requires((Subsystem) lightSystem);
     }
 
     // Called just before this Command runs the first time
@@ -33,16 +36,31 @@ public class ClimbForTenPoints extends BadCommand
     {
         bearing = driveTrain.getGyro().getAngle();
         DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".4"));
+        
+        incumbentColor = lightSystem.getColor();
+        lightSystem.setColor(ILights.kBlue);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+        log("CLIMBING DAMMIT");
         climberArticulator.setPosition(IClimber.kUp);
         
-        //go straight
-        driveTrain.getTrain().drive(DRIVE_SPEED,
+        //if (OI.isPrimaryAButtonPressed())
+        {
+            //go straight
+            driveTrain.getTrain().drive(DRIVE_SPEED,
+                    -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+            lightSystem.setColor(ILights.kETech);
+        }
+        
+        /*else
+        {
+            driveTrain.getTrain().drive(DRIVE_SPEED,
                 -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+            lightSystem.setColor(ILights.kBlue);
+        */
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -54,6 +72,7 @@ public class ClimbForTenPoints extends BadCommand
     // Called once after isFinished returns true
     protected void end()
     {
+        lightSystem.setColor(incumbentColor);
         driveTrain.tankDrive(0, 0);
     }
 

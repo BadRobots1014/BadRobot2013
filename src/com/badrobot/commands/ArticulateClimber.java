@@ -8,6 +8,7 @@ import com.badrobot.OI;
 import com.badrobot.subsystems.Climber;
 import com.badrobot.subsystems.interfaces.IClimber;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**

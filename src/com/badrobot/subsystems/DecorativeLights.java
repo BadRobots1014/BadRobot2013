@@ -8,6 +8,7 @@ import com.badrobot.BadRobotMap;
 import com.badrobot.commands.ControlLighting;
 import com.badrobot.subsystems.interfaces.ILights;
 import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
@@ -29,6 +30,12 @@ public class DecorativeLights extends BadSubsystem implements ILights
         redChannel = new DigitalOutput(BadRobotMap.redChannel);
         greenChannel = new DigitalOutput(BadRobotMap.greenChannel);
         blueChannel = new DigitalOutput(BadRobotMap.blueChannel);
+        
+        redChannel.enablePWM(0);
+        greenChannel.enablePWM(0);
+        blueChannel.enablePWM(0);
+        
+        SmartDashboard.putData("LightSystem", this);
     }
     
     protected void initialize() {
@@ -56,7 +63,7 @@ public class DecorativeLights extends BadSubsystem implements ILights
 
     protected void initDefaultCommand() 
     {
-        this.setDefaultCommand(new ControlLighting());
+        //this.setDefaultCommand(new ControlLighting());
     }
     
     public static double byteToPWM(int color)
@@ -92,6 +99,9 @@ public class DecorativeLights extends BadSubsystem implements ILights
     }
 
     public void setColor(int color) {
+        
+        log("Setting color  "+color);
+        
         switch (color)
         {
             case ILights.kBlue:
@@ -108,15 +118,19 @@ public class DecorativeLights extends BadSubsystem implements ILights
             
             case ILights.kWhite:
                 setColor(200, 50, 30);
+                break;
                 
             case ILights.kETech:
                 setColor(255, 0, 30);
+                break;
                 
             case ILights.kGold:
                 setColor(200, 30, 10);
+                break;
                 
             case ILights.kGreen:
                 setColor(0, 255, 0);
+                break;
         }
         
         currentColor = color;

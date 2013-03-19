@@ -8,7 +8,9 @@ import com.badrobot.BadPreferences;
 import com.badrobot.BadRobotMap;
 import com.badrobot.commands.ArticulateClimber;
 import com.badrobot.subsystems.interfaces.IClimber;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GearTooth;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -29,6 +31,8 @@ public class Climber extends BadSubsystem implements IClimber
     EasyPID controller;
     
     Encoder encoder;
+    
+    GearTooth geartooth;
     
     public static Climber getInstance()
     {
@@ -129,6 +133,11 @@ public class Climber extends BadSubsystem implements IClimber
     public void zeroPosition() 
     {
         encoder.reset();
+    }
+
+    public double getAngle()
+    {
+        return geartooth.get();
     }
     
 }

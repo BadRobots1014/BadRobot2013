@@ -6,6 +6,7 @@ package com.badrobot.commands;
 
 import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
+import com.badrobot.subsystems.interfaces.ILights;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GearTooth;
 import edu.wpi.first.wpilibj.Utility;
@@ -36,6 +37,7 @@ public class SafeShoot extends BadCommand
     {
         requires((Subsystem) frisbeePusher);
         requires((Subsystem) shooter);
+        //requires((Subsystem) lightSystem);
         
         SmartDashboard.putNumber("MAX SHOOTER SPEED IN Auto Shoot", REQUIRED_SHOOTER_SPEED);
     }
@@ -74,6 +76,8 @@ public class SafeShoot extends BadCommand
         return "InjectFrisbeesWithController";
     }
 
+    boolean shooting = false;
+    boolean wasShooting = false;
     protected void execute()
     {
         shooterSpeed = shooter.getShooterSpeed();
@@ -125,12 +129,15 @@ public class SafeShoot extends BadCommand
         {
             if (OI.isSecondaryLBButtonPressed())
             {
+                shooting = true;
                                 shooter.runShooter(1.0);
+                                wasShooting = true;
 
                 //shooter.pidRunShooter(1.0);
             }
             else
             {
+                shooting = false;
                                 shooter.runShooter(0.0);
 
                 //shooter.pidRunShooter(0);
@@ -141,7 +148,8 @@ public class SafeShoot extends BadCommand
                 frisbeePusher.pushFrisbee(true);
             }
             else if (OI.getSecondaryRightTrigger() > 0)
-            {
+            {shooting = true;
+            wasShooting = true;
                                 shooter.runShooter(1.0);
 
                // shooter.pidRunShooter(1);
@@ -160,6 +168,20 @@ public class SafeShoot extends BadCommand
                 }
             }
         }
+        
+        if (shooting)
+            lightSystem.setColor(ILights.kGreen);
+        else
+        {
+            if (wasShooting)
+            {
+                wasShooting = false;
+                lightSystem.setColor(ILights.kRed);
+            }
+            
+        }
+        //else
+          //  lightSystem.setColor(ILights.kRed);
     }
 
     protected boolean isFinished() 
