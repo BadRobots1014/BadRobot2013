@@ -108,7 +108,7 @@ public class Climber extends BadSubsystem implements IClimber
                 /*controller.setSetpoint(CLIMBER_DOWN_ENCODER_VALUE);
                 log(controller.getValue() + "  " + CLIMBER_DOWN_ENCODER_VALUE);
                 climberController.set(controller.getValue());*/
-                if (encoder.get() > CLIMBER_DOWN_ENCODER_VALUE)
+                if (encoder.get() < CLIMBER_DOWN_ENCODER_VALUE)
                     climberController.set(-.8);
                 else 
                     climberController.set(0.0);
@@ -118,7 +118,7 @@ public class Climber extends BadSubsystem implements IClimber
                 /*controller.setSetpoint(CLIMBER_DOWN_ENCODER_VALUE);
                 log(controller.getValue() + "  ");
                 climberController.set(controller.getValue());*/
-                if (encoder.get() < CLIMBER_UP_ENCODER_VALUE)
+                if (encoder.get() > CLIMBER_UP_ENCODER_VALUE)
                     climberController.set(.8);
                 else 
                     climberController.set(0.0);
