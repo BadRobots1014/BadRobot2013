@@ -25,10 +25,22 @@ public interface IDriveTrain
      */
     public void tankDrive(double left, double right);
     
+    /**
+     * accessor for the gyro object
+     * @return the gyro object of the class
+     */
     public Gyro getGyro();
     
+    /**
+     * accessor for the drivetrain object
+     * @return the initialized drivetrain
+     */
     public RobotDrive getTrain();
     
+    /**
+     * Gets the distance from the ultrasonic sensor 
+     * @return the reading from the ultrasonic in inches
+     */
     public double getDistanceToWall();
     
     /**

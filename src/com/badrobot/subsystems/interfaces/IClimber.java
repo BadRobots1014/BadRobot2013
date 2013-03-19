@@ -28,5 +28,9 @@ public interface IClimber
      */
     public void lockClimber();
     
+    /**
+     * Sets the position using an encoder to a certain position
+     * @param pos the enumerable position (saved in ILights)
+     */
     public void setPosition(int pos);
 }
