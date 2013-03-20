@@ -29,7 +29,6 @@ public class Turn extends BadCommand
     
     protected void initialize() 
     {
-        log("reset");
         driveTrain.getGyro().reset();
     }
 

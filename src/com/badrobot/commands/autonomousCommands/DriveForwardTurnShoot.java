@@ -28,7 +28,7 @@ public class DriveForwardTurnShoot extends CommandGroup
         addSequential(new DriveStraightForward(time));
         addParallel(new Shoot(time + 5, 1.0));
         addSequential(new Turn(angle));
-        //time, power
-        addSequential(new InjectFrisbee(4));
+        //iterations, delay time
+        addSequential(new InjectFrisbee(4, 1.0));
     }
 }

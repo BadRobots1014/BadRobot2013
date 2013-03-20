@@ -25,8 +25,8 @@ public class DriveForwardAutoAimShoot extends CommandGroup
        addParallel(new Turn(30));
        //time in seconds, power
        addParallel(new Shoot(8, 1.0));
-       addParallel(new AimWithCamera());
+       addSequential(new AimWithCamera());
        //number of frisbees to inject (iterations)
-       addParallel(new InjectFrisbee(3));
+       addParallel(new InjectFrisbee(3, 2.0));
     }
 }

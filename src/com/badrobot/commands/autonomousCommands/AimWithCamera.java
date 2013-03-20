@@ -27,10 +27,14 @@ public class AimWithCamera extends BadCommand
     static double TIME_OUT_IN_SECONDS = .5;
     static double TOLERANCE = .1;
     static double TURN_SPEED = .5;
+    private static double SWEET_SPOT_X = .25,
+            SWEET_SPOT_Y = -.07;
     
     static String toleranceKey = "AUTO_AIM_TOLERANCE",
                   turnKey = "AUTO_AIM_TURN_SPEED",
-                  neededCyclesKey = "AUTO_AIM_NEEDED_CYCLES_TO_VERIFY";
+                  neededCyclesKey = "AUTO_AIM_NEEDED_CYCLES_TO_VERIFY",
+                  sweetXKey = "SWEET_SPOT_X",
+                  sweetYKey = "SWEET_SPOT_Y";
     
     public AimWithCamera()
     {
@@ -46,6 +50,9 @@ public class AimWithCamera extends BadCommand
         TURN_SPEED = Double.parseDouble(BadPreferences.getValue(turnKey, "" + TURN_SPEED));
         NUMBER_CYCLES_TO_VERIFY = Integer.parseInt(
                 BadPreferences.getValue(neededCyclesKey, "" + NUMBER_CYCLES_TO_VERIFY));
+        
+        SWEET_SPOT_X = Double.parseDouble(BadPreferences.getValue(sweetXKey, "" + SWEET_SPOT_X));
+        SWEET_SPOT_Y = Double.parseDouble(BadPreferences.getValue(sweetYKey, "" + SWEET_SPOT_Y));
     }
 
     // Called just before this Command runs the first time
@@ -55,8 +62,7 @@ public class AimWithCamera extends BadCommand
             lightSystem.setColor(DecorativeLights.kRed);
     }
 
-    private static double SWEET_SPOT_X = .25,
-            SWEET_SPOT_Y = -.07;
+    
     
     private static int NUMBER_CYCLES_TO_VERIFY = 3;
     
@@ -107,12 +113,14 @@ public class AimWithCamera extends BadCommand
             //turn left
             if (deltaX <  -TOLERANCE)
             {     
+                deltaX = Math.abs(deltaX);
                 //proportional speed (the P of PID -- we dont need no goddamn ID)
                 driveTrain.tankDrive(deltaX*Kp + TURN_SPEED, -deltaX*Kp - TURN_SPEED);
             }
             //turn right
             else if (deltaX > TOLERANCE)
             {
+                deltaX = Math.abs(deltaX);
                 //protportional speed
                 driveTrain.tankDrive(-deltaX*Kp - TURN_SPEED, deltaX*Kp + TURN_SPEED);
             }

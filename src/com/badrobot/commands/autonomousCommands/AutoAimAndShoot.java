@@ -19,6 +19,6 @@ public class AutoAimAndShoot extends CommandGroup
         addParallel(new Shoot(8, 1.0));
         addSequential(new AimWithCamera());
         
-        addSequential(new InjectFrisbee(3));
+        addSequential(new InjectFrisbee(3, 2.0));
     }
 }

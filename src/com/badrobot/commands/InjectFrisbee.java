@@ -35,6 +35,8 @@ public class InjectFrisbee extends BadCommand
                         PUSHING = 1,
                         FINISHED = 4;
     
+    private double delay = 0;
+    
     private int incumbentColor = 0;
     
     public InjectFrisbee()
@@ -48,13 +50,13 @@ public class InjectFrisbee extends BadCommand
         }
     }
     
-    public InjectFrisbee(int numIterations)
+    public InjectFrisbee(int numIterations, double delay)
     {
         this();
         
+        this.delay = delay;
         iterations = numIterations;
         currentIteration = 0;
-        log("initing, iterations = " + iterations  );
     }
 
     // Called just before this Command runs the first time
@@ -67,15 +69,14 @@ public class InjectFrisbee extends BadCommand
         startTime = Timer.getFPGATimestamp();
         camLeftStart = false;
         state = PUSHING;
+        
+        Timer.delay(delay);
     }
     
     boolean camLeftStart = false;
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        log("running command...");
-                    log(state + " state, current ite: " + currentIteration);
-
         //state machine
         switch (state)
         {
