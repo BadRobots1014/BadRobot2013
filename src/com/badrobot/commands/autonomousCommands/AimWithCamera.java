@@ -61,7 +61,6 @@ public class AimWithCamera extends BadCommand
         if (lightSystem != null)
             lightSystem.setColor(DecorativeLights.kRed);
     }
-
     
     
     private static int NUMBER_CYCLES_TO_VERIFY = 3;
@@ -154,9 +153,7 @@ public class AimWithCamera extends BadCommand
             }    
         }
         else
-            numberOfCyclesYAligned = NUMBER_CYCLES_TO_VERIFY;
-        log(targetX + " -> target x,   timeSince-> " + timeSince);
-        
+            numberOfCyclesYAligned = NUMBER_CYCLES_TO_VERIFY;        
     }
 
     // Make this return true when this Command no longer needs to run execute()

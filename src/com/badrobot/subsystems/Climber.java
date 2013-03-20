@@ -46,7 +46,6 @@ public class Climber extends BadSubsystem implements IClimber
     private Climber()
     {
         climberController = new Jaguar(BadRobotMap.climberArticulator);
-        log("BadRobotMap Encoder In: " + BadRobotMap.climberEncoderIn);
         encoder = new Encoder(BadRobotMap.climberEncoderIn, BadRobotMap.climberEncoderOut, true);
         encoder.start();
         
@@ -99,8 +98,7 @@ public class Climber extends BadSubsystem implements IClimber
     {
         //controller.disable();
         climberController.set(0.0);
-        SmartDashboard.putNumber("Encoder Value", encoder.get());
-        SmartDashboard.putNumber("Encoder Distance", encoder.getDistance());
+        SmartDashboard.putNumber("Climber Encoder Value", encoder.get());
     }
 
     public void setPosition(int pos)

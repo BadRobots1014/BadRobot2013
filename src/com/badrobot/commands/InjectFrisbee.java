@@ -117,7 +117,6 @@ public class InjectFrisbee extends BadCommand
             case FINISHED:
             {
                 currentIteration++;
-                log("current iteration " + currentIteration);
                 
                 if (CommandBase.lightSystem != null)
                     lightSystem.setColor(incumbentColor);
@@ -132,7 +131,6 @@ public class InjectFrisbee extends BadCommand
                 
                 else
                 {   
-                    log("max iterations hit, stopping");
                     frisbeePusher.stopFrisbeePusher();
                 }
                 

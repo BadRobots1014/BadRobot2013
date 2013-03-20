@@ -45,7 +45,6 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
     
     private DriveTrain()
     {
-        SmartDashboard.putData("ImpDriveTrain", this);
     }
     
     protected void initialize() 
@@ -86,9 +85,9 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
             leftBackController = new PIDController(.0005, 0, 0, 0.0, leftEncoder, backLeft);
             rightBackController = new PIDController(.0005, 0, 0, 0.0, rightEncoder, backRight);
         
-            SmartDashboard.putData("left front PID",leftFrontController);
+            /*SmartDashboard.putData("left front PID",leftFrontController);
             SmartDashboard.putData("right front PID", rightFrontController);
-            SmartDashboard.putNumber("Max encoder speed", MAX_SPEED);
+            SmartDashboard.putNumber("Max encoder speed", MAX_SPEED);*/
         
             leftFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
             rightFrontController.setInputRange(-MAX_SPEED, MAX_SPEED);
@@ -140,7 +139,6 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
      */
     public void valueChanged(ITable itable, String key, Object value, boolean bln) 
     {        
-        log("Things have changed:" + key + " " + value.toString());
     }
     
     protected void addNetworkTableValues(ITable table) 

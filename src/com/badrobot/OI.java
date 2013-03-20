@@ -38,7 +38,8 @@ public class OI
         secondaryXboxController = new Joystick(SECONDARY_JOY);    
         
         ALLIANCE_COLOR = DriverStation.getInstance().getAlliance().value;
-        
+        SmartDashboard.putBoolean("Alliance", ALLIANCE_COLOR == DriverStation.Alliance.kBlue_val);
+            
         preferencesManagers = BadPreferences.getInstance();
 
         //button that senses seconadry Right bumper press for shooter injection
@@ -61,6 +62,11 @@ public class OI
             }
         };
         climb.whenPressed(new ClimbForTenPoints());
+        
+        if (!this.CONSOLE_OUTPUT_ENABLED)
+        {
+            System.out.println("Console output has been disabled from OI");
+        }
     }
     
     public static boolean isDemoMode()
@@ -126,9 +132,6 @@ public class OI
      */
     public static double getPrimaryControllerRightStickY()
     {
-        System.out.println("Raw: " + primaryXboxController.getRawAxis(RIGHT_STICK_Y) + 
-                "  Deadzoned: " + deadzone(primaryXboxController.getRawAxis(RIGHT_STICK_Y)));
-        
         return deadzone(-primaryXboxController.getRawAxis(RIGHT_STICK_Y));
     }
 

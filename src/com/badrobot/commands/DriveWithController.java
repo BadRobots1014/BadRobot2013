@@ -58,7 +58,6 @@ public class DriveWithController extends BadCommand
         else if (TANK_DRIVE_MODE)
         {
             driveTrain.tankDrive(OI.getPrimaryControllerLeftStickY(), OI.getPrimaryControllerRightStickY());
-            log ("LEFT Y: " + OI.getPrimaryControllerLeftStickY() + "  RIGHT Y: " +  OI.getPrimaryControllerRightStickY());
         }
         
         else

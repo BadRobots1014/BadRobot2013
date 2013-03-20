@@ -43,7 +43,6 @@ public abstract class BadSubsystem extends Subsystem implements Logger, NamedSen
      */
     public ITable getTable()
     {
-        log("getting table");
         return table;
     }
     
@@ -53,7 +52,6 @@ public abstract class BadSubsystem extends Subsystem implements Logger, NamedSen
      */
     public void initTable(ITable t)
     {
-        log("initting table");
         table = NetworkTable.getTable(this.getConsoleIdentity());
         addNetworkTableValues(table);
         

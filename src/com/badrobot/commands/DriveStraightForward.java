@@ -133,14 +133,12 @@ public class DriveStraightForward extends BadCommand
         //if by time
         if (driveTime > 0 && Utility.getFPGATime() >= startTime + driveTime)
         {
-            log("time limit hit");
             driveTrain.tankDrive(0, 0);
             state = FINISHED;
             return true;
         }
         else if (distance > 0 && driveTrain.getDistanceToWall() < distance*36)
         {
-            log("distance limit hit");
             return true;
         }
         

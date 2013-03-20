@@ -27,7 +27,6 @@ public class RunLights extends BadCommand
     protected void initialize()
     {
         lightSystem.setColor(color);
-        log("Initializing");
     }
 
     // Called repeatedly when this Command is scheduled to run

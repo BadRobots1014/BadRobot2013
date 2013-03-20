@@ -40,10 +40,12 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
         }
         return instance;
     }
+    
+    DigitalInput digiputi;
 
     protected void initialize() 
     {
-        DigitalInput digiputi = new DigitalInput(BadRobotMap.shooterArticulatorOpticalSensor);
+        digiputi = new DigitalInput(BadRobotMap.shooterArticulatorOpticalSensor);
         geartooth = new GearTooth(digiputi);
         geartooth.start();
     }
@@ -95,6 +97,7 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
 
     public double getAngle() 
     {
-        return geartooth.get();
+        log("Digital Input: " + digiputi.get());
+        return (geartooth.get() + 1.0);
     }
 }

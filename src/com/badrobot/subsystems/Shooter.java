@@ -164,7 +164,6 @@ public class Shooter extends BadSubsystem implements IShooter
         
     public double getShooterSpeed() 
     {
-        log("shooter speed: "+60/geartooth.getPeriod());
         //Converts from sec/rev to rev/min.
         return (60/geartooth.getPeriod());  
     }

@@ -48,7 +48,6 @@ public class ArticulateClimber extends BadCommand
             else if (OI.isSecondaryRightJoyClick())
             {
                 climberArticulator.setPosition(IClimber.kUp);
-                log ("right joy click!");
             }           
             
             else if (OI.isSecondaryAButtonPressed())

@@ -45,7 +45,6 @@ public abstract class BadCommand extends CommandBase implements Logger, NamedSen
      */
     public ITable getTable()
     {
-        log("getting table");
         return table;
     }
     

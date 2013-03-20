@@ -166,7 +166,6 @@ public class BadRobotMap implements Sendable
             return instance;
         
         instance = new BadRobotMap();
-        SmartDashboard.putData("BadRobotMap", instance);
         return instance;
     }
     

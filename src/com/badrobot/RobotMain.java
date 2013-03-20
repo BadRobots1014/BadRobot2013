@@ -80,7 +80,6 @@ public class RobotMain extends IterativeRobot implements Logger
         Scheduler.getInstance().run();
         Watchdog.getInstance().feed();
     }
-
     public void teleopInit() {
         if (autonomousCommand != null)
             autonomousCommand.cancel();
@@ -102,9 +101,7 @@ public class RobotMain extends IterativeRobot implements Logger
         /*if (CommandBase.lightSystem != null)
             Scheduler.getInstance().add(new RunLights(ILights.kRed));*/
         new RunLights(ILights.kRed).start();     
-        
-        SmartDashboard.putData("Red Lights", new RunLights(ILights.kRed));
-    }
+     }
     
     /**
      * This function is called periodically during operator control
@@ -123,10 +120,9 @@ public class RobotMain extends IterativeRobot implements Logger
     
     public void disabledInit()
     {
-        super.disabledInit();
+        log("Disabled Initialized");
         if (CommandBase.lightSystem != null)
         {
-            log("disabled init");
            DecorativeLights.getInstance().setColor(ILights.kYellow);
         }
     }

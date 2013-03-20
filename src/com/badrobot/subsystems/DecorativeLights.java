@@ -34,8 +34,6 @@ public class DecorativeLights extends BadSubsystem implements ILights
         redChannel.enablePWM(0);
         greenChannel.enablePWM(0);
         blueChannel.enablePWM(0);
-        
-        SmartDashboard.putData("LightSystem", this);
     }
     
     protected void initialize() {
@@ -98,10 +96,7 @@ public class DecorativeLights extends BadSubsystem implements ILights
         blueChannel.updateDutyCycle(byteToPWM(Math.abs(b)));
     }
 
-    public void setColor(int color) {
-        
-        log("Setting color  "+color);
-        
+    public void setColor(int color) {        
         switch (color)
         {
             case ILights.kBlue:

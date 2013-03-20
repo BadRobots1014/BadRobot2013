@@ -44,7 +44,6 @@ public class ClimbForTenPoints extends BadCommand
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        log("CLIMBING DAMMIT");
         climberArticulator.setPosition(IClimber.kUp);
         
         //if (OI.isPrimaryAButtonPressed())
