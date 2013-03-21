@@ -5,7 +5,7 @@
 package com.badrobot.commands.autonomousCommands;
 
 import com.badrobot.commands.DriveStraightForward;
-import com.badrobot.commands.InjectFrisbee;
+import com.badrobot.commands.SafeShoot;
 import com.badrobot.commands.Shoot;
 import com.badrobot.commands.Turn;
 import edu.wpi.first.wpilibj.Timer;
@@ -29,6 +29,6 @@ public class DriveForwardTurnShoot extends CommandGroup
         addParallel(new Shoot(time + 5, 1.0));
         addSequential(new Turn(angle));
         //iterations, delay time
-        addSequential(new InjectFrisbee(4, 1.0));
+        addSequential(new SafeShoot(3));
     }
 }

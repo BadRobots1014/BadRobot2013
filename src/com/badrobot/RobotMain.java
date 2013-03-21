@@ -4,14 +4,13 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package com.badrobot;
-
 
 import com.badrobot.commands.autonomousCommands.AutoAimAndShoot;
 import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
 import com.badrobot.commands.autonomousCommands.AimWithCamera;
+import com.badrobot.commands.autonomousCommands.DriveForwardAndShoot;
 import com.badrobot.subsystems.DecorativeLights;
 //import com.badrobot.commands.autonomousCommands.DriveForwardAutoAimShoot;
 import com.badrobot.subsystems.interfaces.ILights;
@@ -32,113 +31,114 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class RobotMain extends IterativeRobot implements Logger
-{
+public class RobotMain extends IterativeRobot implements Logger {
+
     Command autonomousCommand; //Autonomous Command
     SendableChooser autoChooser; //adds a widget to the SmartDashboard
-    
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() 
-    {
-        BadRobotMap.isPrototype = true;
-        
+    public void robotInit() {
+        BadRobotMap.isPrototype = false;
+
         // Initialize all subsystems
         CommandBase.init();
-               
+
         autoChooser = new SendableChooser();
-        
+
         //autoChooser.addDefault("Drive Forward + Auto Fire", new DriveForwardAutoAimShoot());
         autoChooser.addObject("Drive Straight Forward + Turn (5s , 20 deg)", new DriveStraightForward(5));
         autoChooser.addObject("Auto Aim", new AimWithCamera());
         autoChooser.addObject("Auto Aim And Shoot", new AutoAimAndShoot());
-        
+        autoChooser.addDefault("Drive Forward And Shoot (variable time, 3 frisbees)", new DriveForwardAndShoot());
+
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
-        
-        if (CommandBase.lightSystem != null)
+
+        if (CommandBase.lightSystem != null) {
             new RunLights(ILights.kYellow).start();
+        }
     }
-   
-    public void autonomousInit() 
-    {
-        autonomousCommand = (Command) autoChooser.getSelected();        
+
+    public void autonomousInit() {
+        autonomousCommand = (Command) autoChooser.getSelected();
         autonomousCommand.start();
-        
+
         //Scheduler.getInstance().add(autonomousCommand);
-        
+
         Command turnOnCameraLight = new TurnOnCameraLight();
         Scheduler.getInstance().add(turnOnCameraLight);
     }
-    
+
     /**
      * This function is called periodically during autonomous
      */
-    public void autonomousPeriodic() 
-    {
+    public void autonomousPeriodic() {
         Scheduler.getInstance().run();
         Watchdog.getInstance().feed();
     }
+
     public void teleopInit() {
-        if (autonomousCommand != null)
+        if (autonomousCommand != null) {
             autonomousCommand.cancel();
-        
+        }
+
         Watchdog.getInstance().setEnabled(false);
-        
+
         Command driveTrainControls = new DriveWithController();
         driveTrainControls.start();
         //Scheduler.getInstance().add(driveTrainControls);
-        
+
         Command shooterControls = new SafeShoot();
         shooterControls.start();
         //Scheduler.getInstance().add(shooterControls);
-        
-        Command articulate = new ArticulateShooter();
-        articulate.start();
+
+        if (CommandBase.climberArticulator != null) 
+        {
+            Command articulate = new ArticulateShooter();
+            articulate.start();
+        }
         //Scheduler.getInstance().add(articulate);
-        
+
         /*if (CommandBase.lightSystem != null)
-            Scheduler.getInstance().add(new RunLights(ILights.kRed));*/
-        new RunLights(ILights.kRed).start();     
-     }
-    
+         Scheduler.getInstance().add(new RunLights(ILights.kRed));*/
+        if (CommandBase.lightSystem != null) {
+            new RunLights(ILights.kRed).start();
+        }
+    }
+
     /**
      * This function is called periodically during operator control
      */
-    public void teleopPeriodic() 
-    {  
+    public void teleopPeriodic() {
         Scheduler.getInstance().run();
         Watchdog.getInstance().feed();
         // Timer.delay(.1);
-        
-        if (((Subsystem) CommandBase.driveTrain).getCurrentCommand() == null)
-        {
+
+        if (((Subsystem) CommandBase.driveTrain).getCurrentCommand() == null) {
             Scheduler.getInstance().add(new DriveWithController());
         }
     }
-    
-    public void disabledInit()
-    {
+
+    public void disabledInit() {
         log("Disabled Initialized");
-        if (CommandBase.lightSystem != null)
-        {
-           DecorativeLights.getInstance().setColor(ILights.kYellow);
+        if (CommandBase.lightSystem != null) {
+            DecorativeLights.getInstance().setColor(ILights.kYellow);
         }
     }
-    
+
     /**
-     * This function is called periodically during test mode
-     * this comment was ammended by Joe Cssidy
+     * This function is called periodically during test mode this comment was
+     * ammended by Joe Cssidy
      */
-    public void testPeriodic() 
-    {
+    public void testPeriodic() {
         LiveWindow.run();
     }
 
-    public void log(String out)
-    {
-        if (OI.CONSOLE_OUTPUT_ENABLED)
+    public void log(String out) {
+        if (OI.CONSOLE_OUTPUT_ENABLED) {
             System.out.println("RobotMain: " + out);
+        }
     }
 }

@@ -77,7 +77,7 @@ public class ArticulateShooter extends BadCommand
             {
                 shooterArticulator.lockShooterArticulator();
             }
-            SmartDashboard.putNumber("shooter anlgle", shooterArticulator.getAngle());
+            SmartDashboard.putNumber("shooter angle", shooterArticulator.getAngle());
         }
         
     }

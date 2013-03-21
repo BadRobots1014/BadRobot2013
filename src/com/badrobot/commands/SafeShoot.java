@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 public class SafeShoot extends BadCommand
 {
     boolean hasReset;
-    boolean hasPushed;
+    boolean hasPushed = false;
     
     double shooterSpeed;
     static double REQUIRED_SHOOTER_SPEED = 5100;
@@ -42,6 +42,13 @@ public class SafeShoot extends BadCommand
         SmartDashboard.putNumber("MAX SHOOTER SPEED IN Auto Shoot", REQUIRED_SHOOTER_SPEED);
     }
     
+    int iterations = -1;
+    
+    public SafeShoot(int iterations)
+    {
+        this.iterations = iterations;
+    }
+    
     protected void initialize() 
     {
     }
@@ -52,6 +59,8 @@ public class SafeShoot extends BadCommand
         return (shooterSpeed >= REQUIRED_SHOOTER_SPEED);
     }
 
+    int pushedBees = 0;
+        
     private void push()
     {
         if (frisbeePusher.isFrisbeeRetracted() && !isShooterReadyToShoot())
@@ -59,9 +68,16 @@ public class SafeShoot extends BadCommand
             frisbeePusher.stopFrisbeePusher();
         }
         
+        else if (frisbeePusher.isFrisbeeRetracted() && hasPushed)
+        {
+            pushedBees ++;
+            hasPushed = false;
+        }
+        
         else 
         {
             frisbeePusher.pushFrisbee(true);
+            hasPushed = true;
         }
     }
     
@@ -78,6 +94,7 @@ public class SafeShoot extends BadCommand
 
     boolean shooting = false;
     boolean wasShooting = false;
+    
     protected void execute()
     {
         shooterSpeed = shooter.getShooterSpeed();
@@ -86,7 +103,13 @@ public class SafeShoot extends BadCommand
         SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
         SmartDashboard.putBoolean("frisbee pusher", frisbeePusher.isFrisbeeRetracted());
         
-        if (OI.isDemoMode())
+        if (iterations > 0 && pushedBees <= iterations)
+        {
+            shooter.runShooter(1.0);
+            push();
+        }
+        
+        else if (OI.isDemoMode())
         {
             if (OI.isPrimaryXButtonPressed())
             {
@@ -169,11 +192,11 @@ public class SafeShoot extends BadCommand
             }
         }
         
-        if (shooting)
+        if (shooting && lightSystem != null)
             lightSystem.setColor(ILights.kGreen);
         else
         {
-            if (wasShooting)
+            if (wasShooting && lightSystem != null)
             {
                 wasShooting = false;
                 lightSystem.setColor(ILights.kRed);
@@ -182,10 +205,15 @@ public class SafeShoot extends BadCommand
         }
         //else
           //  lightSystem.setColor(ILights.kRed);
+        
+        log("Pushed Frisbees: " 
+                + pushedBees);
     }
 
     protected boolean isFinished() 
     {
+        if (iterations > 0 && pushedBees >= iterations)
+            return true;
         return false;
     }
 

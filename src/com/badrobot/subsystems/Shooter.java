@@ -85,7 +85,7 @@ public class Shooter extends BadSubsystem implements IShooter
             secondaryShooterController = new Talon(BadRobotMap.secondaryShooterSpeedController); 
         }
         //controller = new Victor(BadRobotMap.shooterSpeedController);
-        DigitalInput input = new DigitalInput(BadRobotMap.opticalShooterSensor);
+        DigitalInput input = new DigitalInput(BadRobotMap.shooterOpticalSensor);
         geartooth = new GearTooth(input);
         pid = new EasyPID(0.01, 0.0, 0.0, 0.0, "Shooter Fly Wheel", new PIDSource()
         {

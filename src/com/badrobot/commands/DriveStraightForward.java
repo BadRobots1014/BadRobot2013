@@ -4,6 +4,7 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.BadPreferences;
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.Utility;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,6 +20,11 @@ import java.util.TimerTask;
  */
 public class DriveStraightForward extends BadCommand
 {    
+    double bearing;
+    static double DRIVE_SPEED;
+    static String driveSpeedKey = "CLIMBING_DRIVE_SPEED";
+    static double Kp = .01;
+    
     public double setSpeed;
     public double dontEatTheMotors;
     public double gyroAngle;
@@ -53,10 +59,10 @@ public class DriveStraightForward extends BadCommand
         distance = -1;
     }
     
-    public DriveStraightForward(double setTime, double distanceInYards)
+    public DriveStraightForward(double setTime, double distanceInInches)
     {
         driveTime = -1;
-        distance = distanceInYards;
+        distance = distanceInInches;
     }
     
     public String getConsoleIdentity() 
@@ -70,61 +76,31 @@ public class DriveStraightForward extends BadCommand
         scaleFactor = 1;
         
         driveTrain.getGyro().reset();
+        bearing = driveTrain.getGyro().getAngle();
         startTime = Utility.getFPGATime();      //returns fpga time in MICROseconds.
+        
+        DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".8"));
+
     }
     
     protected void execute() 
     {
-        gyroAngle = driveTrain.getGyro().getAngle();
-        
-        switch (state)
+        //with time
+        if (distance == -1)
         {
-            //Drives robot straight until the angle is greater than 5 degrees either direction.
-            case DRIVING_STRAIGHT:
-                if (gyroAngle < -2)
-                {
-                    state = TURNING_RIGHT;
-                }
-                else if (gyroAngle > 2)
-                {
-                    state = TURNING_LEFT;
-                }
-                else
-                {
-                    driveTrain.tankDrive(setSpeed, setSpeed);
-                }
-                break;
-            
-            //Turns the robot to the right until it is less than 5 degrees off center.
-            case TURNING_RIGHT:
-                if (Math.abs(gyroAngle) <= 2)
-                {
-                    state = DRIVING_STRAIGHT;
-                }
-                else
-                {
-                    double scaleCandidate = 1 - Math.abs(gyroAngle*0.025);
-                    scaleFactor = (scaleCandidate < .1) ? 0 : scaleCandidate;
-                    driveTrain.tankDrive(setSpeed, setSpeed*scaleFactor);
-                }
-                break;
-                
-            //Turns the robot to the left until it is less than 5 degrees off center.
-            case TURNING_LEFT:
-                if (Math.abs(gyroAngle) <= 2)
-                {
-                    state = DRIVING_STRAIGHT;
-                }
-                else
-                {
-                    double scaleCandidate = 1 - Math.abs(gyroAngle*0.025);
-                    scaleFactor = (scaleCandidate < .1) ? 0 : scaleCandidate;
-                    driveTrain.tankDrive(setSpeed*scaleFactor, setSpeed);
-                }
-                break;
-            case FINISHED:
-                driveTrain.tankDrive(0, 0);
-                break;
+            log("DRIVE SPEED " + DRIVE_SPEED);
+            driveTrain.getTrain().drive(DRIVE_SPEED,
+                    -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+        }
+        
+        //with distance
+        else
+        {
+            if (distance < driveTrain.getDistanceToWall())
+            { 
+                driveTrain.getTrain().drive(DRIVE_SPEED, 
+                        -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+            }
         }
     }
     

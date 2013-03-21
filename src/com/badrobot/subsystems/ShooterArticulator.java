@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * 
  * @author Isaac
  */
 public class ShooterArticulator extends BadSubsystem implements IShooterArticulator
@@ -26,6 +26,7 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
     GearTooth geartooth;
     
     public static ShooterArticulator instance;
+    int goingUp = 0;
     
     private ShooterArticulator()
     {
@@ -41,13 +42,14 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
         return instance;
     }
     
-    DigitalInput digiputi;
+    DigitalInput input;
 
     protected void initialize() 
     {
-        digiputi = new DigitalInput(BadRobotMap.shooterArticulatorOpticalSensor);
-        geartooth = new GearTooth(digiputi);
-        geartooth.start();
+        /*input = new DigitalInput(BadRobotMap.shooterArticulatorOpticalSensor);
+        geartooth = new GearTooth(input);
+        geartooth.enableDirectionSensing(true);
+        geartooth.start();*/
     }
 
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
@@ -68,12 +70,12 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
 
     public void raiseShooter() 
     {
-        shooterArticulatorSpeedController.set(.3);
+        raiseShooter(.3);
     }
 
     public void lowerShooter() 
     {
-        shooterArticulatorSpeedController.set(-1.0);
+        raiseShooter(-1.0);
     }
 
     public void lockShooterArticulator() 
@@ -87,17 +89,25 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
 
     public void raiseShooter(double speed)
     {
+        if (speed < 0)
+            goingUp = 1;
+        else
+            goingUp = -1;
         shooterArticulatorSpeedController.set(speed);
     }
-
-    public void lowerShooter(double speed)
-    {
-        shooterArticulatorSpeedController.set(speed);
-    }
-
+    
+    int lastGeartoothValue = 0;
+    int position = 0;
+    
     public double getAngle() 
     {
-        log("Digital Input: " + digiputi.get());
-        return (geartooth.get() + 1.0);
+        /*position += (geartooth.get() - lastGeartoothValue) * goingUp;
+        if (position < -1)
+            position = -1;
+        
+        lastGeartoothValue = geartooth.get();
+        return (position);*/
+        
+        return 0;
     }
 }

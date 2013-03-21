@@ -5,7 +5,6 @@
 package com.badrobot.subsystems;
 
 import com.badrobot.BadRobotMap;
-import com.badrobot.commands.InjectFrisbee;
 import com.badrobot.commands.SafeShoot;
 import com.badrobot.subsystems.interfaces.IFrisbeePusher;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -106,6 +105,7 @@ public class FrisbeePusher extends BadSubsystem implements IFrisbeePusher
     public boolean isFrisbeeRetracted()
     {
         SmartDashboard.putBoolean("frisbee pusher limit switch", frisbeePusherLimitSwitch.get());
+        log("Switch: " + frisbeePusherLimitSwitch.get());
         return frisbeePusherLimitSwitch.get();
     }
 
