@@ -9,6 +9,7 @@ import com.badrobot.OI;
 import com.badrobot.subsystems.interfaces.ILights;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GearTooth;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Utility;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,6 +47,7 @@ public class SafeShoot extends BadCommand
     
     public SafeShoot(int iterations)
     {
+        this();
         this.iterations = iterations;
     }
     
@@ -55,7 +57,8 @@ public class SafeShoot extends BadCommand
     
     private boolean isShooterReadyToShoot()
     {
-        REQUIRED_SHOOTER_SPEED = SmartDashboard.getNumber("MAX SHOOTER SPEED IN Auto Shoot", 5200);
+        //Timer.delay(1.0);
+        //REQUIRED_SHOOTER_SPEED = SmartDashboard.getNumber("MAX SHOOTER SPEED IN Auto Shoot", 5200);
         return (shooterSpeed >= REQUIRED_SHOOTER_SPEED);
     }
 
@@ -100,10 +103,12 @@ public class SafeShoot extends BadCommand
         
         log("Iterations: " + iterations);
         if (iterations > 0 )
-                //if (pushedBees <= iterations)
         {
+                        shooter.runShooter(1.0);
+
+            
+            //Timer.delay(2);
             push();
-            shooter.runShooter(1.0);
         }
         
         /*else if (OI.isDemoMode())

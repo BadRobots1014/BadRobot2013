@@ -66,7 +66,7 @@ public class RobotMain extends IterativeRobot implements Logger {
 
     public void autonomousInit() {
         autonomousCommand = (Command) autoChooser.getSelected();
-        autonomousCommand.start();
+        Scheduler.getInstance().add(autonomousCommand);
 
         //Scheduler.getInstance().add(autonomousCommand);
 
