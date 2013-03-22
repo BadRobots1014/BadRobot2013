@@ -11,6 +11,7 @@ import com.badrobot.commands.autonomousCommands.DriveForwardTurnShoot;
 import com.badrobot.commands.*;
 import com.badrobot.commands.autonomousCommands.AimWithCamera;
 import com.badrobot.commands.autonomousCommands.DriveForwardAndShoot;
+import com.badrobot.commands.autonomousCommands.DriveForwardToWallTurnAndShoot;
 import com.badrobot.subsystems.DecorativeLights;
 //import com.badrobot.commands.autonomousCommands.DriveForwardAutoAimShoot;
 import com.badrobot.subsystems.interfaces.ILights;
@@ -49,11 +50,12 @@ public class RobotMain extends IterativeRobot implements Logger {
         autoChooser = new SendableChooser();
 
         //autoChooser.addDefault("Drive Forward + Auto Fire", new DriveForwardAutoAimShoot());
-        autoChooser.addObject("Drive Straight Forward + Turn (5s , 20 deg)", new DriveStraightForward(5));
+        autoChooser.addObject("Drive Straight Forward", new DriveStraightForward(5));
         autoChooser.addObject("Auto Aim", new AimWithCamera());
         autoChooser.addObject("Auto Aim And Shoot", new AutoAimAndShoot());
         autoChooser.addDefault("Drive Forward And Shoot (variable time, 3 frisbees)", new DriveForwardAndShoot());
         autoChooser.addObject("Shoot three frisbees", new SafeShoot(3));
+        autoChooser.addObject("Drive Forward to 109 inches, turn and Shoot", new DriveForwardToWallTurnAndShoot());
 
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 

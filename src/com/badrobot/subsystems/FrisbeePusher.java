@@ -21,6 +21,7 @@ public class FrisbeePusher extends BadSubsystem implements IFrisbeePusher
 {
     DigitalInput frisbeePusherLimitSwitch;
     Relay frisbeePusher;
+    boolean CONSOLE_OUPUT_ENALBED = false;
     
     private static IFrisbeePusher instance;
     
@@ -105,7 +106,7 @@ public class FrisbeePusher extends BadSubsystem implements IFrisbeePusher
     public boolean isFrisbeeRetracted()
     {
         SmartDashboard.putBoolean("frisbee pusher limit switch", frisbeePusherLimitSwitch.get());
-        log("Switch: " + frisbeePusherLimitSwitch.get());
+      //  log("Switch: " + frisbeePusherLimitSwitch.get());
         return frisbeePusherLimitSwitch.get();
     }
 

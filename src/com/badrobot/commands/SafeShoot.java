@@ -42,7 +42,7 @@ public class SafeShoot extends BadCommand
         SmartDashboard.putNumber("MAX SHOOTER SPEED IN Auto Shoot", REQUIRED_SHOOTER_SPEED);
     }
     
-    int iterations = -1;
+    int iterations;
     
     public SafeShoot(int iterations)
     {
@@ -94,14 +94,16 @@ public class SafeShoot extends BadCommand
     {
         shooterSpeed = shooter.getShooterSpeed();
         
-        SmartDashboard.putNumber("shooter speed", shooterSpeed);
+        //SmartDashboard.putNumber("shooter speed", shooterSpeed);
         SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
         SmartDashboard.putBoolean("frisbee pusher", frisbeePusher.isFrisbeeRetracted());
         
-        if (iterations > 0 && pushedBees <= iterations)
+        log("Iterations: " + iterations);
+        if (iterations > 0 )
+                //if (pushedBees <= iterations)
         {
-            shooter.runShooter(1.0);
             push();
+            shooter.runShooter(1.0);
         }
         
         /*else if (OI.isDemoMode())
@@ -198,9 +200,6 @@ public class SafeShoot extends BadCommand
         }
         //else
           //  lightSystem.setColor(ILights.kRed);
-        
-        log("Pushed Frisbees: " 
-                + pushedBees);
     }
 
     protected boolean isFinished() 

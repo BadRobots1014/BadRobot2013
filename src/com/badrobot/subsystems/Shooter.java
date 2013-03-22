@@ -56,7 +56,7 @@ public class Shooter extends BadSubsystem implements IShooter
     
     public void initDefaultCommand()
     {
-        setDefaultCommand(new SafeShoot());
+        //setDefaultCommand(new SafeShoot());
     }
 
     protected void initialize()
@@ -130,6 +130,7 @@ public class Shooter extends BadSubsystem implements IShooter
         {
             shooterController.set(speed);
             secondaryShooterController.set(speed);
+            log("speed: " + speed);
         }
         else
         {

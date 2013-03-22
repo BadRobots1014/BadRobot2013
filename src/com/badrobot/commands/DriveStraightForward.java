@@ -83,10 +83,11 @@ public class DriveStraightForward extends BadCommand
 
     }
     
+    private int lockedOnIterations = 0;
     protected void execute() 
     {
         //with time
-        if (distance == -1)
+        if (distance <= 0)
         {
             log("DRIVE SPEED " + DRIVE_SPEED);
             driveTrain.getTrain().drive(DRIVE_SPEED,
@@ -96,16 +97,25 @@ public class DriveStraightForward extends BadCommand
         //with distance
         else
         {
-            if (distance < driveTrain.getDistanceToWall())
+            if (driveTrain.getDistanceToWall() < distance)
             { 
-                driveTrain.getTrain().drive(DRIVE_SPEED, 
-                        -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+                lockedOnIterations++;  
+            }
+            else
+            { 
+                if (lockedOnIterations > 0)
+                    lockedOnIterations = 0;
+
+                    driveTrain.getTrain().drive(DRIVE_SPEED, 
+                            -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+                
             }
         }
     }
     
     protected boolean isFinished() 
     {
+        log("DriveTime: " + driveTime + " Distance: " + distance);
         //if by time
         if (driveTime > 0 && Utility.getFPGATime() >= startTime + driveTime)
         {
@@ -113,7 +123,7 @@ public class DriveStraightForward extends BadCommand
             state = FINISHED;
             return true;
         }
-        else if (distance > 0 && driveTrain.getDistanceToWall() < distance*36)
+        else if (distance > 0 && driveTrain.getDistanceToWall() <= distance && lockedOnIterations >= 3)
         {
             return true;
         }
