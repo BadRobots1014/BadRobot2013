@@ -53,6 +53,7 @@ public class RobotMain extends IterativeRobot implements Logger {
         autoChooser.addObject("Auto Aim", new AimWithCamera());
         autoChooser.addObject("Auto Aim And Shoot", new AutoAimAndShoot());
         autoChooser.addDefault("Drive Forward And Shoot (variable time, 3 frisbees)", new DriveForwardAndShoot());
+        autoChooser.addObject("Shoot three frisbees", new SafeShoot(3));
 
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 

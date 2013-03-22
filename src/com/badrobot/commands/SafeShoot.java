@@ -66,11 +66,6 @@ public class SafeShoot extends BadCommand
         if (frisbeePusher.isFrisbeeRetracted() && !isShooterReadyToShoot())
         {
             frisbeePusher.stopFrisbeePusher();
-        }
-        
-        else if (frisbeePusher.isFrisbeeRetracted() && hasPushed)
-        {
-            pushedBees ++;
             hasPushed = false;
         }
         
@@ -109,7 +104,7 @@ public class SafeShoot extends BadCommand
             push();
         }
         
-        else if (OI.isDemoMode())
+        /*else if (OI.isDemoMode())
         {
             if (OI.isPrimaryXButtonPressed())
             {
@@ -119,8 +114,6 @@ public class SafeShoot extends BadCommand
             else
             {               
                 shooter.runShooter(0.0);
-
-                
                 //shooter.pidRunShooter(0);
             }
 
@@ -146,11 +139,11 @@ public class SafeShoot extends BadCommand
                     frisbeePusher.stopFrisbeePusher();
                 }
             }   
-        }
+        }*/
         
         else 
         {
-            if (OI.isSecondaryLBButtonPressed())
+            if (OI.isSecondaryLBButtonPressed() || OI.isPrimaryXButtonPressed())
             {
                 shooting = true;
                                 shooter.runShooter(1.0);
@@ -171,11 +164,11 @@ public class SafeShoot extends BadCommand
                 frisbeePusher.pushFrisbee(true);
             }
             else if (OI.getSecondaryRightTrigger() > 0)
-            {shooting = true;
-            wasShooting = true;
-                                shooter.runShooter(1.0);
-
-               // shooter.pidRunShooter(1);
+            {
+                shooting = true;
+                wasShooting = true;
+                shooter.runShooter(1.0);
+                //shooter.pidRunShooter(1);
                 push();
             }
             else

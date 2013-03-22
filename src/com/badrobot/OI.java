@@ -2,6 +2,7 @@ package com.badrobot;
 
 import com.badrobot.commands.ClimbForTenPoints;
 import com.badrobot.commands.CommandBase;
+import com.badrobot.commands.autonomousCommands.AimWithCamera;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Joystick;
@@ -53,8 +54,21 @@ public class OI {
                 }
             };
             climb.whenPressed(new ClimbForTenPoints());
-
         }
+        
+        if (CommandBase.shooterArticulator != null)
+        {
+            Button aim = new Button()
+            {
+                public boolean get()
+                {
+                    return (isPrimaryYButtonPressed());
+                }
+            };
+            aim.whenPressed(new AimWithCamera());
+        }
+        
+        
         if (!this.CONSOLE_OUTPUT_ENABLED) {
             System.out.println("Console output has been disabled from OI");
         }

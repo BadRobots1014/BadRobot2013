@@ -126,7 +126,7 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
         train.setInvertedM00otor(RobotDrive.MotorType.kRearRight, true);
         */
         
-        //train.setSafetyEnabled(false);
+        train.setSafetyEnabled(false);
     }
     
     /**
@@ -165,6 +165,7 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain
      */
     public void tankDrive(double left, double right) 
     {
+        
         train.tankDrive(left, right);
         
         //leftEncoderPID.setSetpoint(left*MAX_SPEED);
