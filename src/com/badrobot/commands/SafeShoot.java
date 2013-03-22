@@ -43,7 +43,7 @@ public class SafeShoot extends BadCommand
         SmartDashboard.putNumber("MAX SHOOTER SPEED IN Auto Shoot", REQUIRED_SHOOTER_SPEED);
     }
     
-    int iterations;
+    public int iterations;
     
     public SafeShoot(int iterations)
     {
@@ -209,8 +209,8 @@ public class SafeShoot extends BadCommand
 
     protected boolean isFinished() 
     {
-        if (iterations > 0 && pushedBees >= iterations)
-            return true;
+//        if (iterations > 0 && pushedBees >= iterations)
+//            return true;
         return false;
     }
 

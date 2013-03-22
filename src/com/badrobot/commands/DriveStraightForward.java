@@ -23,7 +23,7 @@ public class DriveStraightForward extends BadCommand
     double bearing;
     static double DRIVE_SPEED;
     static String driveSpeedKey = "CLIMBING_DRIVE_SPEED";
-    static double Kp = .01;
+    static double Kp = .05;
     
     public double setSpeed;
     public double dontEatTheMotors;
@@ -70,6 +70,7 @@ public class DriveStraightForward extends BadCommand
         return "DriveStraightForward";
     }
     
+    double delayTime;
     protected void initialize() 
     {
         setSpeed = .8;
@@ -80,6 +81,7 @@ public class DriveStraightForward extends BadCommand
         startTime = Utility.getFPGATime();      //returns fpga time in MICROseconds.
         
         DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".8"));
+        delayTime = Double.parseDouble(BadPreferences.getValue("DRIVE_STRAIGHT_FORWARD_WITH_DISTANCE_DELAY", "2.4"));
 
     }
     
@@ -89,6 +91,7 @@ public class DriveStraightForward extends BadCommand
         //with time
         if (distance <= 0)
         {
+       
             log("DRIVE SPEED " + DRIVE_SPEED);
             driveTrain.getTrain().drive(DRIVE_SPEED,
                     -(driveTrain.getGyro().getAngle() - bearing) * Kp);
@@ -97,7 +100,7 @@ public class DriveStraightForward extends BadCommand
         //with distance
         else
         {
-            if (driveTrain.getDistanceToWall() < distance)
+            if (driveTrain.getDistanceToWall() < distance && Utility.getFPGATime() - startTime > delayTime*1000000)
             { 
                 lockedOnIterations++;  
             }
