@@ -61,8 +61,8 @@ public class Shooter extends BadSubsystem implements IShooter
 
     protected void initialize()
     {
-        MAX_SHOOTER_RPM = SmartDashboard.getNumber("MAX SHOOTER SPEED IN Auto Shoot", 5200);
-
+        MAX_SHOOTER_RPM = SmartDashboard.getNumber("MAX SHOOTER SPEED IN Auto Shoot", 5000);
+        log("initializing shooter in initialize method");
         if (BadRobotMap.isPrototype)
         {
             shooterController = new Victor(BadRobotMap.primaryShooterSpeedController);
@@ -130,7 +130,6 @@ public class Shooter extends BadSubsystem implements IShooter
         {
             shooterController.set(speed);
             secondaryShooterController.set(speed);
-            log("speed: " + speed);
         }
         else
         {
@@ -148,7 +147,7 @@ public class Shooter extends BadSubsystem implements IShooter
         //SmartDashboard.putBoolean("sensor", sensor.get());
         SmartDashboard.putNumber("period", geartooth.getPeriod());
         SmartDashboard.putNumber("count", geartooth.get());
-        //SmartDashboard.putNumber("rpm", pid.source.pidGet());
+        SmartDashboard.putNumber("rpm", getShooterSpeed());
     }
     
     public void pidRunShooter(double power)

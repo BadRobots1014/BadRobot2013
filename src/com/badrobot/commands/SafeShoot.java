@@ -4,6 +4,7 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.BadPreferences;
 import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
 import com.badrobot.subsystems.interfaces.ILights;
@@ -32,7 +33,7 @@ public class SafeShoot extends BadCommand
     boolean hasPushed = false;
     
     double shooterSpeed;
-    static double REQUIRED_SHOOTER_SPEED = 5100;
+    static double REQUIRED_SHOOTER_SPEED = 5000;
     
     public SafeShoot()
     {
@@ -40,7 +41,7 @@ public class SafeShoot extends BadCommand
         requires((Subsystem) shooter);
         //requires((Subsystem) lightSystem);
         
-        SmartDashboard.putNumber("MAX SHOOTER SPEED IN Auto Shoot", REQUIRED_SHOOTER_SPEED);
+        REQUIRED_SHOOTER_SPEED = Double.parseDouble(BadPreferences.getValue("REQUIRED_SHOOTER_SPEED", "5000"));
     }
     
     public int iterations;
@@ -51,8 +52,10 @@ public class SafeShoot extends BadCommand
         this.iterations = iterations;
     }
     
+    double startingTime = -1;
     protected void initialize() 
     {
+        startingTime = Timer.getFPGATimestamp();
     }
     
     private boolean isShooterReadyToShoot()
@@ -101,7 +104,6 @@ public class SafeShoot extends BadCommand
         SmartDashboard.putBoolean("Shooter Is Ready", isShooterReadyToShoot());
         SmartDashboard.putBoolean("frisbee pusher", frisbeePusher.isFrisbeeRetracted());
         
-        log("Iterations: " + iterations);
         if (iterations > 0 )
         {
                         shooter.runShooter(1.0);
@@ -209,13 +211,15 @@ public class SafeShoot extends BadCommand
 
     protected boolean isFinished() 
     {
-//        if (iterations > 0 && pushedBees >= iterations)
-//            return true;
+       if (iterations > 0 && (startingTime + iterations) < Timer.getFPGATimestamp())
+           return true;
         return false;
     }
 
     protected void end() 
     {
+        log("killing shooter");
+        shooter.runShooter(0.0);
     }
 
     protected void interrupted() 

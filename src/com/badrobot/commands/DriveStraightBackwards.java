@@ -18,7 +18,7 @@ import java.util.TimerTask;
  * 
  * @author Isaac
  */
-public class DriveStraightForward extends BadCommand
+public class DriveStraightBackwards extends BadCommand
 {    
     double bearing;
     static double DRIVE_SPEED;
@@ -42,7 +42,7 @@ public class DriveStraightForward extends BadCommand
     /**
      * Runs the command for the default time length.
      */
-    public DriveStraightForward()
+    public DriveStraightBackwards()
     {
         requires((Subsystem) driveTrain);
         driveTime = 5*1000000;
@@ -52,14 +52,14 @@ public class DriveStraightForward extends BadCommand
      * Runs the command for the set time length.
      * @param setTime Time length in seconds.
      */
-    public DriveStraightForward(double setTime)
+    public DriveStraightBackwards(double setTime)
     {
         long temp = (long) setTime*1000000;
         driveTime = temp;
         distance = -1;
     }
     
-    public DriveStraightForward(double setTime, double distanceInInches)
+    public DriveStraightBackwards(double setTime, double distanceInInches)
     {
         driveTime = -1;
         distance = distanceInInches;
@@ -67,7 +67,7 @@ public class DriveStraightForward extends BadCommand
     
     public String getConsoleIdentity() 
     {
-        return "DriveStraightForward";
+        return "DriveStraightBackwards";
     }
     
     double delayTime;
@@ -92,7 +92,7 @@ public class DriveStraightForward extends BadCommand
         if (distance <= 0)
         {
        
-            driveTrain.getTrain().drive(DRIVE_SPEED,
+            driveTrain.getTrain().drive(-DRIVE_SPEED,
                     -(driveTrain.getGyro().getAngle() - bearing) * Kp);
         }
         
