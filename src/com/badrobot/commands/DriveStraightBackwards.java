@@ -18,7 +18,7 @@ import java.util.TimerTask;
  * 
  * @author Isaac
  */
-public class DriveStraightForward extends BadCommand
+public class DriveStraightBackwards extends BadCommand
 {    
     double bearing;
     static double DRIVE_SPEED;
@@ -42,7 +42,7 @@ public class DriveStraightForward extends BadCommand
     /**
      * Runs the command for the default time length.
      */
-    public DriveStraightForward()
+    public DriveStraightBackwards()
     {
         requires((Subsystem) driveTrain);
         driveTime = 5*1000000;
@@ -52,14 +52,14 @@ public class DriveStraightForward extends BadCommand
      * Runs the command for the set time length.
      * @param setTime Time length in seconds.
      */
-    public DriveStraightForward(double setTime)
+    public DriveStraightBackwards(double setTime)
     {
         long temp = (long) setTime*1000000;
         driveTime = temp;
         distance = -1;
     }
     
-    public DriveStraightForward(double setTime, double distanceInInches)
+    public DriveStraightBackwards(double setTime, double distanceInInches)
     {
         driveTime = -1;
         distance = distanceInInches;
@@ -67,7 +67,7 @@ public class DriveStraightForward extends BadCommand
     
     public String getConsoleIdentity() 
     {
-        return "DriveStraightForward";
+        return "DriveStraightBackwards";
     }
     
     double delayTime;
@@ -80,7 +80,7 @@ public class DriveStraightForward extends BadCommand
         bearing = driveTrain.getGyro().getAngle();
         startTime = Utility.getFPGATime();      //returns fpga time in MICROseconds.
         
-        DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".8"));
+        DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".6"));
         delayTime = Double.parseDouble(BadPreferences.getValue("DRIVE_STRAIGHT_FORWARD_WITH_DISTANCE_DELAY", "2.4"));
 
     }
@@ -92,7 +92,7 @@ public class DriveStraightForward extends BadCommand
         if (distance <= 0)
         {
        
-            driveTrain.getTrain().drive(DRIVE_SPEED,
+            driveTrain.getTrain().drive(-DRIVE_SPEED,
                     -(driveTrain.getGyro().getAngle() - bearing) * Kp);
         }
         
@@ -117,6 +117,7 @@ public class DriveStraightForward extends BadCommand
     
     protected boolean isFinished() 
     {
+        log("Gyro Angle:      "+driveTrain.getGyro().getAngle() + "                 bearing: "+bearing);
         
         //if by time
         if (driveTime > 0 && Utility.getFPGATime() >= startTime + driveTime)
@@ -135,6 +136,7 @@ public class DriveStraightForward extends BadCommand
 
     protected void end() 
     {
+        log("ended");
         driveTrain.tankDrive(0,0);
     }
     

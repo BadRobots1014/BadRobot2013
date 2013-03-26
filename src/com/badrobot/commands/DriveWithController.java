@@ -4,6 +4,7 @@
  */
 package com.badrobot.commands;
 
+import com.badrobot.BadPreferences;
 import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,6 +27,9 @@ public class DriveWithController extends BadCommand
 {
     private double BUMPER_SPEED = .5;
     protected boolean TANK_DRIVE_MODE = true;
+    private static String ultrasonicKey = "ULTRASONIC_IDEAL_DISTANCE";
+    private static double ULTRASONIC_IDEAL_DISTANCE;
+    
     public DriveWithController()
     {
         requires((Subsystem) driveTrain);
@@ -34,6 +38,8 @@ public class DriveWithController extends BadCommand
     // Called just before this Command runs the first time
     protected void initialize()
     {
+        BadPreferences.registerValue("ULTRASONIC_IDEAL_DISTANCE", "103");
+        BadPreferences.getValue(ultrasonicKey, "103");
         String mode = (String) CommandBase.driveChooser.getSelected();
 
         if (mode == "tankDrive")
@@ -45,6 +51,9 @@ public class DriveWithController extends BadCommand
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {   
+        SmartDashboard.putBoolean("is far enough away", 
+                Math.abs(driveTrain.getDistanceToWall() - ULTRASONIC_IDEAL_DISTANCE) < 7);
+        
         if (OI.isPrimaryRBButtonPressed())
         {
             driveTrain.tankDrive(BUMPER_SPEED, -BUMPER_SPEED);

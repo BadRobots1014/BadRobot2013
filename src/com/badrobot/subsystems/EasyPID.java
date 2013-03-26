@@ -41,7 +41,7 @@ public class EasyPID
     public EasyPID(double p, double i, double d, double f, String name, PIDSource s)
     {
         this.name = name;
-        
+        System.out.println("constucting PIDEasy object");
         source = s;
         output = new SoftPID();
         
