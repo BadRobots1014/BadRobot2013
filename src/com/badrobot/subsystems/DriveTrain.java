@@ -156,13 +156,8 @@ public class DriveTrain extends BadSubsystem implements IDriveTrain {
      * @param right the right joystick value (-1 to 1)
      */
     public void tankDrive(double left, double right) {
-        log("Max speed: " + MAX_SPEED);
-        //train.tankDrive(left, right);
         
-        log("left encoder: " + leftEncoder.getRate() + "  right encoder: "
-                + rightEncoder.getRate());
-            
-        if(leftEncoderPID == null && !firstRun)
+        if(leftEncoderPID == null && !firstRun && PIDEnabled)
         {
                 leftEncoderPID = new EasyPID(.001, 0, 0, 0.2, "Left PID", leftEncoder);
                 rightEncoderPID = new EasyPID(.001, 0, 0, 0.2, "Right PID", rightEncoder);

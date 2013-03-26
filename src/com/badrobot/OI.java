@@ -19,7 +19,8 @@ public class OI {
     public static Joystick primaryXboxController, secondaryXboxController;
     private static int LEFT_STICK_X = 1, LEFT_STICK_Y = 2, RIGHT_STICK_X = 3, RIGHT_STICK_Y = 5;
     private static int PRIMARY_JOY = 1, SECONDARY_JOY = 2;
-    private static int A_BUTTON = 1, B_BUTTON = 2, X_BUTTON = 3, Y_BUTTON = 4, LB = 5, RB = 6, SELECT = 7, START = 8, LEFT_JOY_CLICK = 9, RIGHT_JOY_CLICK = 10;
+    private static int A_BUTTON = 1, B_BUTTON = 2, X_BUTTON = 3, Y_BUTTON = 4, 
+                        LB = 5, RB = 6, SELECT = 7, START = 8, LEFT_JOY_CLICK = 9, RIGHT_JOY_CLICK = 10;
     public static boolean IS_DEMO_MODE = true;
     public static int ALLIANCE_COLOR;
     public static BadPreferences preferencesManagers;
@@ -46,15 +47,15 @@ public class OI {
          }*/
 
         //press A to climb
-        if (CommandBase.climberArticulator != null) {
+        //if (CommandBase.climberArticulator != null) {
 
             Button climb = new Button() {
                 public boolean get() {
-                    return (isPrimaryAButtonPressed());
+                    return (OI.getPrimaryRightTrigger() > 0);
                 }
             };
             climb.whenPressed(new ClimbForTenPoints());
-        }
+        //}
         
         if (CommandBase.shooterArticulator != null)
         {

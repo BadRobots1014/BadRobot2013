@@ -25,15 +25,14 @@ public class ClimbForTenPoints extends BadCommand {
 
     public ClimbForTenPoints() {
         requires((Subsystem) driveTrain);
-        requires((Subsystem) shooterArticulator);
-        requires((Subsystem) climberArticulator);
+        //requires((Subsystem) shooterArticulator);
         // requires((Subsystem) lightSystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
         bearing = driveTrain.getGyro().getAngle();
-        DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".4"));
+        ///DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, "1.0"));
 
         incumbentColor = lightSystem.getColor();
         lightSystem.setColor(ILights.kBlue);
@@ -41,8 +40,8 @@ public class ClimbForTenPoints extends BadCommand {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        climberArticulator.setPosition(IClimber.kUp);
-
+        //climberArticulator.setPosition(IClimber.kUp);
+        DRIVE_SPEED = OI.getPrimaryRightTrigger();
         //go straight
         driveTrain.getTrain().drive(DRIVE_SPEED,
                 -(driveTrain.getGyro().getAngle() - bearing) * Kp);
@@ -61,7 +60,7 @@ public class ClimbForTenPoints extends BadCommand {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (OI.isPrimaryBButtonPressed());
+        return (OI.getPrimaryRightTrigger() <= 0);
     }
 
     // Called once after isFinished returns true
@@ -74,7 +73,7 @@ public class ClimbForTenPoints extends BadCommand {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-
+    
     public void valueChanged(ITable itable, String key, Object value, boolean bln) {
     }
 
@@ -86,6 +85,6 @@ public class ClimbForTenPoints extends BadCommand {
     }
 
     public void registerPreferencesValues() {
-        BadPreferences.registerValue(driveSpeedKey, ".4");
+        BadPreferences.registerValue(driveSpeedKey, "1.0");
     }
 }

@@ -18,9 +18,9 @@ public class ShootAndDriveBack extends CommandGroup
 {
     public ShootAndDriveBack()
     {
-        double driveBackwardsTime = Double.parseDouble(BadPreferences.getValue("DRIVE_BACKWARDS_TIME", "1.0"));
+        double driveBackwardsTime = Double.parseDouble(BadPreferences.getValue("DRIVE_BACKWARDS_TIME", "5.0"));
         
-        addSequential(new SafeShoot(3), 3);
+        //addSequential(new SafeShoot(3), 3);
         addSequential(new Turn(15));
         addSequential(new DriveStraightBackwards(driveBackwardsTime));
     }

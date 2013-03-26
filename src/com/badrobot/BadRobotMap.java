@@ -82,7 +82,7 @@ public class BadRobotMap implements Sendable
         {
             redChannel = 10;
             greenChannel = 11;
-            blueChannel = 12;
+            blueChannel = 14;
             
             frontLeftSpeedController = prototypeMap[0];
             frontRightSpeedController = prototypeMap[1];

@@ -55,6 +55,7 @@ public class Turn extends BadCommand
 
     protected void end() 
     {
+        log("ended");
         driveTrain.getTrain().tankDrive(0,0);
     }
 

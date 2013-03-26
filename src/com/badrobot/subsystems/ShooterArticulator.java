@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GearTooth;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
@@ -30,7 +31,10 @@ public class ShooterArticulator extends BadSubsystem implements IShooterArticula
     
     private ShooterArticulator()
     {
-        shooterArticulatorSpeedController = new Talon(BadRobotMap.shooterArticulator);
+        if (!BadRobotMap.isPrototype)
+            shooterArticulatorSpeedController = new Talon(BadRobotMap.shooterArticulator);
+        else 
+            shooterArticulatorSpeedController = new Victor(BadRobotMap.shooterArticulator);
     }
     
     public static ShooterArticulator getInstance()

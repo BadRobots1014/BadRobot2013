@@ -7,6 +7,7 @@ package com.badrobot.commands;
 import com.badrobot.BadPreferences;
 import com.badrobot.BadRobotMap;
 import com.badrobot.OI;
+import com.badrobot.RobotMain;
 import com.badrobot.subsystems.interfaces.ILights;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GearTooth;
@@ -52,10 +53,16 @@ public class SafeShoot extends BadCommand
         this.iterations = iterations;
     }
     
+    int incumbentColor;
+    
     double startingTime = -1;
     protected void initialize() 
     {
         startingTime = Timer.getFPGATimestamp();
+        if (lightSystem != null)
+        {
+            incumbentColor = lightSystem.getColor();
+        }
     }
     
     private boolean isShooterReadyToShoot()
@@ -201,7 +208,7 @@ public class SafeShoot extends BadCommand
             if (wasShooting && lightSystem != null)
             {
                 wasShooting = false;
-                lightSystem.setColor(ILights.kRed);
+                lightSystem.setColor(RobotMain.ALLIANCE_COLOR);
             }
             
         }
@@ -218,7 +225,7 @@ public class SafeShoot extends BadCommand
 
     protected void end() 
     {
-        log("killing shooter");
+        log("ended");
         shooter.runShooter(0.0);
     }
 

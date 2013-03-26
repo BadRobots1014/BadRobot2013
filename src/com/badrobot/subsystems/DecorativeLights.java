@@ -106,26 +106,21 @@ public class DecorativeLights extends BadSubsystem implements ILights
             case ILights.kRed:
                 setColor(255, 0, 0);
                 break;
-            
-            case ILights.kYellow:
-                setColor(255, 50, 0);
-                break;
-            
-            case ILights.kWhite:
-                setColor(200, 50, 30);
-                break;
-                
-            case ILights.kETech:
-                setColor(255, 0, 30);
-                break;
-                
-            case ILights.kGold:
-                setColor(200, 30, 10);
-                break;
                 
             case ILights.kGreen:
                 setColor(0, 255, 0);
                 break;
+            
+            case ILights.kYellow:
+                setColor(255, 70, 0);
+                break;
+            
+            case ILights.kWhite:
+                setColor(180, 100, 80);
+                break;
+                
+            case ILights.kETech:
+                setColor(150, 0, 80);
         }
         
         currentColor = color;

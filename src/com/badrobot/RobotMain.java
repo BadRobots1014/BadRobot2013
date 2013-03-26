@@ -12,6 +12,7 @@ import com.badrobot.commands.*;
 import com.badrobot.commands.autonomousCommands.AimWithCamera;
 import com.badrobot.commands.autonomousCommands.DriveForwardAndShoot;
 import com.badrobot.commands.autonomousCommands.DriveForwardToWallTurnAndShoot;
+import com.badrobot.commands.autonomousCommands.DriveForwardTurnShootDriveBack;
 import com.badrobot.commands.autonomousCommands.ShootAndDriveBack;
 import com.badrobot.subsystems.DecorativeLights;
 //import com.badrobot.commands.autonomousCommands.DriveForwardAutoAimShoot;
@@ -43,7 +44,7 @@ public class RobotMain extends IterativeRobot implements Logger {
      * used for any initialization code.
      */
     public void robotInit() {
-        BadRobotMap.isPrototype = false;
+        BadRobotMap.isPrototype = true;
 
         // Initialize all subsystems
         CommandBase.init();
@@ -58,6 +59,7 @@ public class RobotMain extends IterativeRobot implements Logger {
         autoChooser.addObject("Shoot three frisbees", new SafeShoot(3));
         autoChooser.addObject("Drive Forward to 109 inches, turn and Shoot", new DriveForwardToWallTurnAndShoot());
         autoChooser.addObject("Shoot and Drive Backwards", new ShootAndDriveBack());
+        autoChooser.addObject("Shootanddoalotofotherstuff", new DriveForwardTurnShootDriveBack());
 
         SmartDashboard.putData("Autonomous Mode Chooser", autoChooser);
 
@@ -84,6 +86,7 @@ public class RobotMain extends IterativeRobot implements Logger {
         Watchdog.getInstance().feed();
     }
 
+    public static int ALLIANCE_COLOR = 0;
     public void teleopInit() {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
@@ -99,18 +102,17 @@ public class RobotMain extends IterativeRobot implements Logger {
         shooterControls.start();
         //Scheduler.getInstance().add(shooterControls);
 
-        if (CommandBase.climberArticulator != null) 
+        if (CommandBase.shooterArticulator != null) 
         {
             Command articulate = new ArticulateShooter();
             articulate.start();
         }
         //Scheduler.getInstance().add(articulate);
 
-        /*if (CommandBase.lightSystem != null)
-         Scheduler.getInstance().add(new RunLights(ILights.kRed));*/
-        if (CommandBase.lightSystem != null) {
-            new RunLights(ILights.kRed).start();
-        }
+        ALLIANCE_COLOR = (OI.ALLIANCE_COLOR == DriverStation.Alliance.kBlue_val) ? ILights.kBlue : ILights.kRed;
+        if (CommandBase.lightSystem != null)
+         Scheduler.getInstance().add(new RunLights(ALLIANCE_COLOR));
+        
     }
 
     /**

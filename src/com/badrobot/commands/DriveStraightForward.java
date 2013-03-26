@@ -76,7 +76,7 @@ public class DriveStraightForward extends BadCommand
         setSpeed = .8;
         scaleFactor = 1;
         
-        driveTrain.getGyro().reset();
+        //driveTrain.getGyro().reset();
         bearing = driveTrain.getGyro().getAngle();
         startTime = Utility.getFPGATime();      //returns fpga time in MICROseconds.
         
@@ -117,6 +117,7 @@ public class DriveStraightForward extends BadCommand
     
     protected boolean isFinished() 
     {
+        
         //if by time
         if (driveTime > 0 && Utility.getFPGATime() >= startTime + driveTime)
         {

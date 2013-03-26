@@ -76,11 +76,11 @@ public class DriveStraightBackwards extends BadCommand
         setSpeed = .8;
         scaleFactor = 1;
         
-        driveTrain.getGyro().reset();
+        //driveTrain.getGyro().reset();
         bearing = driveTrain.getGyro().getAngle();
         startTime = Utility.getFPGATime();      //returns fpga time in MICROseconds.
         
-        DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".8"));
+        DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".6"));
         delayTime = Double.parseDouble(BadPreferences.getValue("DRIVE_STRAIGHT_FORWARD_WITH_DISTANCE_DELAY", "2.4"));
 
     }
@@ -117,6 +117,8 @@ public class DriveStraightBackwards extends BadCommand
     
     protected boolean isFinished() 
     {
+        log("Gyro Angle:      "+driveTrain.getGyro().getAngle() + "                 bearing: "+bearing);
+        
         //if by time
         if (driveTime > 0 && Utility.getFPGATime() >= startTime + driveTime)
         {
@@ -134,6 +136,7 @@ public class DriveStraightBackwards extends BadCommand
 
     protected void end() 
     {
+        log("ended");
         driveTrain.tankDrive(0,0);
     }
     

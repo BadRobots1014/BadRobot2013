@@ -20,7 +20,7 @@ public class DriveForwardToWallTurnAndShoot extends CommandGroup
     public DriveForwardToWallTurnAndShoot()
     {
         shoot = new SafeShoot();
-        int distance = Integer.parseInt(BadPreferences.getValue("ULTRASNOIC_IDEAL_DISTANCE", "109"));
+        int distance = Integer.parseInt(BadPreferences.getValue("ULTRASONIC_IDEAL_DISTANCE", "109"));
         double angle = Double.parseDouble(BadPreferences.getValue("AUTONOMOUS_TURNING_ANGLE", "-10"));
               
         this.addSequential(new DriveStraightForward(-1, distance));
