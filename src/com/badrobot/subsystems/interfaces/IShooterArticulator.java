@@ -26,8 +26,6 @@ public interface IShooterArticulator
     public void lockShooterArticulator();
     
     public void raiseShooter(double speed);
-    
-    public void lowerShooter(double speed);
 
     public double getAngle();
 }

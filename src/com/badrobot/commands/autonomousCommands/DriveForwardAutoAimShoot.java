@@ -5,7 +5,7 @@
 package com.badrobot.commands.autonomousCommands;
 
 import com.badrobot.commands.DriveStraightForward;
-import com.badrobot.commands.InjectFrisbee;
+import com.badrobot.commands.SafeShoot;
 import com.badrobot.commands.Shoot;
 import com.badrobot.commands.Turn;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -27,6 +27,6 @@ public class DriveForwardAutoAimShoot extends CommandGroup
        addParallel(new Shoot(8, 1.0));
        addSequential(new AimWithCamera());
        //number of frisbees to inject (iterations)
-       addParallel(new InjectFrisbee(3, 2.0));
+       addParallel(new SafeShoot(3));
     }
 }

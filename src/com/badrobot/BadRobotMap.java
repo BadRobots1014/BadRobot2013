@@ -53,12 +53,12 @@ public class BadRobotMap implements Sendable
     
     public static int primaryShooterSpeedController,
             secondaryShooterSpeedController;
-    public static int opticalShooterSensor;
+    public static int shooterOpticalSensor;
     
     public final int[] prototypeMap = {3,1,4,2};//values entered
     public final int[] finalMap = {3,1,4,2};
     
-    public static boolean isPrototype = true;
+    public static boolean isPrototype = false;
     
     public static int speedSensorPort;
     
@@ -82,7 +82,7 @@ public class BadRobotMap implements Sendable
         {
             redChannel = 10;
             greenChannel = 11;
-            blueChannel = 12;
+            blueChannel = 14;
             
             frontLeftSpeedController = prototypeMap[0];
             frontRightSpeedController = prototypeMap[1];
@@ -99,7 +99,7 @@ public class BadRobotMap implements Sendable
             rightSideEncoderOut = 12;
             
             frisbeePusherSwitch = 5;
-            opticalShooterSensor = 1;
+            shooterOpticalSensor = 1;
             
             shooterArticulator = 7;
             
@@ -114,7 +114,7 @@ public class BadRobotMap implements Sendable
             climberEncoderIn = 7;
             climberEncoderOut = 9;
             
-            shooterArticulatorOpticalSensor = 4;
+            shooterArticulatorOpticalSensor = 10;
         }
         else
         {
@@ -137,7 +137,7 @@ public class BadRobotMap implements Sendable
             rightSideEncoderOut = 12;
             
             frisbeePusherSwitch = 1; 
-            opticalShooterSensor = 9;
+            shooterOpticalSensor = 9;
             
             shooterArticulator = 7;
             

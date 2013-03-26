@@ -4,7 +4,7 @@
  */
 package com.badrobot.commands.autonomousCommands;
 
-import com.badrobot.commands.InjectFrisbee;
+import com.badrobot.commands.SafeShoot;
 import com.badrobot.commands.Shoot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -19,6 +19,6 @@ public class AutoAimAndShoot extends CommandGroup
         addParallel(new Shoot(8, 1.0));
         addSequential(new AimWithCamera());
         
-        addSequential(new InjectFrisbee(3, 2.0));
+        addSequential(new SafeShoot(3));
     }
 }

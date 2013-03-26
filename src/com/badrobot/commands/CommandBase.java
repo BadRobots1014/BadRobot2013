@@ -72,8 +72,7 @@ public abstract class CommandBase extends Command
         //imageTrackingSystem = BadCameraSystem.getInstance();
         lightSystem = DecorativeLights.getInstance();
         cameraLight = CameraLight.getInstance();
-        
-        climberArticulator = Climber.getInstance();
+        //climberArticulator = Climber.getInstance();
         
         driveChooser = new SendableChooser();
         driveChooser.addDefault("Tank Drive", "tankDrive");

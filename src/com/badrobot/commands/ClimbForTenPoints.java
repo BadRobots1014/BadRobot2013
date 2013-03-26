@@ -15,87 +15,76 @@ import edu.wpi.first.wpilibj.tables.ITable;
  *
  * @author Jon Buckley
  */
-public class ClimbForTenPoints extends BadCommand
-{
+public class ClimbForTenPoints extends BadCommand {
+
     double bearing;
     static double DRIVE_SPEED;
     static String driveSpeedKey = "CLIMBING_DRIVE_SPEED";
     static double Kp = .01;
-    
     private int incumbentColor;
-    public ClimbForTenPoints()
-    {
+
+    public ClimbForTenPoints() {
         requires((Subsystem) driveTrain);
-        requires((Subsystem) shooterArticulator);
-        requires((Subsystem) climberArticulator);
-       // requires((Subsystem) lightSystem);
+        //requires((Subsystem) shooterArticulator);
+        // requires((Subsystem) lightSystem);
     }
 
     // Called just before this Command runs the first time
-    protected void initialize()
-    {
+    protected void initialize() {
         bearing = driveTrain.getGyro().getAngle();
-        DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, ".4"));
-        
+        ///DRIVE_SPEED = Double.parseDouble(BadPreferences.getValue(driveSpeedKey, "1.0"));
+
         incumbentColor = lightSystem.getColor();
         lightSystem.setColor(ILights.kBlue);
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute()
-    {
-        climberArticulator.setPosition(IClimber.kUp);
-        
-        //if (OI.isPrimaryAButtonPressed())
-        {
-            //go straight
-            driveTrain.getTrain().drive(DRIVE_SPEED,
-                    -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+    protected void execute() {
+        //climberArticulator.setPosition(IClimber.kUp);
+        DRIVE_SPEED = OI.getPrimaryRightTrigger();
+        //go straight
+        driveTrain.getTrain().drive(DRIVE_SPEED,
+                -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+
+        if (lightSystem != null) {
             lightSystem.setColor(ILights.kETech);
         }
-        
+
         /*else
-        {
-            driveTrain.getTrain().drive(DRIVE_SPEED,
-                -(driveTrain.getGyro().getAngle() - bearing) * Kp);
-            lightSystem.setColor(ILights.kBlue);
-        */
+         {
+         driveTrain.getTrain().drive(DRIVE_SPEED,
+         -(driveTrain.getGyro().getAngle() - bearing) * Kp);
+         lightSystem.setColor(ILights.kBlue);
+         */
     }
 
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished()
-    {
-        return (OI.isPrimaryBButtonPressed());
+    protected boolean isFinished() {
+        return (OI.getPrimaryRightTrigger() <= 0);
     }
 
     // Called once after isFinished returns true
-    protected void end()
-    {
+    protected void end() {
         lightSystem.setColor(incumbentColor);
         driveTrain.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
-    protected void interrupted()
-    {
+    protected void interrupted() {
+    }
+    
+    public void valueChanged(ITable itable, String key, Object value, boolean bln) {
     }
 
-    public void valueChanged(ITable itable, String key, Object value, boolean bln)
-    {
+    protected void addNetworkTableValues(ITable table) {
     }
 
-    protected void addNetworkTableValues(ITable table)
-    {
-    }
-
-    public String getConsoleIdentity()
-    {
+    public String getConsoleIdentity() {
         return "Climb For Ten Points";
     }
 
-    public void registerPreferencesValues()
-    {
-        BadPreferences.registerValue(driveSpeedKey, ".4");
+    public void registerPreferencesValues() {
+        BadPreferences.registerValue(driveSpeedKey, "1.0");
     }
 }
