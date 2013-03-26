@@ -120,7 +120,7 @@ public class SafeShoot extends BadCommand
             push();
         }
         
-        /*else if (OI.isDemoMode())
+        else if (OI.isDemoMode())
         {
             if (OI.isPrimaryXButtonPressed())
             {
@@ -155,7 +155,7 @@ public class SafeShoot extends BadCommand
                     frisbeePusher.stopFrisbeePusher();
                 }
             }   
-        }*/
+        }
         
         else 
         {

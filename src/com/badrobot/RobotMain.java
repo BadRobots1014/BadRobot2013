@@ -111,7 +111,7 @@ public class RobotMain extends IterativeRobot implements Logger {
 
         ALLIANCE_COLOR = (OI.ALLIANCE_COLOR == DriverStation.Alliance.kBlue_val) ? ILights.kBlue : ILights.kRed;
         if (CommandBase.lightSystem != null)
-         Scheduler.getInstance().add(new RunLights(ALLIANCE_COLOR));
+         Scheduler.getInstance().add(new ControlLighting());//RunLights(ALLIANCE_COLOR));
         
     }
 

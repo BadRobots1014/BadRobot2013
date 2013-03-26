@@ -10,6 +10,10 @@ package com.badrobot.subsystems.interfaces;
  */
 public interface IShooterArticulator 
 {
+    public static int kUp = 9,
+            kDown = 2, 
+            kMiddle = 0;
+     
     /**
      * Raises the shooter's angle.
      */
@@ -28,4 +32,8 @@ public interface IShooterArticulator
     public void raiseShooter(double speed);
 
     public double getAngle();
+    
+    public void zero();
+    
+    public void raiseToPosition(int pos);
 }
