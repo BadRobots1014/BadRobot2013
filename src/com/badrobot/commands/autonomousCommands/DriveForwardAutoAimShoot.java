@@ -11,7 +11,8 @@ import com.badrobot.commands.Turn;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Drive straight forward, turn, auto aim with camera, and shoot 3 frisbees.
+ * 
  * @author Jon Buckley
  */
 public class DriveForwardAutoAimShoot extends CommandGroup

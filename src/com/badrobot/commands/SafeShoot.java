@@ -19,12 +19,18 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * This command will control both the shooter and the Frisbee pusher;
+ * While shooting, sets the LEDs to green and back to alliance color when finished;
  * 
- * Secondary RB will run the shooter and only push when the shooters
- * are up to the required shooter speed;
+ * Demo Mode (Primary Controller):
+ * X Button         run the shooter;
+ * Y Button         run the cam;
+ * Right Trigger    run the shooter and only push when the shooter is up to speed;
  * 
- * Secondary X will run the shooter alone;
- * Secondary Y will run the Frisbee pusher alone.
+ * Not Demo Mode (Secondary Controller):
+ * Right Trigger    run the shooter and only push when the shooter is up to speed;
+ * Left Bumper      run the shooter;
+ * PRIMARY X Button run the shooter;
+ * Right Bumper     run the cam;
  * 
  * @author Isaac
  */
@@ -65,6 +71,12 @@ public class SafeShoot extends BadCommand
         }
     }
     
+    /**
+     * Return true if the speed of the shooter wheels are greater than or equal
+     * to the required shooter speed value.
+     * 
+     * @return true or false.
+     */
     private boolean isShooterReadyToShoot()
     {
         //Timer.delay(1.0);
@@ -74,6 +86,13 @@ public class SafeShoot extends BadCommand
 
     int pushedBees = 0;
         
+    /**
+     * Will push a frisbee if either the frisbee pusher is not retracted, or
+     * the shooter wheels are up the required speed;
+     * 
+     * Will stop the frisbee pusher if it is retracted and the shooter is not 
+     * up to speed.
+     */
     private void push()
     {
         if (frisbeePusher.isFrisbeeRetracted() && !isShooterReadyToShoot())

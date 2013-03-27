@@ -12,7 +12,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * Drives the robot in a straight line and sets the LEDs to kETech color;
+ * 
+ * Primary Right Trigger    set the speed the robot drives and start the command.
+ * 
  * @author Jon Buckley
  */
 public class ClimbForTenPoints extends BadCommand {

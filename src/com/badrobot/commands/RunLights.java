@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * Sets the lights to run at the specified color (all colors are listed
- * in the DecorativeLights subsystem.
+ * Sets the lights to run at the specified color (all colors and values 
+ * are listed in the DecorativeLights subsystem.
  * 
  * @author Jon Buckley
  */

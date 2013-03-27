@@ -8,8 +8,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
- * @author joyce
+ * Cycles through all the possible colors on the LED strip.
+ * 
+ * @author Kevin Edwards
  */
 public class AllColors extends BadCommand {
 
@@ -33,7 +34,7 @@ public class AllColors extends BadCommand {
     }
 
     public String getConsoleIdentity() {
-        return "16,581,375 colors";
+        return "AllColors";
     }
 
     protected void execute() 

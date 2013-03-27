@@ -12,7 +12,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * Articulate the climber arms with controller.
+ * Articulate the climber arms with controller;
+ * 
+ * Demo Mode (Primary Controller): 
+ * Left Joy Click   set the climber all the way up;
+ * Right Joy Click  set the climber all the way down;
+ * A Button         lower the climber;
+ * B Button         raise the climber;
+ * 
+ * Not Demo Mode (Secondary Controller):
+ * Y Button         set the climber all the way up;
+ * X Button         set the climber all the way down;
+ * Left Joy Click   raise the climber;
+ * Right Joy Click  lower the climber;
+ * Left Trigger     zero the climber position.
  * 
  * @author Isaac
  */
@@ -41,20 +54,20 @@ public class ArticulateClimber extends BadCommand
         
         if (OI.isDemoMode())
         {
-            if (OI.isSecondaryLeftJoyClick())
-            {
-                climberArticulator.setPosition(IClimber.kDown);
-            }          
-            else if (OI.isSecondaryRightJoyClick())
+            if (OI.isPrimaryLeftJoyClick())
             {
                 climberArticulator.setPosition(IClimber.kUp);
+            }          
+            else if (OI.isPrimaryRightJoyClick())
+            {
+                climberArticulator.setPosition(IClimber.kDown);
             }           
             
-            else if (OI.isSecondaryAButtonPressed())
+            else if (OI.isPrimaryAButtonPressed())
             {
                 climberArticulator.lowerClimber();
             }
-            else if (OI.isSecondaryBButtonPressed())
+            else if (OI.isPrimaryBButtonPressed())
             {
                 climberArticulator.raiseClimber();
             }

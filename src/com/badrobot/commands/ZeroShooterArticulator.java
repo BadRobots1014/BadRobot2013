@@ -9,7 +9,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * Zeros the shooter articulator value.
+ * 
  * @author Isaac
  */
 public class ZeroShooterArticulator extends BadCommand{

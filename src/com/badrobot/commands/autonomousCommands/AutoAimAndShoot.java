@@ -9,7 +9,9 @@ import com.badrobot.commands.Shoot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Run the shooter and auto aim with the camera for 8 seconds;
+ * Shoot 3 frisbees when finished;
+ * 
  * @author Isaac
  */
 public class AutoAimAndShoot extends CommandGroup
