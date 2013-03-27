@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  * This command will demonstrate our lights by cycling through
- * the possible colors in a smooth constant change.
+ * the possible colors.
  * 
  * @author Jon Buckley
  */

@@ -13,9 +13,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * This command will drive the robot using the right and left primary
- * joysticks; Primary RB and LB will turn the robot slowly right or left
- * for easy aiming adjustments;
+ * This command will drive the robot using the right and left primary joysticks; 
+ * 
+ * Primary Right stick will control the right set of wheels on the robot;
+ * Primary Left stick will control the left set of wheels on the robot;
+ * Primary RB and LB will turn the robot slowly right or left;
+ * 
+ * (If not in tank drive mode) Primary Left stick will control both the
+ * right and left sides of the robot (X and Y values of the joystick);
  * 
  * This is the command we mainly use when driving and shooting;
  * 

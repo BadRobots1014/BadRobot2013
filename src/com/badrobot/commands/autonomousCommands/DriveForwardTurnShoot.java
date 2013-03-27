@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Drive straight forward for the set amount of time, run shooter and turn,
+ * shoot 3 frisbees.
+ * 
  * @author Kyle Compton
  */
 public class DriveForwardTurnShoot extends CommandGroup 

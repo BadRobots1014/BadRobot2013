@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * This command will let us control the light's red green and blue values
+ * This command will let us control the lights red green and blue values
  * through the SmartDashboard.
  * 
  * @author Isaac

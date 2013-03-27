@@ -13,7 +13,8 @@ import com.badrobot.commands.Shoot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Drive forward for the set amount of time and shoot 3 frisbees.
+ * 
  * @author Paul_Chao
  */
 public class DriveForwardAndShoot extends CommandGroup 

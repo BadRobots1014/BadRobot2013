@@ -13,8 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * Runs the shooter at either the set speed or set time and speed;
- * We do not currently use this command.
+ * Runs the shooter at either the set speed or set time and speed.
  * 
  * @author Paul_Chao
  */

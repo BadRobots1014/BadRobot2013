@@ -11,7 +11,8 @@ import com.badrobot.commands.Turn;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Turn right and drive straight backwards.
+ * 
  * @author Isaac
  */
 public class ShootAndDriveBack extends CommandGroup
