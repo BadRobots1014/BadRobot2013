@@ -68,6 +68,11 @@ public class BadPreferences implements Logger
         size++;
     }
     
+    /**
+     * Searches through the preferences to see if it already contains a key
+     * @param key the key to find a match of
+     * @return whether there is already a member with the same key in the database
+     */
     public static boolean contains(String key)
     {
         if (size <= 0)

@@ -75,6 +75,11 @@ public class OI {
         }
     }
 
+    /**
+     * Used to determine whether robot is in Demo Mode. This means all the controls
+     * are put into one controller rather than spread across two
+     * @return whether demo mode is enabled
+     */
     public static boolean isDemoMode() {
         return DriverStation.getInstance().getDigitalIn(1);
     }

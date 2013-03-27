@@ -10,5 +10,10 @@ package com.badrobot.subsystems.interfaces;
  */
 public interface IHUD extends Logger
 {
+    /**
+     * Turns on or off an LED on the HUD system
+     * @param index the index of the LED to change
+     * @param state the state at which to set the LED
+     */
     public void setLED(int index, boolean state);
 }

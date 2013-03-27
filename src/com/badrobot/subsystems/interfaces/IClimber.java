@@ -34,5 +34,8 @@ public interface IClimber
      */
     public void setPosition(int pos);
     
+    /**
+     * Raises or lowers the climber to a predefined position (defined as enumerable) in this interface
+     */
     public void zeroPosition();
 }
