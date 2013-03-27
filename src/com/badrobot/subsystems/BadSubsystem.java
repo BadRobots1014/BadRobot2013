@@ -13,6 +13,10 @@ import edu.wpi.first.wpilibj.tables.ITableListener;
 import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
+ * This abstract class is meant to be the extension of all Subsystems in the 
+ * BadRobot project. It builds in some extra features missing from the default
+ * Subsystem class such as logging and extended SmartDashboard compatibility.
+ * 
  * @author Jon Buckley
  */
 public abstract class BadSubsystem extends Subsystem implements Logger, NamedSendable, ITableListener,
