@@ -11,7 +11,9 @@ import com.badrobot.commands.Turn;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- *
+ * Drive straight forward until the set distance away from the wall;
+ * Turn and shoot 3 frisbees.
+ * 
  * @author Isaac
  */
 public class DriveForwardToWallTurnAndShoot extends CommandGroup

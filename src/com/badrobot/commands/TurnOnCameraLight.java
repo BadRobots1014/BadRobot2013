@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * Turns the camera light on when enabled.
+ * 
  * @author Jon Buckley
  */
 public class TurnOnCameraLight extends BadCommand

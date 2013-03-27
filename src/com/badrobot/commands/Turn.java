@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- *
+ * Turns the robot at the given angle.
+ * 
  * @author Kyle Compton
  */
 public class Turn extends BadCommand
