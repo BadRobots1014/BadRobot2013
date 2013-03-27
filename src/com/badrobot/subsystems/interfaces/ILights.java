@@ -10,6 +10,7 @@ package com.badrobot.subsystems.interfaces;
  */
 public interface ILights extends Logger
 {
+    //makeshift enumerable
     public static final int kBlue = 0,
                             kRed = 1,
                             kGreen = 6,
@@ -37,7 +38,10 @@ public interface ILights extends Logger
      */
     public void setColor(int r, int g, int b);
     
-    
+    /**
+     * Sets the color to one of the predefined color, as enumerated in this class
+     * @param color the enumerable key of the color
+     */
     public void setColor(int color);
     
     /**

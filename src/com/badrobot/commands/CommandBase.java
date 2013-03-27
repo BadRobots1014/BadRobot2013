@@ -44,7 +44,6 @@ public abstract class CommandBase extends Command
     public static IShooter shooter;
     public static IShooterArticulator shooterArticulator;
     public static IClimber climberArticulator;
-    public static IGatherer gatherer;
     public static IFrisbeePusher frisbeePusher;
     public static SendableChooser driveChooser;
     public static ILights lightSystem;

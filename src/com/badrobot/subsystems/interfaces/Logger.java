@@ -5,7 +5,8 @@
 package com.badrobot.subsystems.interfaces;
 
 /**
- *
+ *  This interface helps enforce a system-wide logging architecture.
+ * 
  * @author Jon Buckley
  */
 public interface Logger

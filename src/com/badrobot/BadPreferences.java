@@ -11,7 +11,11 @@ import edu.wpi.first.wpilibj.Preferences;
 import java.util.Vector;
 
 /**
- *
+ * This class is a bridge between the Preferences utility and programmers. This 
+ * is meant to make it simple and quick to get values and save them to the flash
+ * memory of the robot. Things that should be tracked in memory like this are 
+ * preferences that are mostly static but may change every few builds.
+ * 
  * @author Jon Buckley
  */
 public class BadPreferences implements Logger
@@ -25,6 +29,10 @@ public class BadPreferences implements Logger
     
     private static Preferences prefs = Preferences.getInstance();
     
+    /**
+     * Singleton accessor for BadPreferences. 
+     * @return the single instance of BadPreferences
+     */
     public static BadPreferences getInstance()
     {
         if (instance == null)
@@ -68,6 +76,11 @@ public class BadPreferences implements Logger
         size++;
     }
     
+    /**
+     * Searches through the preferences to see if it already contains a key
+     * @param key the key to find a match of
+     * @return whether there is already a member with the same key in the database
+     */
     public static boolean contains(String key)
     {
         if (size <= 0)
@@ -116,6 +129,8 @@ public class BadPreferences implements Logger
      * which you more than likely are, simply create a Double or Integer from the
      * String ex. double value = new Double(getValue("key")).doubleValue();
      * @param key the key at which the value exists
+     * @param backupValue the value to set the key's value to if it doesn't already
+     * exist and also to return if the key isn't found
      * @return the String form of the data stored at the key or null if no such
      * key exists
      */

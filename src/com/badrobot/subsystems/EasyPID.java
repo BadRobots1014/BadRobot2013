@@ -10,6 +10,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
+ * This class can be used to quickly make a control PID enabled. It constructs 
+ * a PIDController and SoftPID object and ties them to the sensor defined in the
+ * constructor. 
+ * 
  * @author Jon Buckley
  */
 public class EasyPID
@@ -33,11 +37,24 @@ public class EasyPID
         this(0.0, 0.0, 0.0, 0.0, name, s);
     }
     
+    /**
+     * Constructs an EasyPID object with the given source
+     * @param s the source that should be used for the PIDController input
+     */
     public EasyPID(PIDSource s)
     {
         this("EasyPID", s);
     }
     
+    /**
+     * Constructs an EasyPID object with the given parameters
+     * @param p the constant P value
+     * @param i the constant I value
+     * @param d the constant D value
+     * @param f the constant F value
+     * @param name the name to be given to the EasyPID object for SmartDashboard
+     * @param s the source to be used for input in the PIDController object
+     */
     public EasyPID(double p, double i, double d, double f, String name, PIDSource s)
     {
         this.name = name;

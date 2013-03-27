@@ -42,6 +42,7 @@ public abstract class BadCommand extends CommandBase implements Logger, NamedSen
     /**
      * provides compliance with Sendable interface. This automatically adds the
      * subsystem to the SmartDashboard.
+     * @return the table of this class
      */
     public ITable getTable()
     {
@@ -74,6 +75,8 @@ public abstract class BadCommand extends CommandBase implements Logger, NamedSen
      * reflect it.
      * @param key the name of the variable in the NetworkTable
      * @param value the value that the variable has been changed to
+     * @param itable the table at which the value changed
+     * @param bln whether the change is unique
      */
      public abstract void valueChanged(ITable itable, String key, Object value, boolean bln);
           
